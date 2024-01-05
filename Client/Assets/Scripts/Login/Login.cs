@@ -59,7 +59,7 @@ public class Login : HttpServerBase
 
                         resultText.text = accessToken;
 
-                        //CustomSceneManager.LoadScene(Scenes.Lobby.ToString());
+                        CustomSceneManager.LoadScene(Scenes.Lobby.ToString());
                     }
                     else
                     {
