@@ -11,6 +11,7 @@ public class GameURL
 
         public static readonly string getNationsPath = "/nations";
 
+        public static readonly string getJobsPath = "/jobs";
     }
 
     // 회원가입, 로그인 등을 담당할 서버
