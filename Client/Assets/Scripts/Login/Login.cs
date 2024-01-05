@@ -8,7 +8,6 @@ public class Login : HttpServerBase
 {
     public TMP_InputField id_Input;
     public TMP_InputField pw_Input;
-    public TMP_Text resultText;
     public void LoginBtn()
     {
         string id = id_Input.text;
@@ -57,13 +56,13 @@ public class Login : HttpServerBase
                         string accessToken = json["accessToken"].ToString();
                         PlayerPrefs.SetString("accessToken", accessToken);
 
-                        resultText.text = accessToken;
+                        UserDataManager.Instance.AccessToken = accessToken;
 
                         CustomSceneManager.LoadScene(Scenes.Lobby.ToString());
                     }
                     else
                     {
-                        resultText.text = "Login failed. Check your email and password.";
+                        Debug.LogError("로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
                     }
                 }
                 else

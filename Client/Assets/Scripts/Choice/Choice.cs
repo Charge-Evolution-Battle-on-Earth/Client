@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class Choice : MonoBehaviour
 {
     public DropdownController dropdownController;
-    public string nation;
     private void Start()
     {
         dropdownController.dropdown.ClearOptions();

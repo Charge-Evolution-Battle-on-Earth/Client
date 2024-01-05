@@ -28,6 +28,7 @@ public class DropdownController : MonoBehaviour
 
     void OnDropdownValueChanged(int value)
     {
+        UserDataManager.Instance.SelectedNation = value;
         // 선택된 값에 해당하는 텍스트 업데이트
         string selectedValue = dropdown.options[value].text;
         selectedValueText.text = selectedValue;

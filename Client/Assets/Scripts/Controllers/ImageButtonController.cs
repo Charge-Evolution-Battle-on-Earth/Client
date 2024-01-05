@@ -67,6 +67,7 @@ public class ImageButtonController : MonoBehaviour
 
     void DisplayJobInfo(int index, Image clickedButton)
     {
+        UserDataManager.Instance.SelectedJob = index;
         if (jobList != null && index < jobList.Count)
         {
             JobGetListResponse selectedJob = jobList[index];
