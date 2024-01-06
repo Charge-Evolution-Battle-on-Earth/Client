@@ -11,9 +11,10 @@ public class GameURL
         //http://15.164.232.189:8080
         public static readonly string Server_URL = "http://15.164.232.189:8080";
 
-        public static readonly string getNationsPath = "/nations";
+        public static readonly string getNationsPath = "/nations";//나라 리스트 조회
+        public static readonly string getJobsPath = "/jobs";//직업 리스트 조회
+        public static readonly string getCharacterInfoPath = "/characters";//캐릭터 정보 조회(스탯, 레벨 나라, 직업 등)
 
-        public static readonly string getJobsPath = "/jobs";
     }
 
     // 회원가입, 로그인 등을 담당할 서버
@@ -23,10 +24,8 @@ public class GameURL
         //http://15.164.232.189:8080
         public static readonly string Server_URL = "http://15.164.232.189:8080";
 
-        public static readonly string userLogInPath = "/users/login";
-
-        public static readonly string userJoinPath = "/users/join";
-
-        public static readonly string userRegisterPath = "/users/character";
+        public static readonly string userLogInPath = "/users/login";// 로그인
+        public static readonly string userJoinPath = "/users/join";// 회원가입
+        public static readonly string userRegisterPath = "/users/character";// 회원가입 후 캐릭터 생성
     }
 }
