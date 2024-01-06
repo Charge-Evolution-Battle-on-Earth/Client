@@ -1,18 +1,18 @@
-using UnityEngine;
-using TMPro;
-using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.Networking;
+using TMPro;
 
-public class CharacterInfoDisplay : MonoBehaviour
+public class StatusSceneController : MonoBehaviour
 {
     public TMP_Text characterInfoText;
 
-    public void GetCharacterInfo()
+    void Start()
     {
-        StartCoroutine(GetCharacterInfoCoroutine());
+        StartCoroutine(GetCharacterInfo());
     }
 
-    IEnumerator GetCharacterInfoCoroutine()
+    IEnumerator GetCharacterInfo()
     {
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getCharacterInfoPath;
 
@@ -38,7 +38,6 @@ public class CharacterInfoDisplay : MonoBehaviour
 
     void DisplayCharacterInfo(CharacterInfoGetResponse characterInfo)
     {
-        // 캐릭터 정보를 이용하여 UI 업데이트 등의 작업 수행
         string characterInfoStr =
             $"캐릭터 정보:\n" +
             $"나라: {characterInfo.nationNm}\n" +
@@ -46,11 +45,12 @@ public class CharacterInfoDisplay : MonoBehaviour
             $"HP: {characterInfo.stat.hp}\n" +
             $"ATK: {characterInfo.stat.atk}\n" +
             $"MP: {characterInfo.stat.mp}\n" +
-            $"Speed: {characterInfo.stat.speed}";
+            $"Speed: {characterInfo.stat.speed}\n" +
+            $"돈: {characterInfo.money}";
+
         characterInfoText.text = characterInfoStr;
     }
 }
-
 [System.Serializable]
 public class CharacterInfoGetResponse
 {
