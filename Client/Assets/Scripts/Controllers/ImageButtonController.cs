@@ -67,14 +67,13 @@ public class ImageButtonController : MonoBehaviour
 
     void DisplayJobInfo(int index, Image clickedButton)
     {
-        UserDataManager.Instance.SelectedJob = index;
         if (jobList != null && index < jobList.Count)
         {
             JobGetListResponse selectedJob = jobList[index];
-            string jobInfo = $"Job Name: {selectedJob.jobNm}\nLevel Stat Factor: {selectedJob.levelStatFactor}\n"
-                           + $"HP: {selectedJob.stat.hp}, ATK: {selectedJob.stat.atk}, MP: {selectedJob.stat.mp}, Speed: {selectedJob.stat.speed}";
+            string jobInfo = $"Job Id: {selectedJob.jobId}\n $Job Name: {selectedJob.jobNm}\nLevel Stat Factor: {selectedJob.levelStatFactor}\n"
+                           + $"HP: {selectedJob.stat.hp}\n ATK: {selectedJob.stat.atk}\n MP: {selectedJob.stat.mp}\n Speed: {selectedJob.stat.speed}";
             jobInfoText.text = jobInfo;
-
+            UserDataManager.Instance.JobId = selectedJob.jobId;
             // 이미지 버튼 토글링
             ToggleImageButton(clickedButton);
         }
