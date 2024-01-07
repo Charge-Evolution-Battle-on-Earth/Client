@@ -6,7 +6,7 @@ using TMPro;
 public class StatusSceneController : MonoBehaviour
 {
     public TMP_Text characterInfoText;
-
+    public TMP_Text characterNickNameText;
     void Start()
     {
         StartCoroutine(GetCharacterInfo());
@@ -49,6 +49,7 @@ public class StatusSceneController : MonoBehaviour
             $"µ·: {characterInfo.money}";
 
         characterInfoText.text = characterInfoStr;
+        characterNickNameText.text = characterInfo.nickname;
     }
 }
 [System.Serializable]
@@ -64,6 +65,7 @@ public class CharacterInfoGetResponse
     public string jobNm;
     public int money;
     public string imageUrl;
+    public string nickname;
 }
 
 [System.Serializable]
