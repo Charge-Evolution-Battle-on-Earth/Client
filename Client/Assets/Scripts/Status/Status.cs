@@ -45,7 +45,7 @@ public class StatusSceneController : MonoBehaviour
             $"HP: {characterInfo.stat.hp}\n" +
             $"ATK: {characterInfo.stat.atk}\n" +
             $"MP: {characterInfo.stat.mp}\n" +
-            $"Speed: {characterInfo.stat.speed}\n" +
+            $"Speed: {characterInfo.stat.spd}\n" +
             $"µ·: {characterInfo.money}";
 
         characterInfoText.text = characterInfoStr;
@@ -74,5 +74,5 @@ public class Stat
     public int hp;
     public int atk;
     public int mp;
-    public int speed;
+    public int spd;
 }

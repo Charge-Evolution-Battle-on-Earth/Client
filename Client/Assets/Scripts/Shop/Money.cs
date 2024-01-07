@@ -42,10 +42,14 @@ public class Money : MonoBehaviour
             $"{characterInfo.money}";
 
         MoneyText.text = characterInfoStr;
+        UserDataManager.Instance.LevelId = characterInfo.levelId;
+        UserDataManager.Instance.JobId = characterInfo.jobId;
     }
 }
 [System.Serializable]
 public class CharacterMoneyInfoGetResponse
 {
+    public long levelId;
+    public long jobId;
     public int money;
 }

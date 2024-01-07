@@ -13,7 +13,7 @@ public class UserDataManager : MonoBehaviour
     private long _characterId;
     private long _jobId;
     private long _nationId;
-
+    private long _levelId;
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
     {
@@ -63,6 +63,12 @@ public class UserDataManager : MonoBehaviour
     {
         get { return _characterId; }
         set { _characterId = value; }
+    }
+
+    public long LevelId
+    {
+        get { return _levelId; }
+        set { _levelId = value; }
     }
 
     // 기타 필요한 메서드 등 추가 가능
