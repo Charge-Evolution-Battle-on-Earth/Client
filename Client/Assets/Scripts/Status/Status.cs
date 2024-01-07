@@ -39,7 +39,7 @@ public class StatusSceneController : MonoBehaviour
     void DisplayCharacterInfo(CharacterInfoGetResponse characterInfo)
     {
         string characterInfoStr =
-            $"캐릭터 정보:\n" +
+            $"캐릭터 정보\n" +
             $"나라: {characterInfo.nationNm}\n" +
             $"직업: {characterInfo.jobNm}\n" +
             $"HP: {characterInfo.stat.hp}\n" +

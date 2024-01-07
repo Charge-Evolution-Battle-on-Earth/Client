@@ -14,7 +14,7 @@ public class GameURL
         public static readonly string getNationsPath = "/nations";//나라 리스트 조회
         public static readonly string getJobsPath = "/jobs";//직업 리스트 조회
         public static readonly string getCharacterInfoPath = "/characters";//캐릭터 정보 조회(스탯, 레벨 나라, 직업 등)
-
+        public static readonly string getCharacterSkillInfoPath = "/characters/skills";// 캐릭터 별 스킬 목록 조회
     }
 
     // 회원가입, 로그인 등을 담당할 서버
