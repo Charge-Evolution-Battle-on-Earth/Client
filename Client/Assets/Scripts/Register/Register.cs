@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,6 +63,18 @@ public class Register : MonoBehaviour
                 }
                 else
                 {
+                    // JSON 응답 파싱
+                    string jsonResponse = request.downloadHandler.text;
+                    JObject json = JObject.Parse(jsonResponse);
+
+                    if(json.ContainsKey("userId"))
+                    {
+                        // userId 저장
+                        string userId = json["userId"].ToString();
+                        PlayerPrefs.SetString("userId", userId);
+                        UserDataManager.Instance.UserId = Convert.ToInt64(userId);
+
+                    }
                     CustomSceneManager.LoadScene(Scenes.Choice.ToString());
                     Debug.Log("가입 성공");
                 }

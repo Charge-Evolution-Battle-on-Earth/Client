@@ -58,7 +58,7 @@ public class Login : HttpServerBase
 
                         UserDataManager.Instance.AccessToken = accessToken;
 
-                        CustomSceneManager.LoadScene(Scenes.Lobby.ToString());
+                        SceneController.LoadScene(Scenes.Lobby.ToString());
                     }
                     else
                     {
