@@ -14,6 +14,12 @@ public class ShopButtonHandler : MonoBehaviour
     public TMP_Text itemStatText;
     public TMP_Text itemDescriptionText;
     private string shopItemList;
+    public Button purchaseButton;
+
+    private void Start()
+    {
+        purchaseButton.interactable = false;
+    }
 
     public void OnButtonClick(string itemType)
     {
@@ -85,6 +91,8 @@ public class ShopButtonHandler : MonoBehaviour
         itemNameText.text = "";
         itemStatText.text = "";
         itemDescriptionText.text = "";
+        purchaseButton.interactable = false;
+
         // 부모 객체의 모든 자식 객체 삭제
         foreach (Transform child in contentPanel)
         {

@@ -495,6 +495,7 @@ MonoBehaviour:
   itemNameText: {fileID: 0}
   itemStatText: {fileID: 0}
   itemDescriptionText: {fileID: 0}
+  MoneyText: {fileID: 0}
   item:
     itemId: 0
     levelId: 0
@@ -508,6 +509,8 @@ MonoBehaviour:
       mp: 0
       spd: 0
     description: 
+  itemId: 0
+  purchaseButton: {fileID: 0}
 --- !u!1 &5465452451553048651
 GameObject:
   m_ObjectHideFlags: 0
