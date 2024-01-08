@@ -9,11 +9,21 @@ public class UserDataManager : MonoBehaviour
     // 사용자 데이터
     private string _accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjaGFyYWN0ZXJJZCI6MTMsImlhdCI6MTcwNDYzOTQzMywiZXhwIjoyMDY0NjM5NDMzfQ.ERQcrE0takQCukRaNrSEv3beXCjDbxFmkoFi7Q7Or3c";
     private string _nickName;
+    private Stat _stat;
+    private long _levelId;
+    private int _currentExp;
+    private int _totalExp;
+    private long _nationId;
+    private string _nationNm;
+    private long _jobId;
+    private string _jobNm;
+    private int _money;
+    private string _imageUrl;
+
     private long _userId;
     private long _characterId;
-    private long _jobId;
-    private long _nationId;
-    private long _levelId;
+    
+
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
     {
@@ -71,6 +81,47 @@ public class UserDataManager : MonoBehaviour
         set { _levelId = value; }
     }
 
+    public Stat Stat
+    {
+        get { return _stat; }
+        set { _stat = value; }
+    }
+    
+    public int CurrentExp
+    {
+        get { return _currentExp; }
+        set { _currentExp = value; }
+    }
+
+    public int TotalExp
+    {
+        get { return _totalExp; }
+        set { _totalExp = value; }
+    }
+
+    public string NationNm
+    {
+        get { return _nationNm; }
+        set { _nationNm = value; }
+    }
+
+    public string JobNm
+    {
+        get { return _jobNm; }
+        set { _jobNm = value; }
+    }
+
+    public int Money
+    {
+        get { return _money; }
+        set { _money = value; }
+    }
+    
+    public string ImageUrl
+    {
+        get { return _imageUrl; }
+        set { _imageUrl = value; }
+    }
     // 기타 필요한 메서드 등 추가 가능
 
     private void Awake()

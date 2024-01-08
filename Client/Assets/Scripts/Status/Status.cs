@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
 
-public class StatusSceneController : MonoBehaviour
+public class Status : MonoBehaviour
 {
     public TMP_Text characterInfoText;
     public TMP_Text characterNickNameText;
@@ -40,11 +40,12 @@ public class StatusSceneController : MonoBehaviour
     {
         string characterInfoStr =
             $"캐릭터 정보\n" +
+            $"레벨: {characterInfo.levelId}\n" +
             $"나라: {characterInfo.nationNm}\n" +
             $"직업: {characterInfo.jobNm}\n" +
-            $"HP: {characterInfo.stat.hp}\n" +
-            $"ATK: {characterInfo.stat.atk}\n" +
-            $"MP: {characterInfo.stat.mp}\n" +
+            $"Hp: {characterInfo.stat.hp}\n" +
+            $"Mp: {characterInfo.stat.mp}\n" +
+            $"Atk: {characterInfo.stat.atk}\n" +
             $"Speed: {characterInfo.stat.spd}\n" +
             $"돈: {characterInfo.money}";
 

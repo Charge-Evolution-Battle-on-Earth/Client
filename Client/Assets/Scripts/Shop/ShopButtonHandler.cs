@@ -1,108 +1,94 @@
-using UnityEngine;
-using UnityEngine.Networking;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Networking;
 using System.Collections.Generic;
 using System.Collections;
+using Newtonsoft.Json;
 
-namespace Shop
+public class ShopButtonHandler : MonoBehaviour
 {
-    [System.Serializable]
-    public class Stat
+    public GameObject itemPrefab; // 아이템 프리팹
+    public Transform contentPanel; // Scroll View의 Content 부분
+    public TMP_Text itemNameText;
+    public TMP_Text itemStatText;
+    public TMP_Text itemDescriptionText;
+    private string shopItemList;
+
+    public void OnButtonClick(string itemType)
     {
-        public int hp;
-        public int atk;
-        public int mp;
-        public int spd;
+        shopItemList = $"/items/{itemType}/100/1";//{UserDataManager.Instance.JobId}";
+
+        ClearItemList();
+
+        StartCoroutine(GetItems());
     }
-}
-namespace Shop
-{
-    public class ShopButtonHandler : MonoBehaviour
+
+
+    IEnumerator GetItems()
     {
-        public GameObject itemPrefab; // Unity Inspector에서 연결할 아이템 프리팹
-        public Transform itemListParent; // Unity Inspector에서 연결할 아이템 리스트의 부모 오브젝트
-        private string shopItemList;
-        private long characterLevel;
-        private long characterJob;
-
-        private void Awake()
+        string url = GameURL.DBServer.Server_URL + shopItemList;
+        using (UnityWebRequest www = UnityWebRequest.Get(url))
         {
-            // Awake 메서드에서 초기화
-            characterLevel = UserDataManager.Instance.LevelId;
-            characterJob = UserDataManager.Instance.JobId;
-        }
-        public void OnWeaponButtonClick()
-        {
-            string itemType = "weapon";
-            shopItemList = $"/items/{itemType}/{characterLevel}/{characterJob}";
+            www.SetRequestHeader("Authorization", $"Bearer {UserDataManager.Instance.AccessToken}");
 
-            ClearItemList();
+            yield return www.SendWebRequest();
 
-            StartCoroutine(GetItems());
-        }
-
-        public void OnArmorButtonClick()
-        {
-            string itemType = "armor";
-            shopItemList = $"/items/{itemType}/{characterLevel}/{characterJob}";
-
-            ClearItemList();
-
-            StartCoroutine(GetItems());
-        }
-
-        IEnumerator GetItems()
-        {
-            string url = GameURL.DBServer.Server_URL + shopItemList;
-            using (UnityWebRequest www = UnityWebRequest.Get(url))
+            if (www.result == UnityWebRequest.Result.Success)
             {
-                yield return www.SendWebRequest();
+                string jsonResponse = www.downloadHandler.text;
+                //Debug.Log(jsonResponse);
+                List<Shop.ShopItemGetResponse> itemList = JsonConvert.DeserializeObject<List<Shop.ShopItemGetResponse>>(jsonResponse);
 
-                if (www.result == UnityWebRequest.Result.Success)
-                {
-                    string jsonResponse = www.downloadHandler.text;
-
-                    // JSON 배열을 List로 변환
-                    List<ItemGetResponse> itemList = JsonUtility.FromJson<List<ItemGetResponse>>(jsonResponse);
-
-                    // 아이템 리스트를 UI에 추가
-                    AddItemsToUI(itemList);
-                }
-                else
-                {
-                    Debug.LogError("Error: " + www.error);
-                }
+                AddItemsToUI(itemList);
+            }
+            else
+            {
+                Debug.LogError("Error: " + www.error);
             }
         }
+    }
 
-        void AddItemsToUI(List<ItemGetResponse> itemList)
+    void AddItemsToUI(List<Shop.ShopItemGetResponse> itemList)
+    {
+        // itemPrefab 및 contentPanel이 null이 아닌지 확인
+        if (itemPrefab == null || contentPanel == null)
         {
-            // 새로운 목록 UI 생성
-            foreach (var item in itemList)
-            {
-                // 아이템 프리팹을 복제하여 씬에 생성
-                GameObject newItem = Instantiate(itemPrefab, itemListParent);
-
-                // 생성된 아이템에 정보 전달
-                ItemUIHandler itemUIHandler = newItem.GetComponent<ItemUIHandler>();
-                if (itemUIHandler != null)
-                {
-                    itemUIHandler.DisplayItemInfo(item);
-                }
-                else
-                {
-                    Debug.LogError("ItemUIHandler script not found on the item prefab.");
-                }
-            }
+            Debug.LogError("itemPrefab 또는 contentPanel이 null입니다.");
+            return;
         }
 
-        void ClearItemList()
+        // 새로운 목록 UI 생성
+        foreach (var item in itemList)
         {
-            // 부모 객체의 모든 자식 객체 삭제
-            foreach (Transform child in itemListParent)
+            // itemPrefab과 contentPanel이 null이 아닌지 확인하기 위한 디버그 문
+            //Debug.Log(item.itemNm + "에 대한 아이템 UI 생성 중.");
+
+            // 아이템 프리팹을 복제하여 Content 패널의 자식으로 추가
+            GameObject newItem = Instantiate(itemPrefab, contentPanel);
+            ItemUIHandler itemUIHandler = newItem.GetComponent<ItemUIHandler>();
+
+            if (itemUIHandler != null)
             {
-                Destroy(child.gameObject);
+                // 아이템 정보 설정
+                itemUIHandler.SetItemInfo(item);
             }
+            else
+            {
+                Debug.LogError("인스턴스화된 아이템 프리팹에서 ItemUIHandler 구성 요소를 찾을 수 없습니다.");
+            }
+        }
+    }
+
+    void ClearItemList()
+    {
+        itemNameText.text = "";
+        itemStatText.text = "";
+        itemDescriptionText.text = "";
+        // 부모 객체의 모든 자식 객체 삭제
+        foreach (Transform child in contentPanel)
+        {
+            Destroy(child.gameObject);
         }
     }
 }
@@ -110,7 +96,7 @@ namespace Shop
 namespace Shop
 {
     [System.Serializable]
-    public class ItemGetResponse
+    public class ShopItemGetResponse
     {
         public long itemId;
         public long levelId;
@@ -118,26 +104,16 @@ namespace Shop
         public long itemTypeId;
         public string itemNm;
         public int cost;
-        public Shop.Stat stat; // Stat 클래스에 Shop 네임스페이스 추가 후 사용
+        public Stat stat; // Stat 클래스에 Shop 네임스페이스 추가 후 사용
         public string description;
     }
-}
 
-namespace Shop
-{
     [System.Serializable]
-    public class ItemUIHandler : MonoBehaviour
+    public class Stat
     {
-        public TMP_Text itemNameText;
-        public TMP_Text itemCostText;
-        public TMP_Text itemStatText;
-
-        public void DisplayItemInfo(ItemGetResponse item)
-        {
-            // 아이템 정보를 UI에 표시
-            itemNameText.text = $"Name: {item.itemNm}";
-            itemCostText.text = $"Cost: {item.cost}";
-            itemStatText.text = $"Stats: HP {item.stat.hp}, ATK {item.stat.atk}, MP {item.stat.mp}, SPD {item.stat.spd}";
-        }
+        public int hp;
+        public int atk;
+        public int mp;
+        public int spd;
     }
 }
