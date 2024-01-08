@@ -71,7 +71,7 @@ public class ImageButtonController : MonoBehaviour
         {
             JobGetListResponse selectedJob = jobList[index];
             string jobInfo = $"Job Id: {selectedJob.jobId}\n $Job Name: {selectedJob.jobNm}\nLevel Stat Factor: {selectedJob.levelStatFactor}\n"
-                           + $"HP: {selectedJob.stat.hp}\n ATK: {selectedJob.stat.atk}\n MP: {selectedJob.stat.mp}\n Speed: {selectedJob.stat.speed}";
+                           + $"HP: {selectedJob.stat.hp}\n ATK: {selectedJob.stat.atk}\n MP: {selectedJob.stat.mp}\n Speed: {selectedJob.stat.spd}";
             jobInfoText.text = jobInfo;
             UserDataManager.Instance.JobId = selectedJob.jobId;
             // 이미지 버튼 토글링

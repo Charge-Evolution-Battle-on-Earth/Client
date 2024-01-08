@@ -54,5 +54,5 @@ public class StatResponse
     public int hp;
     public int atk;
     public int mp;
-    public int speed;
+    public int spd;
 }
