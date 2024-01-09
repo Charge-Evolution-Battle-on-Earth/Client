@@ -46,7 +46,7 @@ public class Status : MonoBehaviour
             $"Hp: {characterInfo.stat.hp}\n" +
             $"Mp: {characterInfo.stat.mp}\n" +
             $"Atk: {characterInfo.stat.atk}\n" +
-            $"Speed: {characterInfo.stat.spd}\n" +
+            $"Spd: {characterInfo.stat.spd}\n" +
             $"µ·: {characterInfo.money}";
 
         characterInfoText.text = characterInfoStr;

@@ -2182,6 +2182,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4120076139895749222, guid: f1534a72bf00be8448a45e7c1745a6e0, type: 3}
+      propertyPath: loginButton
+      value: 
+      objectReference: {fileID: 173406311}
+    - target: {fileID: 4120076139895749222, guid: f1534a72bf00be8448a45e7c1745a6e0, type: 3}
       propertyPath: inputFields.Array.size
       value: 2
       objectReference: {fileID: 0}

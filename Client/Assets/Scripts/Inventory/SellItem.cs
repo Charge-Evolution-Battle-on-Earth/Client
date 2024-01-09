@@ -6,8 +6,6 @@ using Newtonsoft.Json.Linq;
 
 public class SellItemManager : MonoBehaviour
 {
-    public long itemTypeId;          // 판매할 아이템 타입 ID
-    public long characterItemId;     // 캐릭터 아이템 ID
     public TMP_Text moneyText;
 
     public void SellItem()
@@ -18,8 +16,8 @@ public class SellItemManager : MonoBehaviour
     IEnumerator SellItemCoroutine()
     {
         JObject sellItemData = new JObject();
-        sellItemData["itemTypeId"] = itemTypeId;
-        sellItemData["characterItemId"] = characterItemId;
+        sellItemData["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
+        sellItemData["characterItemId"] = UserDataManager.Instance.CharacterItemId;
 
         string jsonData = JsonUtility.ToJson(sellItemData);
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemSellPath;

@@ -22,7 +22,11 @@ public class UserDataManager : MonoBehaviour
 
     private long _userId;
     private long _characterId;
-    
+    private long _matchRoomId;
+
+    private long _clickedItemId;
+    private long _characterItemId;
+    private long _itemTypeId;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -37,6 +41,30 @@ public class UserDataManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public long ItemTypeId
+    {
+        get { return _itemTypeId; }
+        set { _itemTypeId = value; }
+    }
+
+    public long CharacterItemId
+    {
+        get { return _characterItemId; }
+        set { _characterItemId = value; }
+    }
+
+    public long ClickedItemId
+    {
+        get { return _clickedItemId; }
+        set { _clickedItemId = value; }
+    }
+
+    public long MatchRoomID
+    {
+        get { return _matchRoomId; }
+        set { _matchRoomId = value; }
     }
 
     public string AccessToken
