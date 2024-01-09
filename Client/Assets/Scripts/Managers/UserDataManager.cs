@@ -23,6 +23,10 @@ public class UserDataManager : MonoBehaviour
     private long _userId;
     private long _characterId;
     private long _matchRoomId;
+    private long _hostId;
+    private long _entrantId;
+    private matchStatus _matchStatus;
+    private int _stakeGold;
 
     private long _clickedItemId;
     private long _characterItemId;
@@ -41,6 +45,30 @@ public class UserDataManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public int StakeGold
+    {
+        get { return _stakeGold; }
+        set { _stakeGold = value; }
+    }
+
+    public matchStatus MatchStatus
+    {
+        get { return _matchStatus; }
+        set { _matchStatus = value; }
+    }
+
+    public long EntrantId
+    {
+        get { return _entrantId; }
+        set { _entrantId = value; }
+    }
+
+    public long HostId
+    {
+        get { return _hostId; }
+        set { _hostId = value; }
     }
 
     public long ItemTypeId
