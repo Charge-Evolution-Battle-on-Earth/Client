@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +21,18 @@ public class UserDataManager : MonoBehaviour
 
     private long _userId;
     private long _characterId;
-    
+    private long _matchRoomId;
+    private long _hostId;
+    private long _entrantId;
+    private matchStatus _matchStatus;
+    private int _stakeGold;
+
+    private long _clickedItemId;
+    private long _characterItemId;
+    private long _itemTypeId;
+
+    private SliceResponse _roomInfo;
+    private List<SliceResponse> _roomListInfo;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -37,6 +47,66 @@ public class UserDataManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public List<SliceResponse> RoomListInfo
+    {
+        get { return _roomListInfo; }
+        set { _roomListInfo = value; }
+    }
+
+    public SliceResponse RoomInfo
+    {
+        get { return _roomInfo; }
+        set { _roomInfo = value; }
+    }
+
+    public int StakeGold
+    {
+        get { return _stakeGold; }
+        set { _stakeGold = value; }
+    }
+
+    public matchStatus MatchStatus
+    {
+        get { return _matchStatus; }
+        set { _matchStatus = value; }
+    }
+
+    public long EntrantId
+    {
+        get { return _entrantId; }
+        set { _entrantId = value; }
+    }
+
+    public long HostId
+    {
+        get { return _hostId; }
+        set { _hostId = value; }
+    }
+
+    public long ItemTypeId
+    {
+        get { return _itemTypeId; }
+        set { _itemTypeId = value; }
+    }
+
+    public long CharacterItemId
+    {
+        get { return _characterItemId; }
+        set { _characterItemId = value; }
+    }
+
+    public long ClickedItemId
+    {
+        get { return _clickedItemId; }
+        set { _clickedItemId = value; }
+    }
+
+    public long MatchRoomID
+    {
+        get { return _matchRoomId; }
+        set { _matchRoomId = value; }
     }
 
     public string AccessToken

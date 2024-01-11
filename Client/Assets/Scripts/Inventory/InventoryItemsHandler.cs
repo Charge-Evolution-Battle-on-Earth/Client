@@ -6,34 +6,28 @@ using System.Collections.Generic;
 using System.Collections;
 using Newtonsoft.Json;
 
-public class ShopButtonHandler : MonoBehaviour
+public class InventoryItemsHandler : MonoBehaviour
 {
     public GameObject itemPrefab; // 아이템 프리팹
     public Transform contentPanel; // Scroll View의 Content 부분
     public TMP_Text itemNameText;
     public TMP_Text itemStatText;
     public TMP_Text itemDescriptionText;
-    private string shopItemList;
-    public Button purchaseButton;
-
-    private void Start()
+    private string invenItemList;
+    
+    public void OnClickButton(string itemType)//무기 갑옷 버튼
     {
-        purchaseButton.interactable = false;
-    }
-
-    public void OnButtonClick(string itemType)
-    {
-        shopItemList = $"/items/{itemType}/{UserDataManager.Instance.LevelId}/{UserDataManager.Instance.JobId}";
+        invenItemList = $"/items/inven/{itemType}";
 
         ClearItemList();
 
         StartCoroutine(GetItems());
     }
 
-
     IEnumerator GetItems()
     {
-        string url = GameURL.DBServer.Server_URL + shopItemList;
+        string url = GameURL.DBServer.Server_URL + invenItemList;
+
         using (UnityWebRequest www = UnityWebRequest.Get(url))
         {
             www.SetRequestHeader("Authorization", $"Bearer {UserDataManager.Instance.AccessToken}");
@@ -43,7 +37,6 @@ public class ShopButtonHandler : MonoBehaviour
             if (www.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponse = www.downloadHandler.text;
-                //Debug.Log(jsonResponse);
                 List<Shop.ShopItemGetResponse> itemList = JsonConvert.DeserializeObject<List<Shop.ShopItemGetResponse>>(jsonResponse);
 
                 AddItemsToUI(itemList);
@@ -72,16 +65,16 @@ public class ShopButtonHandler : MonoBehaviour
 
             // 아이템 프리팹을 복제하여 Content 패널의 자식으로 추가
             GameObject newItem = Instantiate(itemPrefab, contentPanel);
-            ItemUIHandler itemUIHandler = newItem.GetComponent<ItemUIHandler>();
+            InventoryItemUIHandler inventoryItemUIHandler = newItem.GetComponent<InventoryItemUIHandler>();
 
-            if (itemUIHandler != null)
+            if (inventoryItemUIHandler != null)
             {
                 // 아이템 정보 설정
-                itemUIHandler.SetItemInfo(item);
+                inventoryItemUIHandler.SetItemInfo(item);
             }
             else
             {
-                Debug.LogError("인스턴스화된 아이템 프리팹에서 ItemUIHandler 구성 요소를 찾을 수 없습니다.");
+                Debug.LogError("인스턴스화된 아이템 프리팹에서 InventoryItemUIHandler 구성 요소를 찾을 수 없습니다.");
             }
         }
     }
@@ -91,38 +84,12 @@ public class ShopButtonHandler : MonoBehaviour
         itemNameText.text = "";
         itemStatText.text = "";
         itemDescriptionText.text = "";
-        purchaseButton.interactable = false;
+
 
         // 부모 객체의 모든 자식 객체 삭제
         foreach (Transform child in contentPanel)
         {
             Destroy(child.gameObject);
         }
-    }
-}
-
-namespace Shop
-{
-    [System.Serializable]
-    public class ShopItemGetResponse
-    {
-        public long itemId;
-        public long levelId;
-        public long jobId;
-        public long itemTypeId;
-        public string itemNm;
-        public int cost;
-        public Stat stat; // Stat 클래스에 Shop 네임스페이스 추가 후 사용
-        public string description;
-        public long characterItemId;
-    }
-
-    [System.Serializable]
-    public class Stat
-    {
-        public int hp;
-        public int atk;
-        public int mp;
-        public int spd;
     }
 }

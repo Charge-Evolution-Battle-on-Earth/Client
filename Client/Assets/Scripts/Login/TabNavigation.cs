@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class TabNavigation : MonoBehaviour
 {
     public TMP_InputField[] inputFields;
+    public Button loginButton;
 
     void Update()
     {
@@ -16,6 +18,26 @@ public class TabNavigation : MonoBehaviour
             else
             {
                 SelectNextInputField();
+            }
+        }
+        if(Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))
+        {
+            TMP_InputField currentInputField = GetCurrentSelectedInputField();
+            if (currentInputField != null)
+            {
+                int currentIndex = System.Array.IndexOf(inputFields, currentInputField);
+
+                if (currentIndex == 0)
+                {
+                    int nextIndex = (currentIndex + 1) % inputFields.Length;
+
+                    inputFields[nextIndex].Select();
+                    inputFields[nextIndex].ActivateInputField();
+                }
+                else
+                {
+                    loginButton.onClick.Invoke();
+                }
             }
         }
     }

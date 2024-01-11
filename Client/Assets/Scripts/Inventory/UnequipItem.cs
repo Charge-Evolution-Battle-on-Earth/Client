@@ -5,9 +5,6 @@ using Newtonsoft.Json.Linq;
 
 public class UnequipItemManager : MonoBehaviour
 {
-    public long itemTypeId;          // 해제할 아이템 타입 ID
-    public long characterItemId;     // 캐릭터 아이템 ID
-
     public void UnequipItem()
     {
         StartCoroutine(UnequipItemCoroutine());
@@ -16,8 +13,8 @@ public class UnequipItemManager : MonoBehaviour
     IEnumerator UnequipItemCoroutine()
     {
         JObject unequipItemRequest = new JObject();
-        unequipItemRequest["itemTypeId"] = itemTypeId;
-        unequipItemRequest["characterItemId"] = characterItemId;
+        unequipItemRequest["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
+        unequipItemRequest["characterItemId"] = UserDataManager.Instance.CharacterItemId;
 
         string jsonData = JsonUtility.ToJson(unequipItemRequest);
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemUnequipPath;

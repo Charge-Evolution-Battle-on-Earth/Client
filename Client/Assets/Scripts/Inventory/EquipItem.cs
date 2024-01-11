@@ -5,9 +5,6 @@ using Newtonsoft.Json.Linq;
 
 public class EquipItemManager : MonoBehaviour
 {
-    public long itemTypeId;          // 장착할 아이템 타입 ID
-    public long characterItemId;     // 캐릭터 아이템 ID
-
     public void EquipItem()
     {
         StartCoroutine(EquipItemCoroutine());
@@ -16,9 +13,9 @@ public class EquipItemManager : MonoBehaviour
     IEnumerator EquipItemCoroutine()
     {
         JObject equipItemRequest = new JObject();
-        equipItemRequest["itemTypeId"] = itemTypeId;//무기 or 갑옷
-        equipItemRequest["characterItemId"] = characterItemId;//장착중인 아이템 아이디?
-       
+        equipItemRequest["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
+        equipItemRequest["characterItemId"] = UserDataManager.Instance.CharacterItemId;
+
         string jsonData = JsonUtility.ToJson(equipItemRequest);
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemEquipPath;
 

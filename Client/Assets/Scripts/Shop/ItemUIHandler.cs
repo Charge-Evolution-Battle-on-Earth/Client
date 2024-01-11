@@ -18,7 +18,6 @@ public class ItemUIHandler : MonoBehaviour
     public TMP_Text MoneyText;
 
     public Shop.ShopItemGetResponse item;
-    public long itemId;
     public Button purchaseButton;
 
     public void SetItemInfo(Shop.ShopItemGetResponse newItem)
@@ -31,7 +30,7 @@ public class ItemUIHandler : MonoBehaviour
 
     public void OnButtonClick()
     {
-        itemId = item.itemId;
+        UserDataManager.Instance.ClickedItemId = item.itemId;
         itemNameText.text = item.itemNm;
         itemStatText.text = $"HP: {item.stat.hp}\tMP: {item.stat.mp}\nATK: {item.stat.atk}\tSPD: {item.stat.spd}";
         itemDescriptionText.text = item.description;
@@ -45,7 +44,7 @@ public class ItemUIHandler : MonoBehaviour
     IEnumerator BuyItem()
     {
         JObject jobjItemId = new JObject();
-        jobjItemId["itemId"] = itemId;
+        jobjItemId["itemId"] = UserDataManager.Instance.ClickedItemId;
 
         string jsonData = jobjItemId.ToString();
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getShopBuyPath;
@@ -67,6 +66,7 @@ public class ItemUIHandler : MonoBehaviour
                 BuyGetResponse buyGetResponse = JsonUtility.FromJson<BuyGetResponse>(jsonResponse);
 
                 MoneyText.text = buyGetResponse.money.ToString();
+                Debug.Log("구매에 성공했습니다.");
             }
             else
             {
