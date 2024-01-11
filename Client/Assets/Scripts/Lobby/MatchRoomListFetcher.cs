@@ -2,15 +2,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
-
-public enum matchStatus
-{ 
-    WAITING,
-    READY,
-    IN_PROGRESS,
-    FINISHED
-}
+using Newtonsoft.Json;
 
 public class MatchRoomListFetcher : MonoBehaviour
 {
@@ -25,17 +17,15 @@ public class MatchRoomListFetcher : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Get(url))
         {
             www.SetRequestHeader("Authorization", $"Bearer {UserDataManager.Instance.AccessToken}");
-            www.downloadHandler = new DownloadHandlerBuffer();
-            www.SetRequestHeader("Content-Type", "application/json");
 
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponse = www.downloadHandler.text;
-                SliceResponse sliceResponse = JObject.Parse(jsonResponse).ToObject<SliceResponse>();
+                List<SliceResponse> sliceResponse = JsonConvert.DeserializeObject<List<SliceResponse>>(jsonResponse);
 
-
+                UserDataManager.Instance.RoomListInfo = sliceResponse;
             }
             else
             {
@@ -65,4 +55,13 @@ public class ContentType
     public long entrantId;
     public matchStatus matchStatus;
     public int stakeGold;
+}
+
+[System.Serializable]
+public enum matchStatus
+{
+    WAITING,
+    READY,
+    IN_PROGRESS,
+    FINISHED
 }

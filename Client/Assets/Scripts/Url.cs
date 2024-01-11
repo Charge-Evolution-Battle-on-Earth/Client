@@ -8,8 +8,8 @@ public class GameURL
     public static class DBServer
     {
         //http://127.0.0.1:5001
-        //http://15.164.232.189:8080
-        public static readonly string Server_URL = "http://15.164.232.189:8080";
+        //https://cebone.shop:443
+        public static readonly string Server_URL = "https://cebone.shop:443";
 
         public static readonly string getNationsPath = "/nations";//나라 리스트 조회
         public static readonly string getJobsPath = "/jobs";//직업 리스트 조회
@@ -30,8 +30,8 @@ public class GameURL
     public static class AuthServer
     {
         //http://127.0.0.1:5000
-        //http://15.164.232.189:8080
-        public static readonly string Server_URL = "http://15.164.232.189:8080";
+        //https://cebone.shop:443
+        public static readonly string Server_URL = "https://cebone.shop:443";
 
         public static readonly string userLogInPath = "/users/login";// 로그인
         public static readonly string userJoinPath = "/users/join";// 회원가입

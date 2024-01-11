@@ -6,7 +6,6 @@ using Newtonsoft.Json.Linq;
 
 public class EnterRoom : MonoBehaviour
 {
-
     public void OnclickButton()
     {
         StartCoroutine(RoomEnter());
@@ -15,9 +14,9 @@ public class EnterRoom : MonoBehaviour
     IEnumerator RoomEnter()
     {
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getRoomEnterPath;
-        JObject matchRoomId = new JObject();
-        matchRoomId["matchRoomId"] = UserDataManager.Instance.MatchRoomID;
-        string jsonData = matchRoomId.ToString();
+        JObject roomId = new JObject();
+        roomId["matchRoomId"] = UserDataManager.Instance.MatchRoomID;
+        string jsonData = roomId.ToString();
 
         using (UnityWebRequest www = new UnityWebRequest(url, "POST"))
         {

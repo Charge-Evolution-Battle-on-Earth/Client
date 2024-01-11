@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +31,9 @@ public class UserDataManager : MonoBehaviour
     private long _characterItemId;
     private long _itemTypeId;
 
+    private SliceResponse _roomInfo;
+    private List<SliceResponse> _roomListInfo;
+
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
     {
@@ -45,6 +47,18 @@ public class UserDataManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public List<SliceResponse> RoomListInfo
+    {
+        get { return _roomListInfo; }
+        set { _roomListInfo = value; }
+    }
+
+    public SliceResponse RoomInfo
+    {
+        get { return _roomInfo; }
+        set { _roomInfo = value; }
     }
 
     public int StakeGold
