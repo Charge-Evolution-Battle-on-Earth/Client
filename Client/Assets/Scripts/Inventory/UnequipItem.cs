@@ -16,7 +16,7 @@ public class UnequipItemManager : MonoBehaviour
         unequipItemRequest["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
         unequipItemRequest["characterItemId"] = UserDataManager.Instance.CharacterItemId;
 
-        string jsonData = JsonUtility.ToJson(unequipItemRequest);
+        string jsonData = unequipItemRequest.ToString();
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemUnequipPath;
 
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
@@ -33,9 +33,9 @@ public class UnequipItemManager : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 // 응답 데이터를 JObject로 변환
-                JObject responseData = JObject.Parse(request.downloadHandler.text);
+                //JObject request = JsonUtility.FromJson<EquipItemResponse>(request.downloadHandler.text);
 
-                Debug.Log("해제 성공. CharacterItemId: " + responseData["characterItemId"]);
+                Debug.Log($"해제 성공. CharacterItemId: {UserDataManager.Instance.CharacterItemId}");
             }
             else
             {
