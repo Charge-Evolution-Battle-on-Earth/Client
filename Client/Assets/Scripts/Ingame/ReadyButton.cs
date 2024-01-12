@@ -13,7 +13,7 @@ public class ReadyButton : MonoBehaviour
         matchId = UserDataManager.Instance.MatchRoomID.ToString();
 
         // WebSocket 서버 주소에 맞게 수정 (wss 사용)
-        string serverAddress = "wss://cebone.shop:443";
+        string serverAddress = "wss://cebone.shop:443/play";
         webSocket = new WebSocket(serverAddress);
         webSocket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
 

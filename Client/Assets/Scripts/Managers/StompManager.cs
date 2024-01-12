@@ -10,6 +10,7 @@ public class StompManager : MonoBehaviour
     public Button skillButton2;
     public Button skillButton3;
     public Button skillButton4;
+    public Button quitGameButton;
 
     private WebSocket webSocket;
 
@@ -33,6 +34,8 @@ public class StompManager : MonoBehaviour
         skillButton2.onClick.AddListener(() => OnSkillButtonClick(2));
         skillButton3.onClick.AddListener(() => OnSkillButtonClick(3));
         skillButton4.onClick.AddListener(() => OnSkillButtonClick(4));
+
+        quitGameButton.onClick.AddListener(RequestQuitGame); // Quit Game 버튼에 대한 이벤트 추가
     }
 
     void OnSkillButtonClick(long skillId)
@@ -134,13 +137,17 @@ public class StompManager : MonoBehaviour
 
     void RequestQuitGame()
     {
-        string matchId = UserDataManager.Instance.MatchRoomID.ToString();
+        // matchId에 적절한 값을 넣어서 요청
+        string matchId = UserDataManager.Instance.MatchRoomID.ToString(); // 적절한 matchId 값으로 변경
 
         // Request Body가 없는 경우에도 STOMP 형식에 맞게 보낼 수 있도록 수정
-        webSocket.Send($"SEND\n" +
-                       $"destination:/play/game/quit/{matchId}\n" +
-                       $"content-type:application/json\n\n" +
-                       "{}\x00");
+        string requestJson = $"SEND\n" +
+                             $"destination:/play/game/quit/{matchId}\n" +
+                             $"content-type:application/json\n\n" +
+                             "{}\x00";
+
+        // 서버로 메시지 전송
+        webSocket.Send(requestJson);
     }
 
     void OnWebSocketMessage(object sender, MessageEventArgs e)
