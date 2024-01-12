@@ -83,7 +83,7 @@ public class StompManager : MonoBehaviour
 
         // STOMP CONNECT 프레임 생성
         string stompConnect = $"CONNECT\n" +
-                              $"accept-version:1.2\n" +
+                              $"accept-version:1.1\n" +
                               $"heart-beat:10000,10000\n";
 
         foreach (var header in authHeaders)
@@ -95,21 +95,31 @@ public class StompManager : MonoBehaviour
 
         // 생성된 STOMP CONNECT 프레임을 서버로 전송
         webSocket.Send(stompConnect);
+
+        SubscribeToTopic($"/play/game/start/{UserDataManager.Instance.MatchRoomID.ToString()}");
+    }
+
+    void SubscribeToTopic(string topic)
+    {
+        // SUBSCRIBE 프레임 생성
+        string subscribeFrame = $"SUBSCRIBE\n" +
+                                $"destination:{topic}\n" +
+                                $"id:sub-0\n" + // 고유한 ID를 부여 (서버로부터 메시지를 구분하기 위해)
+                                "\n" + "\x00"; // STOMP 프레임 끝을 나타내는 널(0) 바이트
+
+        // 생성된 SUBSCRIBE 프레임을 서버로 전송
+        webSocket.Send(subscribeFrame);
     }
 
     void RequestGreetingMessage()
     {
-        // matchId에 적절한 값을 넣어서 요청
         string matchId = UserDataManager.Instance.MatchRoomID.ToString(); // 적절한 matchId 값으로 변경
         webSocket.Send($"GET /play/greeting/{matchId} HTTP/1.1\r\nHost: cebone.shop\r\n\r\n");
     }
 
     void RequestGameStart()
     {
-        // 게임 시작 요청 메시지 생성
         string requestJson = $"SEND\ndestination:/play/game/start/{UserDataManager.Instance.MatchRoomID}\n\n\x00";
-
-        // 서버로 메시지 전송
         webSocket.Send(requestJson);
     }
 
@@ -117,7 +127,6 @@ public class StompManager : MonoBehaviour
     {
         string matchId = UserDataManager.Instance.MatchRoomID.ToString();
 
-        // Request Body가 없는 경우에도 STOMP 형식에 맞게 보낼 수 있도록 수정
         webSocket.Send($"SEND\n" +
                        $"destination:/play/game/end/{matchId}\n" +
                        $"content-type:application/json\n\n" +
@@ -128,7 +137,6 @@ public class StompManager : MonoBehaviour
     {
         string matchId = UserDataManager.Instance.MatchRoomID.ToString();
 
-        // Request Body가 없는 경우에도 STOMP 형식에 맞게 보낼 수 있도록 수정
         webSocket.Send($"SEND\n" +
                        $"destination:/play/game/surrender/{matchId}\n" +
                        $"content-type:application/json\n\n" +
@@ -137,16 +145,13 @@ public class StompManager : MonoBehaviour
 
     void RequestQuitGame()
     {
-        // matchId에 적절한 값을 넣어서 요청
         string matchId = UserDataManager.Instance.MatchRoomID.ToString(); // 적절한 matchId 값으로 변경
 
-        // Request Body가 없는 경우에도 STOMP 형식에 맞게 보낼 수 있도록 수정
         string requestJson = $"SEND\n" +
                              $"destination:/play/game/quit/{matchId}\n" +
                              $"content-type:application/json\n\n" +
                              "{}\x00";
 
-        // 서버로 메시지 전송
         webSocket.Send(requestJson);
     }
 
@@ -169,7 +174,6 @@ public class StompManager : MonoBehaviour
 
     void ProcessStompFrame(string stompFrame)
     {
-        // 여기에서는 간단하게 콘솔에 출력하는 예제 코드
         Debug.Log($"Received STOMP frame: {stompFrame}");
 
         // Greeting 메시지 처리
@@ -235,6 +239,7 @@ public class StompManager : MonoBehaviour
         }
     }
 }
+
 // 게임 시작 응답에 대한 데이터 클래스
 public class StartGameResponse
 {
@@ -243,7 +248,7 @@ public class StartGameResponse
     public List<CharacterSkillGetResponse> HostSkillList { get; set; }
     public List<CharacterSkillGetResponse> EntrantSkillList { get; set; }
     public playerType TurnOwner { get; set; }
-    public matchStatus MatchStatus { get; set; }
+    public MatchStatus MatchStatus { get; set; }
     public string Message { get; set; }
 }
 
@@ -279,7 +284,7 @@ public class CharacterSkillGetResponse
 
 public enum playerType
 {
-    // playerType 열거형 구현
+    // TODO: playerType 열거형 구현
 }
 
 // Game End 응답에 대한 데이터 클래스

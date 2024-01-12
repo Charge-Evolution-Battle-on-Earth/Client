@@ -47,7 +47,7 @@ public class ReadyButton : MonoBehaviour
 
         // STOMP CONNECT 프레임 생성
         string stompConnect = $"CONNECT\n" +
-                              $"accept-version:1.2\n" +
+                              $"accept-version:1.1\n" +
                               $"heart-beat:10000,10000\n";
 
         foreach (var header in authHeaders)

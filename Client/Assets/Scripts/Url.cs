@@ -22,7 +22,8 @@ public class GameURL
         public static readonly string getItemEquipPath = "/items/equip";// 캐릭터 장비 장착
         public static readonly string getItemUnequipPath = "/items/unequip";// 캐릭터 장비 해제
         public static readonly string getItemSellPath = "/items/sell";// 캐릭터 장비 판매
-        public static readonly string getMatchRoomListPath = "/matches/room";// GET: 매치 방 리스트 조회, POST: 매치 방 생성
+        public static readonly string getMatchRoomListPath = "/matches/room?";//page=0&size=10";// GET: 매치 방 리스트 조회
+        public static readonly string getNewMatchRoomPath = "/matches/room";// POST: 매치 방 생성
         public static readonly string getRoomEnterPath = "/matches/room/enter";// 매치 방 입장
 
         public static readonly string getGreetingPath = "/play/greeting/{matchId}";// 플레이어 방 입장 후 환영 메시지

@@ -11,7 +11,7 @@ public class MakeRoom : MonoBehaviour
 
     IEnumerator RoomMake()
     {
-        string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getMatchRoomListPath;
+        string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getNewMatchRoomPath;
 
         using (UnityWebRequest www = new UnityWebRequest(url, "POST"))
         {
@@ -49,6 +49,6 @@ public class RoomId
     public long matchRoomId;
     public long hostId;
     public long entrantId;
-    public matchStatus matchStatus;
+    public MatchStatus matchStatus;
     public int stakeGold;
 }
