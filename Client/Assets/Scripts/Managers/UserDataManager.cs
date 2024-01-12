@@ -24,15 +24,15 @@ public class UserDataManager : MonoBehaviour
     private long _matchRoomId;
     private long _hostId;
     private long _entrantId;
-    private matchStatus _matchStatus;
+    private MatchStatus _matchStatus;
     private int _stakeGold;
 
     private long _clickedItemId;
     private long _characterItemId;
     private long _itemTypeId;
 
-    private SliceResponse _roomInfo;
-    private List<SliceResponse> _roomListInfo;
+    private CONTENT_TYPE _roomInfo;
+    private List<CONTENT_TYPE> _roomListInfo;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -49,13 +49,13 @@ public class UserDataManager : MonoBehaviour
         }
     }
 
-    public List<SliceResponse> RoomListInfo
+    public List<CONTENT_TYPE> RoomListInfo
     {
         get { return _roomListInfo; }
         set { _roomListInfo = value; }
     }
 
-    public SliceResponse RoomInfo
+    public CONTENT_TYPE RoomInfo
     {
         get { return _roomInfo; }
         set { _roomInfo = value; }
@@ -67,7 +67,7 @@ public class UserDataManager : MonoBehaviour
         set { _stakeGold = value; }
     }
 
-    public matchStatus MatchStatus
+    public MatchStatus MatchStatus
     {
         get { return _matchStatus; }
         set { _matchStatus = value; }

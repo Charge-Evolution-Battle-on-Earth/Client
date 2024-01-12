@@ -16,7 +16,7 @@ public class EquipItemManager : MonoBehaviour
         equipItemRequest["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
         equipItemRequest["characterItemId"] = UserDataManager.Instance.CharacterItemId;
 
-        string jsonData = JsonUtility.ToJson(equipItemRequest);
+        string jsonData = equipItemRequest.ToString();
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemEquipPath;
 
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))

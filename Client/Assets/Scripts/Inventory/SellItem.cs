@@ -19,7 +19,7 @@ public class SellItemManager : MonoBehaviour
         sellItemData["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
         sellItemData["characterItemId"] = UserDataManager.Instance.CharacterItemId;
 
-        string jsonData = JsonUtility.ToJson(sellItemData);
+        string jsonData = sellItemData.ToString();
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemSellPath;
 
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
