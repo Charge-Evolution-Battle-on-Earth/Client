@@ -91,7 +91,7 @@ public class MatchRoomListFetcher : MonoBehaviour
     {
         CreateButton("처음", FirstPage);
         CreateButton("이전", PreviousPage);
-        CreateButton("다음", NextPage)
+        CreateButton("다음", NextPage);
     }
 
 

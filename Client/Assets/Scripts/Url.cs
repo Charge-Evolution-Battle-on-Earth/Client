@@ -10,7 +10,7 @@ public class GameURL
         //http://127.0.0.1:5001
         //https://cebone.shop:443
         public static readonly string Server_URL = "https://cebone.shop:443";
-        public static readonly string Server_WebSocketURL = "wss://cebone.shop:443";
+        public static readonly string Server_WebSocketURL = "wss://cebone.shop:443/play";
 
         public static readonly string getNationsPath = "/nations";//나라 리스트 조회
         public static readonly string getJobsPath = "/jobs";//직업 리스트 조회
