@@ -10,6 +10,7 @@ public class GameURL
         //http://127.0.0.1:5001
         //https://cebone.shop:443
         public static readonly string Server_URL = "https://cebone.shop:443";
+        public static readonly string Server_WebSocketURL = "wss://cebone.shop:443";
 
         public static readonly string getNationsPath = "/nations";//나라 리스트 조회
         public static readonly string getJobsPath = "/jobs";//직업 리스트 조회
@@ -24,6 +25,13 @@ public class GameURL
         public static readonly string getMatchRoomListPath = "/matches/room";// GET: 매치 방 리스트 조회, POST: 매치 방 생성
         public static readonly string getRoomEnterPath = "/matches/room/enter";// 매치 방 입장
 
+        public static readonly string getGreetingPath = "/play/greeting/{matchId}";// 플레이어 방 입장 후 환영 메시지
+        public static readonly string getReadyPath = "/play/ready/{matchId}";// 준비
+        public static readonly string getStartPath = "/play/start/{matchId}";// 게임 시작
+        public static readonly string getGameTurnPath = "/play/game/turn/{matchId}";// 턴 수행(스킬 사용)
+        public static readonly string getGameEndPath = "/play/game/end/{matchId}";// 게임 종료시
+        public static readonly string getGameSurrenderPath = "/play/game/surrender/{matchId}";// 항복
+        public static readonly string getGameQuitPath = "/play/game/quit/{matchId}";// 돌아가기
     }
 
     // 회원가입, 로그인 등을 담당할 서버
