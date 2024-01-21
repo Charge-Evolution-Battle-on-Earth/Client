@@ -6,27 +6,32 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-public class MatchRoomListFetcher : MonoBehaviour
+public class CombinedScrollManager : MonoBehaviour
 {
-    public GameObject roomListBtn;
-    public GameObject pageListBtn;
-    public Transform roomListPanel;
-    public Transform pageListPanel;
-    public TMP_Text selectedRoomInfo;
+    public Transform content; // ScrollRect.content
+    public GameObject listItemPrefab; // 방 목록의 항목에 사용될 프리팹
     public Button roomEnterBtn;
+    public TMP_Text selectedRoomInfo;
 
-    private float buttonSpacing = 2.8f; // 버튼 간격
-    private int itemsPerPage = 10;
-    private int currentPage = 0;
+    private int itemsPerPage = 10; // 한 페이지에 표시될 아이템 개수
+    private int currentPage = 1;
+    private bool isLoading = false;
 
     void Start()
     {
-        StartCoroutine(FetchMatchRoomList(0));
+        StartCoroutine(FetchMatchRoomList(currentPage));
     }
+
     IEnumerator FetchMatchRoomList(int pageNm)
     {
-        string pageNumber = GameURL.DBServer.getMatchRoomListPath + $"page={pageNm}&size=10";
-        string url = GameURL.DBServer.Server_URL + pageNumber;
+        if (isLoading)
+            yield break;
+
+        isLoading = true;
+
+        string pageNumber = $"page={pageNm}&size={itemsPerPage}";
+        string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getMatchRoomListPath + pageNumber;
+
         using (UnityWebRequest www = UnityWebRequest.Get(url))
         {
             www.SetRequestHeader("Authorization", $"Bearer {UserDataManager.Instance.AccessToken}");
@@ -41,34 +46,35 @@ public class MatchRoomListFetcher : MonoBehaviour
                 UserDataManager.Instance.RoomListInfo = sliceResponse.content;
                 UpdateUI();
             }
-            else if(www.result == UnityWebRequest.Result.ProtocolError)
+            else if (www.result == UnityWebRequest.Result.ProtocolError)
             {
                 Debug.LogError(www.error + www.downloadHandler.text);
             }
-
             else
             {
                 Debug.LogError("Error: " + www.error + www.downloadHandler.text);
             }
+
+            isLoading = false;
         }
     }
 
     public void UpdateUI()
     {
         ClearUI();
-        roomEnterBtn.interactable = false;
+
         int startIndex = 0;
         int endIndex = Mathf.Min(itemsPerPage, UserDataManager.Instance.RoomListInfo.Count);
 
-        RectTransform contentPanelRect = roomListPanel.GetComponent<RectTransform>();
+        RectTransform contentPanelRect = content.GetComponent<RectTransform>();
         float contentPanelWidth = contentPanelRect.rect.width;
 
         for (int i = startIndex; i < endIndex; i++)
         {
             CONTENT_TYPE room = UserDataManager.Instance.RoomListInfo[i];
-            GameObject button = Instantiate(roomListBtn, roomListPanel);
+            GameObject listItem = Instantiate(listItemPrefab, content);
 
-            RectTransform rect = button.GetComponent<RectTransform>();
+            RectTransform rect = listItem.GetComponent<RectTransform>();
 
             int idx = i;
             while (idx >= 10)
@@ -76,30 +82,14 @@ public class MatchRoomListFetcher : MonoBehaviour
                 idx -= 10;
             }
             float x = contentPanelWidth / 2;
-            float y = -idx * (rect.rect.height + buttonSpacing) - rect.rect.height / 2;
+            float y = -idx * (rect.rect.height) - rect.rect.height / 2;
 
-            button.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
-            button.GetComponentInChildren<TMP_Text>().text = $"방 상태: {room.matchStatus}\t방 번호: {room.matchRoomId}";
+            listItem.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
+            listItem.GetComponentInChildren<TMP_Text>().text = $"방 상태: {room.matchStatus}\t방 번호: {room.matchRoomId}";
 
             // 버튼에 클릭 이벤트 추가
-            button.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(room));
+            listItem.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(room));
         }
-        CreatePageButtons();
-    }
-
-    void CreatePageButtons()
-    {
-        CreateButton("처음", FirstPage);
-        CreateButton("이전", PreviousPage);
-        CreateButton("다음", NextPage);
-    }
-
-
-    void CreateButton(string buttonText, UnityEngine.Events.UnityAction buttonAction)
-    {
-        GameObject button = Instantiate(pageListBtn, pageListPanel);
-        button.GetComponentInChildren<TMP_Text>().text = buttonText;
-        button.GetComponent<Button>().onClick.AddListener(buttonAction);
     }
 
     void OnButtonClick(CONTENT_TYPE room)
@@ -112,42 +102,24 @@ public class MatchRoomListFetcher : MonoBehaviour
 
     void ClearUI()
     {
-        foreach (Transform child in roomListPanel)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (Transform child in pageListPanel)
+        foreach (Transform child in content)
         {
             Destroy(child.gameObject);
         }
     }
 
-    public void FirstPage()
+    public void OnScrollValueChanged(Vector2 scrollPosition)
     {
-        currentPage = 0;
-        StartCoroutine(FetchMatchRoomList(currentPage));
-    }
+        float contentHeight = content.GetComponent<RectTransform>().sizeDelta.y;
+        float scrollViewHeight = GetComponent<RectTransform>().sizeDelta.y;
 
-    public void NextPage()
-    {
-        currentPage = currentPage + 1;//Mathf.Min(currentPage + 1, Mathf.CeilToInt((float)UserDataManager.Instance.RoomListInfo.Count / itemsPerPage));
-        StartCoroutine(FetchMatchRoomList(currentPage));
-    }
-
-    public void PreviousPage()
-    {
-        currentPage = Mathf.Max(currentPage - 1, 0);
-        StartCoroutine(FetchMatchRoomList(currentPage));
-    }
-
-    public void GoToPage(int idx)
-    {
-        Debug.Log($"GoToPage: {idx}");
-        currentPage = idx;
-        StartCoroutine(FetchMatchRoomList(currentPage));
+        if (scrollPosition.y <= 0 && currentPage < Mathf.CeilToInt((float)UserDataManager.Instance.RoomListInfo.Count / itemsPerPage))
+        {
+            currentPage++;
+            StartCoroutine(FetchMatchRoomList(currentPage));
+        }
     }
 }
-
 [System.Serializable]
 public class Slice
 {

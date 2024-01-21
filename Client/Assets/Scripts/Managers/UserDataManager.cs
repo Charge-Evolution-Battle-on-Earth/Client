@@ -21,7 +21,7 @@ public class UserDataManager : MonoBehaviour
 
     private long _userId;
     private long _characterId;
-    private long _matchRoomId;
+    private long _matchRoomId = 49;
     private long _hostId;
     private long _entrantId;
     private MatchStatus _matchStatus;
