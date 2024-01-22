@@ -8,9 +8,10 @@ public class GameURL
     public static class DBServer
     {
         //http://127.0.0.1:5001
+        //http://15.164.232.189:8080
         //https://cebone.shop:443
-        public static readonly string Server_URL = "https://cebone.shop:443";
-        public static readonly string Server_WebSocketURL = "wss://cebone.shop:443/play";
+        public static readonly string Server_URL = "http://cebone.shop:8080";
+        public static readonly string Server_WebSocketURL = "ws://cebone.shop:8080/play";
 
         public static readonly string getNationsPath = "/nations";//나라 리스트 조회
         public static readonly string getJobsPath = "/jobs";//직업 리스트 조회

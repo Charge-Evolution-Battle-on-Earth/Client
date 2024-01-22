@@ -10,6 +10,7 @@ public class CombinedScrollManager : MonoBehaviour
 {
     public Transform content; // ScrollRect.content
     public GameObject listItemPrefab; // 방 목록의 항목에 사용될 프리팹
+    public ScrollRect scrollRect;
     public Button roomEnterBtn;
     public TMP_Text selectedRoomInfo;
 
@@ -19,8 +20,20 @@ public class CombinedScrollManager : MonoBehaviour
 
     void Start()
     {
+        //ScrollRect scrollRect = GetComponent<ScrollRect>();
+        if (scrollRect != null)
+        {
+            // ScrollRect의 onValueChanged 이벤트에 OnScrollValueChanged 메서드를 등록
+            scrollRect.onValueChanged.AddListener(OnScrollValueChanged);
+        }
+        else
+        {
+            Debug.LogError("ScrollRect component not found!");
+        }
+
         StartCoroutine(FetchMatchRoomList(currentPage));
     }
+
 
     IEnumerator FetchMatchRoomList(int pageNm)
     {
@@ -43,8 +56,23 @@ public class CombinedScrollManager : MonoBehaviour
                 string jsonResponse = www.downloadHandler.text;
                 Slice sliceResponse = JsonUtility.FromJson<Slice>(jsonResponse);
 
-                UserDataManager.Instance.RoomListInfo = sliceResponse.content;
-                UpdateUI();
+                if (sliceResponse.size > 0)
+                {
+                    if (UserDataManager.Instance.RoomListInfo == null)
+                    {
+                        UserDataManager.Instance.RoomListInfo = sliceResponse.content;
+                    }
+                    else
+                    {
+                        UserDataManager.Instance.RoomListInfo.AddRange(sliceResponse.content);
+                    }
+                    UpdateUI();
+                }
+                else
+                {
+                    currentPage--;
+                    StartCoroutine(FetchMatchRoomList(currentPage));
+                }
             }
             else if (www.result == UnityWebRequest.Result.ProtocolError)
             {
@@ -59,15 +87,24 @@ public class CombinedScrollManager : MonoBehaviour
         }
     }
 
+    public void RefreshUI()
+    {
+        ClearUI();
+        UserDataManager.Instance.RoomListInfo.Clear();
+        currentPage = 1;
+        StartCoroutine(FetchMatchRoomList(currentPage));
+    }
+
     public void UpdateUI()
     {
         ClearUI();
 
         int startIndex = 0;
-        int endIndex = Mathf.Min(itemsPerPage, UserDataManager.Instance.RoomListInfo.Count);
+        int endIndex = UserDataManager.Instance.RoomListInfo.Count;
 
         RectTransform contentPanelRect = content.GetComponent<RectTransform>();
         float contentPanelWidth = contentPanelRect.rect.width;
+        float listItemHeight = listItemPrefab.GetComponent<RectTransform>().rect.height;
 
         for (int i = startIndex; i < endIndex; i++)
         {
@@ -76,13 +113,8 @@ public class CombinedScrollManager : MonoBehaviour
 
             RectTransform rect = listItem.GetComponent<RectTransform>();
 
-            int idx = i;
-            while (idx >= 10)
-            {
-                idx -= 10;
-            }
             float x = contentPanelWidth / 2;
-            float y = -idx * (rect.rect.height) - rect.rect.height / 2;
+            float y = -i * listItemHeight - listItemHeight / 2;
 
             listItem.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
             listItem.GetComponentInChildren<TMP_Text>().text = $"방 상태: {room.matchStatus}\t방 번호: {room.matchRoomId}";
@@ -91,6 +123,7 @@ public class CombinedScrollManager : MonoBehaviour
             listItem.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(room));
         }
     }
+
 
     void OnButtonClick(CONTENT_TYPE room)
     {
@@ -108,12 +141,10 @@ public class CombinedScrollManager : MonoBehaviour
         }
     }
 
+    // onValueChanged 이벤트에 대응하는 메서드
     public void OnScrollValueChanged(Vector2 scrollPosition)
     {
-        float contentHeight = content.GetComponent<RectTransform>().sizeDelta.y;
-        float scrollViewHeight = GetComponent<RectTransform>().sizeDelta.y;
-
-        if (scrollPosition.y <= 0 && currentPage < Mathf.CeilToInt((float)UserDataManager.Instance.RoomListInfo.Count / itemsPerPage))
+        if (scrollRect.verticalNormalizedPosition <= 0 && !isLoading && 0 == Mathf.CeilToInt((float)UserDataManager.Instance.RoomListInfo.Count % itemsPerPage))
         {
             currentPage++;
             StartCoroutine(FetchMatchRoomList(currentPage));

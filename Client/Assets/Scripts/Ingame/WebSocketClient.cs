@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
@@ -12,27 +13,37 @@ public class WebSocketClient : MonoBehaviour
     {
         apiManager = GetComponent<APIManager>();
 
-        string socketAndApiUrl = GameURL.DBServer.Server_WebSocketURL;
+        string gameUrl = GameURL.DBServer.Server_URL;
+        string socketUrl = GameURL.DBServer.Server_WebSocketURL;
         string accessToken = UserDataManager.Instance.AccessToken;
 
-        // 토큰 설정
-        webSocket.SetCookie(new WebSocketSharp.Net.Cookie("Authorization", accessToken));
+        // 웹소켓 URL에 토큰을 쿼리 매개변수로 추가
+        string socketAndApiUrl = $"{socketUrl}?Authorization: 'Bearer {accessToken}'";
 
-        webSocket.OnOpen += (sender, e) =>
+        // 서버 인증서를 확인하기 위해 CertificateHandler 사용
+        UnityWebRequest www = UnityWebRequest.Get(gameUrl+"/play");
+        www.certificateHandler = new AcceptAllCertificates();
+
+        www.SendWebRequest().completed += (asyncOperation) =>
         {
-            Debug.Log("WebSocket connection opened.");
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("서버 인증서가 유효합니다.");
 
-            // 연결 성공 시 greeting message를 요청
-            StartCoroutine(apiManager.GetGreetingMessage(UserDataManager.Instance.MatchRoomID.ToString()));
+                // 서버 인증서가 유효하면 웹소켓 연결 생성
+                webSocket = new WebSocket(socketAndApiUrl);
+
+                webSocket.OnOpen += OnWebSocketOpen;
+                webSocket.OnMessage += OnWebSocketMessage;
+                webSocket.OnError += OnWebSocketError;
+
+                webSocket.Connect();
+            }
+            else
+            {
+                Debug.LogError($"서버 인증서 유효성 검사 실패: {www.error}");
+            }
         };
-
-        webSocket.OnMessage += (sender, e) =>
-        {
-            Debug.Log($"Received message: {e.Data}");
-            // 여기서 메시지 처리 로직을 추가하세요.
-        };
-
-        webSocket.Connect();
     }
 
     void OnDestroy()
@@ -42,6 +53,35 @@ public class WebSocketClient : MonoBehaviour
             webSocket.Close();
         }
     }
+    private void OnWebSocketError(object sender, ErrorEventArgs e)
+    {
+        Debug.LogError($"WebSocket 에러: {e.Message}");
+    }
+
+    private void OnWebSocketOpen(object sender, EventArgs e)
+    {
+        Debug.Log("웹소켓 연결이 열렸습니다.");
+
+        // 연결 성공 후 인사 메시지 요청
+        StartCoroutine(apiManager.GetGreetingMessage(UserDataManager.Instance.MatchRoomID.ToString()));
+    }
+
+    private void OnWebSocketMessage(object sender, MessageEventArgs e)
+    {
+        Debug.Log($"받은 메시지: {e.Data}");
+        // 메시지 처리 로직 추가
+    }
+}
+
+// AcceptAllCertificates 클래스 정의
+public class AcceptAllCertificates : CertificateHandler
+{
+    protected override bool ValidateCertificate(byte[] certificateData)
+    {
+        // 모든 인증서를 허용하려면 true를 반환
+        return true;
+    }
+
 }
 
 public class APIManager : MonoBehaviour
@@ -65,12 +105,12 @@ public class APIManager : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             string jsonResult = request.downloadHandler.text;
-            // JSON 파싱 및 결과 처리 로직을 추가하세요.
+            // JSON 파싱 및 결과 처리 로직 추가
             Debug.Log(jsonResult);
         }
         else
         {
-            Debug.LogError($"API request failed: {request.error}");
+            Debug.LogError($"API 요청 실패: {request.error}");
         }
     }
 }
