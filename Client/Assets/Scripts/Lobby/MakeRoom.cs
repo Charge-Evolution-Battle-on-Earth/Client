@@ -31,6 +31,7 @@ public class MakeRoom : MonoBehaviour
                 UserDataManager.Instance.EntrantId = roomId.entrantId;
                 UserDataManager.Instance.MatchStatus = roomId.matchStatus;
                 UserDataManager.Instance.StakeGold = roomId.stakeGold;
+                UserDataManager.Instance.RoomListInfo.Clear();
 
                 Debug.Log("号 持失 失因.");
                 SceneController.LoadScene(Scenes.Ingame.ToString());
