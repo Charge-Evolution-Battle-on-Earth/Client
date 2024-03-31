@@ -3,6 +3,8 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class WebSocketManager : MonoBehaviour
@@ -96,17 +98,54 @@ public class WebSocketManager : MonoBehaviour
                     if (!string.IsNullOrEmpty(message))
                     {
                         Debug.Log("서버로부터 메시지 수신: " + message);
+                        var jsonData = JsonConvert.DeserializeObject<Dictionary<string, object>>(message);
 
-                        // 수신한 메시지가 비어 있지 않으면 JSON 파싱 시도
-                        /*try
+                        try
                         {
-                            JsonResponseData responseData = JsonUtility.FromJson<JsonResponseData>(message);
-                            // JSON 파싱이 성공하면 이후 처리 수행
+                            if (jsonData.ContainsKey("greetingMessage"))
+                            {
+                                string greetingMessage = jsonData["greetingMessage"].ToString();
+                                Debug.Log(greetingMessage);
+                            }
+                            else if (jsonData.ContainsKey("hostReadyStatus"))
+                            {
+                                bool hostReadyStatus = Convert.ToBoolean(jsonData["hostReadyStatus"]);
+                                bool entrantReadyStatus = Convert.ToBoolean(jsonData["entrantReadyStatus"]);
+                                string matchStatus = Convert.ToString(jsonData["matchStatus"]);
+                                
+                                if(UserDataManager.Instance.UserId==UserDataManager.Instance.HostId)
+                                {
+                                    UserDataManager.Instance.IsReady = hostReadyStatus;
+                                    UserDataManager.Instance.OpponentIsReady = entrantReadyStatus;
+                                }
+                                else
+                                {
+                                    UserDataManager.Instance.IsReady = entrantReadyStatus;
+                                    UserDataManager.Instance.OpponentIsReady = hostReadyStatus;
+                                }
+                                UserDataManager.Instance.MatchStatus = (MatchStatus)Enum.Parse(typeof(MatchStatus), matchStatus);
+                            }
+                            else if (jsonData.ContainsKey("hostTotalStat"))
+                            {
+                                // start 응답
+                            }
+                            else if (jsonData.ContainsKey("isGameOver"))
+                            {
+                                // turn 응답
+                            }
+                            else if (jsonData.ContainsKey("winnerType"))
+                            {
+                                // end와 surrender 응답
+                            }
+                            else if (jsonData.ContainsKey("playerType"))
+                            {
+                                // quit 응답
+                            }
                         }
                         catch (Exception ex)
                         {
                             Debug.LogError("JSON 파싱 오류: " + ex.Message);
-                        }*/
+                        }
                     }
                     else
                     {
@@ -132,7 +171,7 @@ public class WebSocketManager : MonoBehaviour
     }
 }
 [Serializable]
-public class GreetingJson
+public class RequestJson
 {
     public string command;
     public long matchId;

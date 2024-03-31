@@ -44,6 +44,15 @@ public class Ingame : MonoBehaviour
             startBtn.interactable = false;
             startBtn.gameObject.SetActive(false);
         }
+
+        if (UserDataManager.Instance.MatchStatus == MatchStatus.READY || UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)
+        {
+            quitBtn.interactable = false;
+        }
+        else
+        {
+            quitBtn.interactable = true;
+        }
     }
     public void ReadyBtn()
     {
@@ -68,10 +77,30 @@ public class Ingame : MonoBehaviour
     {
         Turn(skillId);
     }
+    public void QuitBtn()
+    {
+        if(UserDataManager.Instance.MatchStatus == MatchStatus.READY)
+        {
+            Debug.LogWarning("Ready를 해제해주십시오.");
+        }
+        else if (UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)
+        {
+            Debug.LogWarning("게임이 진행중입니다. 나가고 싶으시면 항복 버튼을 누르십시오.");
+        }
+        else
+        {
+            Quit();
+        }
+    }
+
+    public void SurrenderBtn()
+    {
+        Surrender();
+    }
 
     async void Greeting()
     {
-        GreetingJson requestData = new GreetingJson();
+        RequestJson requestData = new RequestJson();
         requestData.command = "GREETING";
         requestData.matchId = UserDataManager.Instance.MatchRoomID;
         EmptyRequest emptyRequest = new EmptyRequest();
@@ -108,5 +137,34 @@ public class Ingame : MonoBehaviour
         await webSocketManager.SendJsonRequest(requestData);
     }
 
+    async void End()
+    {
+        RequestJson requestData = new RequestJson();
+        requestData.command = "END_GAME";
+        requestData.matchId = UserDataManager.Instance.MatchRoomID;
+        EmptyRequest emptyRequest = new EmptyRequest();
+        requestData.request = emptyRequest;
+        await webSocketManager.SendJsonRequest(requestData);
+    }
 
+    async void Surrender()
+    {
+        RequestJson requestData = new RequestJson();
+        requestData.command = "SURRENDER_GAME";
+        requestData.matchId = UserDataManager.Instance.MatchRoomID;
+        EmptyRequest emptyRequest = new EmptyRequest();
+        requestData.request = emptyRequest;
+        await webSocketManager.SendJsonRequest(requestData);
+    }
+
+    async void Quit()
+    {
+        RequestJson requestData = new RequestJson();
+        requestData.command = "QUIT_GAME";
+        requestData.matchId = UserDataManager.Instance.MatchRoomID;
+        EmptyRequest emptyRequest = new EmptyRequest();
+        requestData.request = emptyRequest;
+        await webSocketManager.SendJsonRequest(requestData);
+        await webSocketManager.DisconnectWebSocket();
+    }
 }
