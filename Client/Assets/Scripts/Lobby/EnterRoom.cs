@@ -32,6 +32,14 @@ public class EnterRoom : MonoBehaviour
             if (www.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponse = www.downloadHandler.text;
+                RoomId room = JsonUtility.FromJson<RoomId>(jsonResponse);
+
+                UserDataManager.Instance.MatchRoomID = room.matchRoomId;
+                UserDataManager.Instance.HostId = room.hostId;
+                UserDataManager.Instance.EntrantId = room.entrantId;
+                UserDataManager.Instance.MatchStatus = room.matchStatus;
+                UserDataManager.Instance.StakeGold = room.stakeGold;
+
                 UserDataManager.Instance.RoomListInfo.Clear();
                 //Response Body → 200 응답 시 참여 완료 처리 / 참여 불가능 할 경우 예외(403 or 404) return 함
                 SceneController.LoadScene(Scenes.Ingame.ToString());
