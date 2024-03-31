@@ -16,6 +16,11 @@ public class Ingame : MonoBehaviour
     private WebSocketManager webSocketManager;
     private async void Start()
     {
+        startBtn.interactable = false;
+
+        surrenderBtn.interactable = false;
+        surrenderBtn.gameObject.SetActive(false);
+
         webSocketManager = WebSocketManager.Instance;
 
         Uri serverUri = new Uri(GameURL.DBServer.PlayURL);
@@ -27,12 +32,17 @@ public class Ingame : MonoBehaviour
     }
     private async void Update()
     {
-        if (UserDataManager.Instance.IsReady)
+        if (UserDataManager.Instance.IsReady && UserDataManager.Instance.OpponentIsReady && UserDataManager.Instance.RoomInfo.hostId == UserDataManager.Instance.UserId)
         {
-            if (UserDataManager.Instance.IsReady == UserDataManager.Instance.OpponentIsReady)
-            {
-                startBtn.interactable = true;
-            }
+            startBtn.interactable = true;
+        }
+
+        if (UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS || UserDataManager.Instance.MatchStatus == MatchStatus.FINISHED)
+        {
+            surrenderBtn.gameObject.SetActive(true);
+            surrenderBtn.interactable = true;
+            startBtn.interactable = false;
+            startBtn.gameObject.SetActive(false);
         }
     }
     public void ReadyBtn()
