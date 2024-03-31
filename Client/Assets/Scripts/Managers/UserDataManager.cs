@@ -21,7 +21,7 @@ public class UserDataManager : MonoBehaviour
 
     private long _userId;
     private long _characterId;
-    private long _matchRoomId = 49;
+    private long _matchRoomId;
     private long _hostId;
     private long _entrantId;
     private MatchStatus _matchStatus;
@@ -33,6 +33,9 @@ public class UserDataManager : MonoBehaviour
 
     private CONTENT_TYPE _roomInfo;
     private List<CONTENT_TYPE> _roomListInfo;
+    /////////////INGAME///////////////
+    private bool _isReady = false;
+    private bool _isPlaying = false;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -47,6 +50,18 @@ public class UserDataManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public bool IsPlaying
+    {
+        get { return _isPlaying; }
+        set { _isPlaying = value; }
+    }
+
+    public bool IsReady
+    {
+        get { return _isReady; }
+        set { _isReady = value; }
     }
 
     public List<CONTENT_TYPE> RoomListInfo
