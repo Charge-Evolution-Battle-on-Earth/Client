@@ -192,7 +192,7 @@ public class CONTENT_TYPE
 {
     public long matchRoomId;
     public long hostId;
-    public long? entrantId;
+    public long? entrantId;//?를 사용하면 null값이어도 됨
     public MatchStatus matchStatus { get; set; }
     public int stakeGold;
 }
