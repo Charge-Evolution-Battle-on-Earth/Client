@@ -15,10 +15,28 @@ public class ShopButtonHandler : MonoBehaviour
     public TMP_Text itemDescriptionText;
     private string shopItemList;
     public Button purchaseButton;
+    public GameObject[] itemPrefabs; // 프리팹들을 저장할 배열
+
+    private Dictionary<string, string> itemPrefabMap = new Dictionary<string, string>();
 
     private void Start()
     {
         purchaseButton.interactable = false;
+        itemPrefabMap["누비지갑"] = "누비지갑";
+        itemPrefabMap["두정갑"] = "두정갑";
+        itemPrefabMap["로리카 세그멘타타"] = "로리카 세그멘타타";
+        itemPrefabMap["리노토락스"] = "리노토락스";
+        itemPrefabMap["면제배갑"] = "면제배갑";
+        itemPrefabMap["미늘갑"] = "미늘갑";
+        itemPrefabMap["산문갑"] = "산문갑";
+        itemPrefabMap["석갑"] = "석갑";
+        itemPrefabMap["찰갑"] = "찰갑";
+        itemPrefabMap["탄코"] = "탄코";
+        itemPrefabMap["토세이쿠소쿠"] = "토세이쿠소쿠";
+        itemPrefabMap["풀 플레이트 아머"] = "풀 플레이트 아머";
+        itemPrefabMap["피갑"] = "피갑";
+        itemPrefabMap["청동흉갑"] = "청동흉갑";
+        itemPrefabMap["크럭흉갑"] = "크럭흉갑";
     }
 
     public void OnButtonClick(string itemType)
@@ -67,22 +85,25 @@ public class ShopButtonHandler : MonoBehaviour
         // 새로운 목록 UI 생성
         foreach (var item in itemList)
         {
-            // itemPrefab과 contentPanel이 null이 아닌지 확인하기 위한 디버그 문
-            //Debug.Log(item.itemNm + "에 대한 아이템 UI 생성 중.");
+            /*if (itemPrefabMap.ContainsKey(item.itemNm))
+            {*/
+                //string prefabName = itemPrefabMap[item.itemNm];
 
-            // 아이템 프리팹을 복제하여 Content 패널의 자식으로 추가
-            GameObject newItem = Instantiate(itemPrefab, contentPanel);
-            ItemUIHandler itemUIHandler = newItem.GetComponent<ItemUIHandler>();
+                // 아이템 프리팹을 복제하여 Content 패널의 자식으로 추가
+                GameObject newItem = Instantiate(itemPrefab, contentPanel);
+                //GameObject newItem = Instantiate(Resources.Load<GameObject>($"Prefabs/Shop/Armor/{prefabName}"), contentPanel);
+                ItemUIHandler itemUIHandler = newItem.GetComponent<ItemUIHandler>();
 
-            if (itemUIHandler != null)
-            {
-                // 아이템 정보 설정
-                itemUIHandler.SetItemInfo(item);
-            }
-            else
-            {
-                Debug.LogError("인스턴스화된 아이템 프리팹에서 ItemUIHandler 구성 요소를 찾을 수 없습니다.");
-            }
+                if (itemUIHandler != null)
+                {
+                    // 아이템 정보 설정
+                    itemUIHandler.SetItemInfo(item);
+                }
+                else
+                {
+                    Debug.LogError("인스턴스화된 아이템 프리팹에서 ItemUIHandler 구성 요소를 찾을 수 없습니다.");
+                }
+            //}
         }
     }
 
@@ -115,6 +136,7 @@ namespace Shop
         public Stat stat; // Stat 클래스에 Shop 네임스페이스 추가 후 사용
         public string description;
         public long characterItemId;
+        public Image image;
     }
 
     [System.Serializable]
