@@ -32,7 +32,7 @@ public class UserDataManager : MonoBehaviour
     private long _itemTypeId;
 
     private CONTENT_TYPE _roomInfo;
-    private List<CONTENT_TYPE> _roomListInfo;
+    private List<CONTENT_TYPE> _roomListInfo = new List<CONTENT_TYPE>();
     /////////////INGAME///////////////
     private bool _isReady = false;
     private bool _opponentIsReady = false;

@@ -20,10 +20,13 @@ public class CombinedScrollManager : MonoBehaviour
 
     void Start()
     {
-        //ScrollRect scrollRect = GetComponent<ScrollRect>();
+        if (UserDataManager.Instance.RoomListInfo.Count > 0)
+        {
+            UserDataManager.Instance.RoomListInfo.Clear();
+        }
+
         if (scrollRect != null)
         {
-            // ScrollRect의 onValueChanged 이벤트에 OnScrollValueChanged 메서드를 등록
             scrollRect.onValueChanged.AddListener(OnScrollValueChanged);
         }
         else
