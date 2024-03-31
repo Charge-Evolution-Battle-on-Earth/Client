@@ -192,7 +192,7 @@ public class CONTENT_TYPE
 {
     public long matchRoomId;
     public long hostId;
-    public long entrantId;
+    public long? entrantId;
     public MatchStatus matchStatus { get; set; }
     public int stakeGold;
 }
