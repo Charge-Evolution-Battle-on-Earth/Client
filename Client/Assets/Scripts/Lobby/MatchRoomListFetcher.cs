@@ -15,7 +15,7 @@ public class CombinedScrollManager : MonoBehaviour
     public TMP_Text selectedRoomInfo;
 
     private int itemsPerPage = 10; // 한 페이지에 표시될 아이템 개수
-    private int currentPage = 1;
+    private int currentPage = 0;
     private bool isLoading = false;
 
     void Start()
@@ -54,7 +54,7 @@ public class CombinedScrollManager : MonoBehaviour
             if (www.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponse = www.downloadHandler.text;
-                Slice sliceResponse = JsonUtility.FromJson<Slice>(jsonResponse);
+                Slice sliceResponse = JsonConvert.DeserializeObject<Slice>(jsonResponse);
 
                 if (sliceResponse.size > 0)
                 {
@@ -91,7 +91,7 @@ public class CombinedScrollManager : MonoBehaviour
     {
         ClearUI();
         UserDataManager.Instance.RoomListInfo.Clear();
-        currentPage = 1;
+        currentPage = 0;
         StartCoroutine(FetchMatchRoomList(currentPage));
     }
 
@@ -117,7 +117,7 @@ public class CombinedScrollManager : MonoBehaviour
             float y = -i * listItemHeight - listItemHeight / 2;
 
             listItem.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
-            listItem.GetComponentInChildren<TMP_Text>().text = $"방 상태: {room.matchStatus}\t방 번호: {room.matchRoomId}";
+            listItem.GetComponentInChildren<TMP_Text>().text = $"방 상태: {room.matchStatus.ToString()}\t방 번호: {room.matchRoomId}";
 
             // 버튼에 클릭 이벤트 추가
             listItem.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(room));
@@ -154,7 +154,7 @@ public class CombinedScrollManager : MonoBehaviour
 [System.Serializable]
 public class Slice
 {
-    public List<CONTENT_TYPE> content;
+    public List<CONTENT_TYPE> content = new List<CONTENT_TYPE>();
     public Pageable pageable;
     public int size;
     public int number;
@@ -190,7 +190,7 @@ public class CONTENT_TYPE
     public long matchRoomId;
     public long hostId;
     public long entrantId;
-    public MatchStatus matchStatus;
+    public MatchStatus matchStatus { get; set; }
     public int stakeGold;
 }
 
@@ -200,5 +200,5 @@ public enum MatchStatus
     WAITING,
     READY,
     IN_PROGRESS,
-    FINISHED
+    FINISHED,
 }
