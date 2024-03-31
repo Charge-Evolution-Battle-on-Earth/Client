@@ -82,29 +82,45 @@ public class WebSocketManager : MonoBehaviour
         }
     }
 
-    private async Task ReceiveMessages()
+    async Task ReceiveMessages()
     {
         try
         {
             byte[] buffer = new byte[1024];
-            WebSocketReceiveResult result;
             while (ws != null && ws.State == WebSocketState.Open)
             {
-                result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-                string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                Debug.Log("서버로부터 메시지 수신: " + message);
+                WebSocketReceiveResult result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                if (result.MessageType == WebSocketMessageType.Text)
+                {
+                    string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                    if (!string.IsNullOrEmpty(message))
+                    {
+                        Debug.Log("서버로부터 메시지 수신: " + message);
 
-                // 받은 JSON 데이터를 JsonResponseData 객체로 역직렬화하여 필요한 작업 수행
-                JsonResponseData responseData = JsonUtility.FromJson<JsonResponseData>(message);
-                // 받은 응답 데이터 처리
+                        // 수신한 메시지가 비어 있지 않으면 JSON 파싱 시도
+                        /*try
+                        {
+                            JsonResponseData responseData = JsonUtility.FromJson<JsonResponseData>(message);
+                            // JSON 파싱이 성공하면 이후 처리 수행
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.LogError("JSON 파싱 오류: " + ex.Message);
+                        }*/
+                    }
+                    else
+                    {
+                        Debug.LogWarning("수신한 메시지가 비어 있습니다.");
+                    }
+                }
             }
-
         }
         catch (Exception ex)
         {
             Debug.LogError("메시지 수신 중 오류 발생: " + ex.Message);
         }
     }
+
 
     public async Task DisconnectWebSocket()
     {
@@ -115,16 +131,47 @@ public class WebSocketManager : MonoBehaviour
         }
     }
 }
-
 [Serializable]
-public class JsonRequestData
+public class GreetingJson
 {
     public string command;
     public long matchId;
+    public EmptyRequest request = new EmptyRequest();
 }
-
 [Serializable]
-public class JsonResponseData
+public class EmptyRequest
 {
-    public string greetingMessage;
+
+}
+[Serializable]
+public class ReadyJson
+{
+    public string command;
+    public long matchId;
+    public ReadyRequest request = new ReadyRequest();
+}
+[Serializable]
+public class ReadyRequest
+{
+    public bool selfReadyStatus;
+    public bool opponentReadyStatus;
+}
+[Serializable]
+public class StartJson
+{
+    public string command;
+    public long matchId;
+    public EmptyRequest request = new EmptyRequest();
+}
+[Serializable]
+public class TurnJson
+{
+    public string command;
+    public long matchId;
+    public TurnRequest request = new TurnRequest();
+}
+[Serializable]
+public class TurnRequest
+{
+    public long skillId;
 }
