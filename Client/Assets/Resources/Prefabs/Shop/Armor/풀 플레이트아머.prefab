@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 5011372311220861188}
   - component: {fileID: 4511203475499085118}
   m_Layer: 5
-  m_Name: "\uD1A0\uC138\uC774\uCFE0\uC18C\uCFE0"
+  m_Name: "\uD480 \uD50C\uB808\uC774\uD2B8\uC544\uBA38"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 58755abd425afda4e98398452599cf1a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0183b5877f312f74c8d62a5bcf54d077, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
