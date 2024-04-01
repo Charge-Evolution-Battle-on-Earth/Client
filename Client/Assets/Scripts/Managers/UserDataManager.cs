@@ -34,8 +34,8 @@ public class UserDataManager : MonoBehaviour
     private CONTENT_TYPE _roomInfo;
     private List<CONTENT_TYPE> _roomListInfo = new List<CONTENT_TYPE>();
     /////////////INGAME///////////////
-    private bool _isReady = false;
-    private bool _opponentIsReady = false;
+    private bool _hostReady = false;
+    private bool _entrantReady = false;
     private bool _isPlaying = false;
 
     // Singleton 인스턴스 생성
@@ -53,10 +53,10 @@ public class UserDataManager : MonoBehaviour
         }
     }
 
-    public bool OpponentIsReady
+    public bool EntrantReady
     {
-        get { return _opponentIsReady; }
-        set { _opponentIsReady = value; }
+        get { return _entrantReady; }
+        set { _entrantReady = value; }
     }
 
     public bool IsPlaying
@@ -65,10 +65,10 @@ public class UserDataManager : MonoBehaviour
         set { _isPlaying = value; }
     }
 
-    public bool IsReady
+    public bool HostReady
     {
-        get { return _isReady; }
-        set { _isReady = value; }
+        get { return _hostReady; }
+        set { _hostReady = value; }
     }
 
     public List<CONTENT_TYPE> RoomListInfo

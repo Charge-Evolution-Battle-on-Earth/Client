@@ -115,13 +115,13 @@ public class WebSocketManager : MonoBehaviour
                                 
                                 if(UserDataManager.Instance.UserId==UserDataManager.Instance.HostId)
                                 {
-                                    UserDataManager.Instance.IsReady = hostReadyStatus;
-                                    UserDataManager.Instance.OpponentIsReady = entrantReadyStatus;
+                                    UserDataManager.Instance.HostReady = hostReadyStatus;
+                                    UserDataManager.Instance.EntrantReady = entrantReadyStatus;
                                 }
                                 else
                                 {
-                                    UserDataManager.Instance.IsReady = entrantReadyStatus;
-                                    UserDataManager.Instance.OpponentIsReady = hostReadyStatus;
+                                    UserDataManager.Instance.HostReady = entrantReadyStatus;
+                                    UserDataManager.Instance.EntrantReady = hostReadyStatus;
                                 }
                                 UserDataManager.Instance.MatchStatus = (MatchStatus)Enum.Parse(typeof(MatchStatus), matchStatus);
                             }
@@ -192,8 +192,8 @@ public class ReadyJson
 [Serializable]
 public class ReadyRequest
 {
-    public bool selfReadyStatus;
-    public bool opponentReadyStatus;
+    public bool hostReadyStatus;
+    public bool entrantReadyStatus;
 }
 [Serializable]
 public class StartJson

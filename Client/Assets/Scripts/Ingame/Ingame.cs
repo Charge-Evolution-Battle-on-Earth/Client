@@ -32,7 +32,7 @@ public class Ingame : MonoBehaviour
     }
     private async void Update()
     {
-        if (UserDataManager.Instance.IsReady && UserDataManager.Instance.OpponentIsReady && UserDataManager.Instance.RoomInfo.hostId == UserDataManager.Instance.UserId)
+        if (UserDataManager.Instance.HostReady && UserDataManager.Instance.EntrantReady && UserDataManager.Instance.RoomInfo.hostId == UserDataManager.Instance.UserId)
         {
             startBtn.interactable = true;
         }
@@ -56,13 +56,13 @@ public class Ingame : MonoBehaviour
     }
     public void ReadyBtn()
     {
-        if (UserDataManager.Instance.IsReady)
+        if (UserDataManager.Instance.HostReady)
         {
-            UserDataManager.Instance.IsReady = false;
+            UserDataManager.Instance.HostReady = false;
         }
         else
         {
-            UserDataManager.Instance.IsReady = true;
+            UserDataManager.Instance.HostReady = true;
         }
 
         Ready();
@@ -113,8 +113,8 @@ public class Ingame : MonoBehaviour
         ReadyJson requestData = new ReadyJson();
         requestData.command = "READY";
         requestData.matchId = UserDataManager.Instance.MatchRoomID;
-        requestData.request.selfReadyStatus = UserDataManager.Instance.IsReady;
-        requestData.request.opponentReadyStatus = UserDataManager.Instance.OpponentIsReady;
+        requestData.request.hostReadyStatus = UserDataManager.Instance.HostReady;
+        requestData.request.entrantReadyStatus = UserDataManager.Instance.EntrantReady;
         await webSocketManager.SendJsonRequest(requestData);
     }
 
