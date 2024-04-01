@@ -30,6 +30,7 @@ public class ItemUIHandler : MonoBehaviour
 
     public void OnButtonClick()
     {
+        ImageOpaque();
         UserDataManager.Instance.ClickedItemId = item.itemId;
         Image clickedImage = GetComponent<Image>();
         itemImage.sprite = clickedImage.sprite;
@@ -41,6 +42,7 @@ public class ItemUIHandler : MonoBehaviour
 
     public void purchaseOnButtonClick()
     {
+        ImageTransparency();
         StartCoroutine(BuyItem());
     }
     IEnumerator BuyItem()
@@ -75,6 +77,23 @@ public class ItemUIHandler : MonoBehaviour
                 Debug.LogError("구매에 실패했습니다.");
             }
         }
+    }
+
+    void ImageTransparency()
+    {
+        Color color = new Color();
+        color.a = 0f;
+        itemImage.color = color;
+    }
+
+    void ImageOpaque()
+    {
+        Color color = new Color();
+        color.a = 1f;
+        color.r = 1f;
+        color.g = 1f;
+        color.b = 1f;
+        itemImage.color = color;
     }
 }
 

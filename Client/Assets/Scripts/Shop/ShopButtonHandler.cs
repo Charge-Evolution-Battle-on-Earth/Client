@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 public class ShopButtonHandler : MonoBehaviour
 {
+    public Image itemImage;
     public GameObject itemPrefab; // 아이템 프리팹
     public Transform contentPanel; // Scroll View의 Content 부분
     public TMP_Text itemNameText;
@@ -19,9 +20,9 @@ public class ShopButtonHandler : MonoBehaviour
     public GameObject[] itemPrefabs; // 프리팹들을 저장할 배열
 
     private Dictionary<string, string> itemPrefabMap = new Dictionary<string, string>();
-
     private void Start()
     {
+        ImageTransparency();
         purchaseButton.interactable = false;
         itemPrefabMap["누비지갑"] = "누비지갑";
         itemPrefabMap["두정갑"] = "두정갑";
@@ -43,7 +44,6 @@ public class ShopButtonHandler : MonoBehaviour
     public void OnButtonClick(string itemType)
     {
         shopItemList = $"/items/{itemType}/{UserDataManager.Instance.LevelId}/{UserDataManager.Instance.JobId}";
-
         ClearItemList();
 
         StartCoroutine(GetItems());
@@ -110,6 +110,7 @@ public class ShopButtonHandler : MonoBehaviour
 
     void ClearItemList()
     {
+        ImageTransparency();
         itemNameText.text = "";
         itemStatText.text = "";
         itemDescriptionText.text = "";
@@ -120,6 +121,13 @@ public class ShopButtonHandler : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+    
+    void ImageTransparency()
+    {
+        Color color = new Color();
+        color.a = 0f;
+        itemImage.color = color;
     }
 }
 
