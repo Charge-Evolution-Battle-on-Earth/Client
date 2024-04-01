@@ -214,3 +214,9 @@ public class TurnRequest
 {
     public long skillId;
 }
+[Serializable]
+public enum PlayerType 
+{
+    CREATOR,
+    ENTRANT
+}

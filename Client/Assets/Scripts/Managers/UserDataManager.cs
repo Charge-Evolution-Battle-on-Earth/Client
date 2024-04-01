@@ -37,6 +37,7 @@ public class UserDataManager : MonoBehaviour
     private bool _hostReady = false;
     private bool _entrantReady = false;
     private bool _isPlaying = false;
+    private PlayerType _playerType;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -51,6 +52,12 @@ public class UserDataManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public PlayerType PlayerType
+    {
+        get { return _playerType; }
+        set { _playerType = value; }
     }
 
     public bool EntrantReady
