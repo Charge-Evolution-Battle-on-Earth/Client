@@ -31,6 +31,8 @@ public class ItemUIHandler : MonoBehaviour
     public void OnButtonClick()
     {
         UserDataManager.Instance.ClickedItemId = item.itemId;
+        Image clickedImage = GetComponent<Image>();
+        itemImage.sprite = clickedImage.sprite;
         itemNameText.text = item.itemNm;
         itemStatText.text = $"HP: {item.stat.hp}\tMP: {item.stat.mp}\nATK: {item.stat.atk}\tSPD: {item.stat.spd}";
         itemDescriptionText.text = item.description;

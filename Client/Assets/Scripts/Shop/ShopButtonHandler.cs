@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using Newtonsoft.Json;
@@ -61,7 +62,7 @@ public class ShopButtonHandler : MonoBehaviour
             if (www.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponse = www.downloadHandler.text;
-                //Debug.Log(jsonResponse);
+
                 List<Shop.ShopItemGetResponse> itemList = JsonConvert.DeserializeObject<List<Shop.ShopItemGetResponse>>(jsonResponse);
 
                 AddItemsToUI(itemList);
@@ -85,13 +86,13 @@ public class ShopButtonHandler : MonoBehaviour
         // 새로운 목록 UI 생성
         foreach (var item in itemList)
         {
-            /*if (itemPrefabMap.ContainsKey(item.itemNm))
-            {*/
-                //string prefabName = itemPrefabMap[item.itemNm];
+            if (itemPrefabMap.ContainsKey(item.itemNm))
+            {
+                string prefabName = itemPrefabMap[item.itemNm];
 
                 // 아이템 프리팹을 복제하여 Content 패널의 자식으로 추가
-                GameObject newItem = Instantiate(itemPrefab, contentPanel);
-                //GameObject newItem = Instantiate(Resources.Load<GameObject>($"Prefabs/Shop/Armor/{prefabName}"), contentPanel);
+                GameObject newItem = Instantiate(itemPrefabs.FirstOrDefault(item => item.name == prefabName), contentPanel);
+
                 ItemUIHandler itemUIHandler = newItem.GetComponent<ItemUIHandler>();
 
                 if (itemUIHandler != null)
@@ -103,7 +104,7 @@ public class ShopButtonHandler : MonoBehaviour
                 {
                     Debug.LogError("인스턴스화된 아이템 프리팹에서 ItemUIHandler 구성 요소를 찾을 수 없습니다.");
                 }
-            //}
+            }
         }
     }
 
