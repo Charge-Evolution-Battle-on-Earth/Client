@@ -130,12 +130,68 @@ public class WebSocketManager : MonoBehaviour
 
                                 UserDataManager.Instance.HostReady = hostReadyStatus;
                                 UserDataManager.Instance.EntrantReady = entrantReadyStatus;
-
                                 UserDataManager.Instance.MatchStatus = (MatchStatus)Enum.Parse(typeof(MatchStatus), matchStatus);
                             }
                             else if (jsonData.ContainsKey("hostTotalStat"))
                             {
                                 // start ¿¿¥‰
+                                var hostTotalStatData = jsonData["hostTotalStat"] as Dictionary<string, object>;
+                                Stat hostTotalStat = new Stat();
+                                hostTotalStat.hp = Convert.ToInt32(hostTotalStatData["hp"]);
+                                hostTotalStat.atk = Convert.ToInt32(hostTotalStatData["atk"]);
+                                hostTotalStat.mp = Convert.ToInt32(hostTotalStatData["mp"]);
+                                hostTotalStat.spd = Convert.ToInt32(hostTotalStatData["spd"]);
+                                UserDataManager.Instance.HostTotalStat = hostTotalStat;
+
+                                var entrantTotalStatData = jsonData["entrantTotalStat"] as Dictionary<string, object>;
+                                Stat entrantTotalStat = new Stat();
+                                entrantTotalStat.hp = Convert.ToInt32(entrantTotalStatData["hp"]);
+                                entrantTotalStat.atk = Convert.ToInt32(entrantTotalStatData["atk"]);
+                                entrantTotalStat.mp = Convert.ToInt32(entrantTotalStatData["mp"]);
+                                entrantTotalStat.spd = Convert.ToInt32(entrantTotalStatData["spd"]);
+                                UserDataManager.Instance.EntrantTotalStat = entrantTotalStat;
+
+                                var hostSkillListData = jsonData["hostSkillList"] as List<Dictionary<string, object>>;
+                                List<CharacterSkillGetResponse> hostSkillList = new List<CharacterSkillGetResponse>();
+                                foreach (var skillData in hostSkillListData)
+                                {
+                                    CharacterSkillGetResponse skill = new CharacterSkillGetResponse();
+                                    skill.skillId = Convert.ToInt64(skillData["skillId"]);
+
+                                    skill.skillNm = skillData["skillNm"].ToString();
+                                    skill.description = skillData["description"].ToString();
+
+                                    hostSkillList.Add(skill);
+                                }
+                                UserDataManager.Instance.HostSkillList = hostSkillList;
+
+                                var entrantSkillListData = jsonData["entrantSkillList"] as List<Dictionary<string, object>>;
+                                List<CharacterSkillGetResponse> entrantSkillList = new List<CharacterSkillGetResponse>();
+                                foreach (var skillData in entrantSkillListData)
+                                {
+                                    CharacterSkillGetResponse skill = new CharacterSkillGetResponse();
+                                    skill.skillId = Convert.ToInt64(skillData["skillId"]);
+
+                                    skill.skillNm = skillData["skillNm"].ToString();
+                                    skill.description = skillData["description"].ToString();
+
+                                    entrantSkillList.Add(skill);
+                                }
+                                UserDataManager.Instance.EntrantSkillList = entrantSkillList;
+
+                                string tOwner = Convert.ToString(jsonData["turnOwner"]);
+                                PlayerType turnOwner = new PlayerType();
+                                turnOwner = (PlayerType)Enum.Parse(typeof(PlayerType), tOwner);
+                                UserDataManager.Instance.TurnOwner = turnOwner;
+
+                                string mStatus = Convert.ToString(jsonData["matchStatus"]);
+                                MatchStatus matchStatus = new MatchStatus();
+                                matchStatus = (MatchStatus)Enum.Parse(typeof(MatchStatus), mStatus);
+                                UserDataManager.Instance.MatchStatus = matchStatus;
+
+                                string msg = Convert.ToString(jsonData["message"]);
+
+                                Debug.Log(msg);
                             }
                             else if (jsonData.ContainsKey("isGameOver"))
                             {
@@ -158,6 +214,8 @@ public class WebSocketManager : MonoBehaviour
                                 int winnerTotalExp = Convert.ToInt32(jsonData["winnerTotalExp"]);
                                 int loserTotalExp = Convert.ToInt32(jsonData["loserTotalExp"]);
                                 string msg = Convert.ToString(jsonData["message"]);
+
+                                Debug.Log(msg);
                             }
                             else if (jsonData.ContainsKey("playerType"))
                             {
@@ -252,4 +310,11 @@ public enum PlayerType
 {
     CREATOR,
     ENTRANT
+}
+[Serializable]
+public class CharacterSkillGetResponse
+{
+    public long skillId;
+    public string skillNm;
+    public string description;
 }

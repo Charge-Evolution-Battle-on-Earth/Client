@@ -24,7 +24,6 @@ public class UserDataManager : MonoBehaviour
     private long _matchRoomId;
     private long _hostId;
     private long _entrantId;
-    private MatchStatus _matchStatus;
     private int _stakeGold;
 
     private long _clickedItemId;
@@ -39,6 +38,12 @@ public class UserDataManager : MonoBehaviour
     private bool _entrantReady = false;
     private bool _isPlaying = false;
     private PlayerType _playerType;
+    private Stat _hostTotalStat;
+    private Stat _entrantTotalStat;
+    private List<CharacterSkillGetResponse> _hostSkillList = new List<CharacterSkillGetResponse>();
+    private List<CharacterSkillGetResponse> _entrantSkillList = new List<CharacterSkillGetResponse>();
+    private PlayerType _turnOwner;
+    private MatchStatus _matchStatus;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -53,6 +58,36 @@ public class UserDataManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public List<CharacterSkillGetResponse> EntrantSkillList
+    {
+        get { return _entrantSkillList; }
+        set { _entrantSkillList = value; }
+    }
+
+    public List<CharacterSkillGetResponse> HostSkillList
+    {
+        get { return _hostSkillList; }
+        set { _hostSkillList = value; }
+    }
+
+    public PlayerType TurnOwner
+    {
+        get { return _turnOwner; }
+        set { _turnOwner = value; }
+    }
+
+    public Stat EntrantTotalStat
+    {
+        get { return _entrantTotalStat; }
+        set { _entrantTotalStat = value; }
+    }
+
+    public Stat HostTotalStat
+    {
+        get { return _hostTotalStat; }
+        set { _hostTotalStat = value; }
     }
 
     public bool ClearUI
