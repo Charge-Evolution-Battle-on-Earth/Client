@@ -13,9 +13,6 @@ public class InventoryItemUIHandler : MonoBehaviour
     public TMP_Text itemNameText;
     public TMP_Text itemStatText;
     public TMP_Text itemDescriptionText;
-    public Button equipBtn;
-    public Button sellBtn;
-    public Button unequipBtn;
 
     public TMP_Text MoneyText;
 
@@ -30,26 +27,12 @@ public class InventoryItemUIHandler : MonoBehaviour
 
     public void OnButtonClick()//아이템 선택
     {
-        ImageOpaque();
-        equipBtn.interactable = true;
-        sellBtn.interactable = true;
-        unequipBtn.interactable = true;
         UserDataManager.Instance.ClickedItemId = item.itemId;
         UserDataManager.Instance.CharacterItemId = item.characterItemId;
         UserDataManager.Instance.ItemTypeId = item.itemTypeId;
         itemNameText.text = item.itemNm;
         itemStatText.text = $"HP: {item.stat.hp}\tMP: {item.stat.mp}\nATK: {item.stat.atk}\tSPD: {item.stat.spd}";
         itemDescriptionText.text = item.description;
-    }
-
-    void ImageOpaque()
-    {
-        Color color = new Color();
-        color.a = 1f;
-        color.r = 1f;
-        color.g = 1f;
-        color.b = 1f;
-        itemImage.color = color;
     }
 }
 

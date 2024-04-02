@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
 using System.Collections;
 
-public class ShopItemUIHandler : MonoBehaviour
+public class ItemUIHandler : MonoBehaviour
 {
     public Image itemImage; // 아이템 이미지를 표시할 Image 컴포넌트
     public TMP_Text itemNameText_Prefab;
@@ -30,10 +30,7 @@ public class ShopItemUIHandler : MonoBehaviour
 
     public void OnButtonClick()
     {
-        ImageOpaque();
         UserDataManager.Instance.ClickedItemId = item.itemId;
-        Image clickedImage = GetComponent<Image>();
-        itemImage.sprite = clickedImage.sprite;
         itemNameText.text = item.itemNm;
         itemStatText.text = $"HP: {item.stat.hp}\tMP: {item.stat.mp}\nATK: {item.stat.atk}\tSPD: {item.stat.spd}";
         itemDescriptionText.text = item.description;
@@ -42,7 +39,6 @@ public class ShopItemUIHandler : MonoBehaviour
 
     public void purchaseOnButtonClick()
     {
-        ImageTransparency();
         StartCoroutine(BuyItem());
     }
     IEnumerator BuyItem()
@@ -77,23 +73,6 @@ public class ShopItemUIHandler : MonoBehaviour
                 Debug.LogError("구매에 실패했습니다.");
             }
         }
-    }
-
-    void ImageTransparency()
-    {
-        Color color = new Color();
-        color.a = 0f;
-        itemImage.color = color;
-    }
-
-    void ImageOpaque()
-    {
-        Color color = new Color();
-        color.a = 1f;
-        color.r = 1f;
-        color.g = 1f;
-        color.b = 1f;
-        itemImage.color = color;
     }
 }
 

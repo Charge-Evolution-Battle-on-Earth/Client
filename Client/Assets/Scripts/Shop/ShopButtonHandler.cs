@@ -2,14 +2,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
-using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using Newtonsoft.Json;
 
 public class ShopButtonHandler : MonoBehaviour
 {
-    public Image itemImage;
     public GameObject itemPrefab; // 아이템 프리팹
     public Transform contentPanel; // Scroll View의 Content 부분
     public TMP_Text itemNameText;
@@ -20,42 +18,31 @@ public class ShopButtonHandler : MonoBehaviour
     public GameObject[] itemPrefabs; // 프리팹들을 저장할 배열
 
     private Dictionary<string, string> itemPrefabMap = new Dictionary<string, string>();
+
     private void Start()
     {
-        ImageTransparency();
         purchaseButton.interactable = false;
-        // 갑옷
-        itemPrefabMap["누비지갑"] = "누비지갑"; itemPrefabMap["피갑"] = "피갑"; itemPrefabMap["석갑"] = "석갑";
-        itemPrefabMap["크럭흉갑"] = "크럭흉갑"; itemPrefabMap["리노토락스"] = "리노토락스"; itemPrefabMap["청동갑옷"] = "청동갑옷";
-        itemPrefabMap["면제배갑"] = "면제배갑"; itemPrefabMap["미늘갑"] = "미늘갑"; itemPrefabMap["탄코"] = "탄코";
-        itemPrefabMap["찰갑"] = "찰갑"; itemPrefabMap["산문갑"] = "산문갑"; itemPrefabMap["로리카 세그멘타타"] = "로리카 세그멘타타";
-        itemPrefabMap["두정갑"] = "두정갑"; itemPrefabMap["토세이구소쿠"] = "토세이구소쿠"; itemPrefabMap["풀 플레이트아머"] = "풀 플레이트아머";
-
-        // 전사 무기
-        itemPrefabMap["죽창"] = "죽창"; itemPrefabMap["당파창"] = "당파창"; itemPrefabMap["플랜지드메이스"] = "플랜지드메이스";
-        itemPrefabMap["편곤"] = "편곤"; itemPrefabMap["장창"] = "장창"; itemPrefabMap["토마호크"] = "토마호크";
-        itemPrefabMap["샴쉬르"] = "샴쉬르"; itemPrefabMap["금쇄봉"] = "금쇄봉"; itemPrefabMap["여포의 방천화극"] = "여포의 방천화극";
-        itemPrefabMap["카타나"] = "카타나"; itemPrefabMap["관우의 청룡언월도"] = "관우의 청룡언월도"; itemPrefabMap["할버드"] = "할버드";
-        itemPrefabMap["충무공의 장검"] = "충무공의 장검"; itemPrefabMap["글라디우스"] = "글라디우스"; itemPrefabMap["모노호시자오"] = "모노호시자오";
-
-        // 사수 무기
-        itemPrefabMap["바람총"] = "바람총"; itemPrefabMap["새총"] = "새총"; itemPrefabMap["투석구"] = "투석구";
-        itemPrefabMap["카이사르의 필룸"] = "카이사르의 필룸"; itemPrefabMap["와큐"] = "와큐"; itemPrefabMap["골각궁"] = "골각궁";
-        itemPrefabMap["쇠뇌"] = "쇠뇌"; itemPrefabMap["승자총통"] = "승자총통"; itemPrefabMap["죽궁"] = "죽궁";
-        itemPrefabMap["화승총"] = "화승총"; itemPrefabMap["제갈량의 연노"] = "제갈량의 연노"; itemPrefabMap["흑각궁"] = "흑각궁";
-        itemPrefabMap["대제의 플린트락머스킷"] = "대제의 플린트락머스킷"; itemPrefabMap["오오즈츠"] = "오오즈츠"; itemPrefabMap["이성계의 어궁구"] = "이성계의 어궁구";
-
-        // 성직자 무기
-        itemPrefabMap["청동방울"] = "청동방울"; itemPrefabMap["사인검"] = "사인검"; itemPrefabMap["엘레나의 성정"] = "엘레나의 성정";
-        itemPrefabMap["청동검"] = "청동검"; itemPrefabMap["롬바르디아 철관"] = "롬바르디아 철관"; itemPrefabMap["금제감장보검"] = "금제감장보검";
-        itemPrefabMap["발렌시아의 성배"] = "발렌시아의 성배"; itemPrefabMap["석장"] = "석장"; itemPrefabMap["성십자가"] = "성십자가";
-        itemPrefabMap["근초고왕의 칠지도"] = "근초고왕의 칠지도"; itemPrefabMap["금동대향로"] = "금동대향로"; itemPrefabMap["잔다르크의 반지"] = "잔다르크의 반지";
-        itemPrefabMap["사해문서"] = "사해문서"; itemPrefabMap["무구정광대다라니경"] = "무구정광대다라니경"; itemPrefabMap["쿠란"] = "쿠란";
+        itemPrefabMap["누비지갑"] = "누비지갑";
+        itemPrefabMap["두정갑"] = "두정갑";
+        itemPrefabMap["로리카 세그멘타타"] = "로리카 세그멘타타";
+        itemPrefabMap["리노토락스"] = "리노토락스";
+        itemPrefabMap["면제배갑"] = "면제배갑";
+        itemPrefabMap["미늘갑"] = "미늘갑";
+        itemPrefabMap["산문갑"] = "산문갑";
+        itemPrefabMap["석갑"] = "석갑";
+        itemPrefabMap["찰갑"] = "찰갑";
+        itemPrefabMap["탄코"] = "탄코";
+        itemPrefabMap["토세이쿠소쿠"] = "토세이쿠소쿠";
+        itemPrefabMap["풀 플레이트 아머"] = "풀 플레이트 아머";
+        itemPrefabMap["피갑"] = "피갑";
+        itemPrefabMap["청동흉갑"] = "청동흉갑";
+        itemPrefabMap["크럭흉갑"] = "크럭흉갑";
     }
 
     public void OnButtonClick(string itemType)
     {
         shopItemList = $"/items/{itemType}/{UserDataManager.Instance.LevelId}/{UserDataManager.Instance.JobId}";
+
         ClearItemList();
 
         StartCoroutine(GetItems());
@@ -74,7 +61,7 @@ public class ShopButtonHandler : MonoBehaviour
             if (www.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponse = www.downloadHandler.text;
-
+                //Debug.Log(jsonResponse);
                 List<Shop.ShopItemGetResponse> itemList = JsonConvert.DeserializeObject<List<Shop.ShopItemGetResponse>>(jsonResponse);
 
                 AddItemsToUI(itemList);
@@ -88,16 +75,24 @@ public class ShopButtonHandler : MonoBehaviour
 
     void AddItemsToUI(List<Shop.ShopItemGetResponse> itemList)
     {
+        // itemPrefab 및 contentPanel이 null이 아닌지 확인
+        if (itemPrefab == null || contentPanel == null)
+        {
+            Debug.LogError("itemPrefab 또는 contentPanel이 null입니다.");
+            return;
+        }
+
+        // 새로운 목록 UI 생성
         foreach (var item in itemList)
         {
-            if (itemPrefabMap.ContainsKey(item.itemNm))
-            {
-                string prefabName = itemPrefabMap[item.itemNm];
+            /*if (itemPrefabMap.ContainsKey(item.itemNm))
+            {*/
+                //string prefabName = itemPrefabMap[item.itemNm];
 
                 // 아이템 프리팹을 복제하여 Content 패널의 자식으로 추가
-                GameObject newItem = Instantiate(itemPrefabs.FirstOrDefault(item => item.name == prefabName), contentPanel);
-
-                ShopItemUIHandler itemUIHandler = newItem.GetComponent<ShopItemUIHandler>();
+                GameObject newItem = Instantiate(itemPrefab, contentPanel);
+                //GameObject newItem = Instantiate(Resources.Load<GameObject>($"Prefabs/Shop/Armor/{prefabName}"), contentPanel);
+                ItemUIHandler itemUIHandler = newItem.GetComponent<ItemUIHandler>();
 
                 if (itemUIHandler != null)
                 {
@@ -108,13 +103,12 @@ public class ShopButtonHandler : MonoBehaviour
                 {
                     Debug.LogError("인스턴스화된 아이템 프리팹에서 ItemUIHandler 구성 요소를 찾을 수 없습니다.");
                 }
-            }
+            //}
         }
     }
 
     void ClearItemList()
     {
-        ImageTransparency();
         itemNameText.text = "";
         itemStatText.text = "";
         itemDescriptionText.text = "";
@@ -125,13 +119,6 @@ public class ShopButtonHandler : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-    }
-    
-    void ImageTransparency()
-    {
-        Color color = new Color();
-        color.a = 0f;
-        itemImage.color = color;
     }
 }
 
