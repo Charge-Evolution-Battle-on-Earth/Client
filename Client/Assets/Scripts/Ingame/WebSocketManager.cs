@@ -151,6 +151,20 @@ public class WebSocketManager : MonoBehaviour
                             else if (jsonData.ContainsKey("winnerType"))
                             {
                                 // end¿Í surrender ÀÀ´ä
+                                string winnerType = Convert.ToString(jsonData["winnerType"]);
+                                string loserType = Convert.ToString(jsonData["loserType"]);
+                                PlayerType winner = new PlayerType();
+                                PlayerType loser = new PlayerType();
+                                winner = (PlayerType)Enum.Parse(typeof(PlayerType), winnerType);
+                                loser = (PlayerType)Enum.Parse(typeof(PlayerType), loserType);
+
+                                int winnerGold = Convert.ToInt32(jsonData["winnerGold"]);
+                                int loserGold = Convert.ToInt32(jsonData["loserGold"]);
+                                int winnerTotalGold = Convert.ToInt32(jsonData["winnerTotalGold"]);
+                                int loserTotalGold = Convert.ToInt32(jsonData["loserTotalGold"]);
+                                int winnerTotalExp = Convert.ToInt32(jsonData["winnerTotalExp"]);
+                                int loserTotalExp = Convert.ToInt32(jsonData["loserTotalExp"]);
+                                string msg = Convert.ToString(jsonData["message"]);
                             }
                             else if (jsonData.ContainsKey("playerType"))
                             {
