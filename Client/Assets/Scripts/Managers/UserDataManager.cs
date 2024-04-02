@@ -38,8 +38,8 @@ public class UserDataManager : MonoBehaviour
     private bool _entrantReady = false;
     private bool _isPlaying = false;
     private PlayerType _playerType;
-    private Stat _hostTotalStat;
-    private Stat _entrantTotalStat;
+    private Stat _hostStat;
+    private Stat _entrantStat;
     private List<CharacterSkillGetResponse> _hostSkillList = new List<CharacterSkillGetResponse>();
     private List<CharacterSkillGetResponse> _entrantSkillList = new List<CharacterSkillGetResponse>();
     private PlayerType _turnOwner;
@@ -78,16 +78,16 @@ public class UserDataManager : MonoBehaviour
         set { _turnOwner = value; }
     }
 
-    public Stat EntrantTotalStat
+    public Stat EntrantStat
     {
-        get { return _entrantTotalStat; }
-        set { _entrantTotalStat = value; }
+        get { return _entrantStat; }
+        set { _entrantStat = value; }
     }
 
-    public Stat HostTotalStat
+    public Stat HostStat
     {
-        get { return _hostTotalStat; }
-        set { _hostTotalStat = value; }
+        get { return _hostStat; }
+        set { _hostStat = value; }
     }
 
     public bool ClearUI

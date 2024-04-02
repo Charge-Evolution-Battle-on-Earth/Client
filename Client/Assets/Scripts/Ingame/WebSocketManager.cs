@@ -141,7 +141,7 @@ public class WebSocketManager : MonoBehaviour
                                 hostTotalStat.atk = Convert.ToInt32(hostTotalStatData["atk"]);
                                 hostTotalStat.mp = Convert.ToInt32(hostTotalStatData["mp"]);
                                 hostTotalStat.spd = Convert.ToInt32(hostTotalStatData["spd"]);
-                                UserDataManager.Instance.HostTotalStat = hostTotalStat;
+                                UserDataManager.Instance.HostStat = hostTotalStat;
 
                                 var entrantTotalStatData = jsonData["entrantTotalStat"] as Dictionary<string, object>;
                                 Stat entrantTotalStat = new Stat();
@@ -149,7 +149,7 @@ public class WebSocketManager : MonoBehaviour
                                 entrantTotalStat.atk = Convert.ToInt32(entrantTotalStatData["atk"]);
                                 entrantTotalStat.mp = Convert.ToInt32(entrantTotalStatData["mp"]);
                                 entrantTotalStat.spd = Convert.ToInt32(entrantTotalStatData["spd"]);
-                                UserDataManager.Instance.EntrantTotalStat = entrantTotalStat;
+                                UserDataManager.Instance.EntrantStat = entrantTotalStat;
 
                                 var hostSkillListData = jsonData["hostSkillList"] as List<Dictionary<string, object>>;
                                 List<CharacterSkillGetResponse> hostSkillList = new List<CharacterSkillGetResponse>();
@@ -196,6 +196,34 @@ public class WebSocketManager : MonoBehaviour
                             else if (jsonData.ContainsKey("isGameOver"))
                             {
                                 // turn ¿¿¥‰
+                                bool isGameOver = Convert.ToBoolean(jsonData["isGameOver"]);
+
+                                var hostStatData = jsonData["hostStat"] as Dictionary<string, object>;
+                                Stat hostStat = new Stat();
+                                hostStat.hp = Convert.ToInt32(hostStatData["hp"]);
+                                hostStat.atk = Convert.ToInt32(hostStatData["atk"]);
+                                hostStat.mp = Convert.ToInt32(hostStatData["mp"]);
+                                hostStat.spd = Convert.ToInt32(hostStatData["spd"]);
+                                UserDataManager.Instance.HostStat = hostStat;
+
+                                var entrantStatData = jsonData["entrantStat"] as Dictionary<string, object>;
+                                Stat entrantStat = new Stat();
+                                entrantStat.hp = Convert.ToInt32(entrantStatData["hp"]);
+                                entrantStat.atk = Convert.ToInt32(entrantStatData["atk"]);
+                                entrantStat.mp = Convert.ToInt32(entrantStatData["mp"]);
+                                entrantStat.spd = Convert.ToInt32(entrantStatData["spd"]);
+                                UserDataManager.Instance.EntrantStat = entrantStat;
+
+
+                                string tOwner = Convert.ToString(jsonData["turnOwner"]);
+                                PlayerType turnOwner = new PlayerType();
+                                turnOwner = (PlayerType)Enum.Parse(typeof(PlayerType), tOwner);
+                                UserDataManager.Instance.TurnOwner = turnOwner;
+
+                                string useSkillNm = Convert.ToString(jsonData["useSkillNm"]);
+                                string msg = Convert.ToString(jsonData["message"]);
+
+                                Debug.Log(msg);
                             }
                             else if (jsonData.ContainsKey("winnerType"))
                             {
