@@ -112,8 +112,16 @@ public class Ingame : MonoBehaviour
         ReadyJson requestData = new ReadyJson();
         requestData.command = "READY";
         requestData.matchId = UserDataManager.Instance.MatchRoomID;
-        requestData.request.hostReadyStatus = UserDataManager.Instance.HostReady;
-        requestData.request.entrantReadyStatus = UserDataManager.Instance.EntrantReady;
+        if(UserDataManager.Instance.UserId == UserDataManager.Instance.HostId)
+        {
+            requestData.request.hostReadyStatus = !UserDataManager.Instance.HostReady;
+            requestData.request.entrantReadyStatus = UserDataManager.Instance.EntrantReady;
+        }
+        else if(UserDataManager.Instance.UserId==UserDataManager.Instance.EntrantId)
+        {
+            requestData.request.hostReadyStatus = UserDataManager.Instance.HostReady;
+            requestData.request.entrantReadyStatus = !UserDataManager.Instance.EntrantReady;
+        }
         await webSocketManager.SendJsonRequest(requestData);
     }
 
