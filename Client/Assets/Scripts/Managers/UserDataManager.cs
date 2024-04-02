@@ -5,7 +5,7 @@ public class UserDataManager : MonoBehaviour
 {
     private static UserDataManager _instance;
 
-    // »ç¿ëÀÚ µ¥ÀÌÅÍ
+    // ì‚¬ìš©ì ë°ì´í„°
     private string _accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjaGFyYWN0ZXJJZCI6MTMsImlhdCI6MTcwNDYzOTQzMywiZXhwIjoyMDY0NjM5NDMzfQ.ERQcrE0takQCukRaNrSEv3beXCjDbxFmkoFi7Q7Or3c";
     private string _nickName;
     private Stat _stat;
@@ -38,8 +38,9 @@ public class UserDataManager : MonoBehaviour
     private bool _isReady = false;
     private bool _opponentIsReady = false;
     private bool _isPlaying = false;
+    private PlayerType _playerType;
 
-    // Singleton ÀÎ½ºÅÏ½º »ı¼º
+    // Singleton ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     public static UserDataManager Instance
     {
         get
@@ -48,7 +49,7 @@ public class UserDataManager : MonoBehaviour
             {
                 GameObject userDataManagerObject = new GameObject("UserDataManager");
                 _instance = userDataManagerObject.AddComponent<UserDataManager>();
-                DontDestroyOnLoad(userDataManagerObject); // ¾À ÀüÈ¯ ½Ã ÆÄ±«µÇÁö ¾Êµµ·Ï ¼³Á¤
+                DontDestroyOnLoad(userDataManagerObject); // ì”¬ ì „í™˜ ì‹œ íŒŒê´´ë˜ì§€ ì•Šë„ë¡ ì„¤ì •
             }
             return _instance;
         }
@@ -60,10 +61,16 @@ public class UserDataManager : MonoBehaviour
         set { _clearUI = value; }
     }
 
-    public bool OpponentIsReady
+    public PlayerType PlayerType
     {
-        get { return _opponentIsReady; }
-        set { _opponentIsReady = value; }
+        get { return _playerType; }
+        set { _playerType = value; }
+    }
+
+    public bool EntrantReady
+    {
+        get { return _entrantReady; }
+        set { _entrantReady = value; }
     }
 
     public bool IsPlaying
@@ -72,10 +79,10 @@ public class UserDataManager : MonoBehaviour
         set { _isPlaying = value; }
     }
 
-    public bool IsReady
+    public bool HostReady
     {
-        get { return _isReady; }
-        set { _isReady = value; }
+        get { return _hostReady; }
+        set { _hostReady = value; }
     }
 
     public List<CONTENT_TYPE> RoomListInfo
@@ -221,11 +228,11 @@ public class UserDataManager : MonoBehaviour
         get { return _imageUrl; }
         set { _imageUrl = value; }
     }
-    // ±âÅ¸ ÇÊ¿äÇÑ ¸Ş¼­µå µî Ãß°¡ °¡´É
+    // ê¸°íƒ€ í•„ìš”í•œ ë©”ì„œë“œ ë“± ì¶”ê°€ ê°€ëŠ¥
 
     private void Awake()
     {
-        // ÀÎ½ºÅÏ½º°¡ ÀÌ¹Ì ÀÖ´Ù¸é »õ·Î »ı¼ºµÇ´Â °ÍÀ» ¹æÁö
+        // ì¸ìŠ¤í„´ìŠ¤ê°€ ì´ë¯¸ ìˆë‹¤ë©´ ìƒˆë¡œ ìƒì„±ë˜ëŠ” ê²ƒì„ ë°©ì§€
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);

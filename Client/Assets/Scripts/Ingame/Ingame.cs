@@ -32,7 +32,7 @@ public class Ingame : MonoBehaviour
     }
     private async void Update()
     {
-        if (UserDataManager.Instance.IsReady && UserDataManager.Instance.OpponentIsReady && UserDataManager.Instance.RoomInfo.hostId == UserDataManager.Instance.UserId)
+        if (UserDataManager.Instance.HostReady && UserDataManager.Instance.EntrantReady && UserDataManager.Instance.RoomInfo.hostId == UserDataManager.Instance.UserId)
         {
             startBtn.interactable = true;
         }
@@ -56,15 +56,14 @@ public class Ingame : MonoBehaviour
     }
     public void ReadyBtn()
     {
-        if (UserDataManager.Instance.IsReady)
+        if (UserDataManager.Instance.PlayerType == PlayerType.CREATOR)
         {
-            UserDataManager.Instance.IsReady = false;
+            UserDataManager.Instance.HostReady = !UserDataManager.Instance.HostReady;
         }
-        else
+        else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
         {
-            UserDataManager.Instance.IsReady = true;
+            UserDataManager.Instance.EntrantReady = !UserDataManager.Instance.EntrantReady;
         }
-
         Ready();
     }
 
@@ -113,8 +112,16 @@ public class Ingame : MonoBehaviour
         ReadyJson requestData = new ReadyJson();
         requestData.command = "READY";
         requestData.matchId = UserDataManager.Instance.MatchRoomID;
-        requestData.request.selfReadyStatus = UserDataManager.Instance.IsReady;
-        requestData.request.opponentReadyStatus = UserDataManager.Instance.OpponentIsReady;
+        if(UserDataManager.Instance.UserId == UserDataManager.Instance.HostId)
+        {
+            requestData.request.hostReadyStatus = !UserDataManager.Instance.HostReady;
+            requestData.request.entrantReadyStatus = UserDataManager.Instance.EntrantReady;
+        }
+        else if(UserDataManager.Instance.UserId==UserDataManager.Instance.EntrantId)
+        {
+            requestData.request.hostReadyStatus = UserDataManager.Instance.HostReady;
+            requestData.request.entrantReadyStatus = !UserDataManager.Instance.EntrantReady;
+        }
         await webSocketManager.SendJsonRequest(requestData);
     }
 
