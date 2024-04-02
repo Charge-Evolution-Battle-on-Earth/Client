@@ -173,6 +173,12 @@ public class WebSocketManager : MonoBehaviour
                                 string msg = Convert.ToString(jsonData["message"]);
 
                                 UserDataManager.Instance.PlayerType = (PlayerType)Enum.Parse(typeof(PlayerType), playerType);
+                                if (UserDataManager.Instance.PlayerType == PlayerType.CREATOR && UserDataManager.Instance.UserId == UserDataManager.Instance.EntrantId)
+                                {
+                                    // 방장이 나갔을 때 내가 방장으로
+                                    UserDataManager.Instance.HostId = UserDataManager.Instance.UserId;
+                                    UserDataManager.Instance.EntrantId = 0;
+                                }
                                 Debug.Log(msg);
                             }
                         }
