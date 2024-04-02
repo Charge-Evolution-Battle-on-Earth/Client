@@ -106,6 +106,19 @@ public class WebSocketManager : MonoBehaviour
                             {
                                 // greeting ¿¿¥‰
                                 string greetingMessage = jsonData["greetingMessage"].ToString();
+                                string userId = "";
+                                foreach (char c in greetingMessage)
+                                {
+                                    if (char.IsDigit(c))
+                                    {
+                                        userId += c;
+                                    }
+                                }
+                                if (int.TryParse(userId, out int number) && UserDataManager.Instance.UserId == 0)
+                                {
+                                    UserDataManager.Instance.UserId = number;
+                                }
+
                                 Debug.Log(greetingMessage);
                             }
                             else if (jsonData.ContainsKey("hostReadyStatus"))
