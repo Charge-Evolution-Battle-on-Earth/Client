@@ -167,11 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e670d844b9f6544f8c1ca6e190c1b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &127182962 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7997860738053209594, guid: 4ff927d82c0cf6f4cb0302c505466c9e, type: 3}
-  m_PrefabInstance: {fileID: 631330617}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &159180033
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,13 +267,13 @@ RectTransform:
   - {fileID: 1689828806}
   - {fileID: 1103791326}
   - {fileID: 1684138792}
-  - {fileID: 1020525762}
   - {fileID: 1910422006}
+  - {fileID: 1020525762}
   - {fileID: 631275918}
-  - {fileID: 127182962}
+  - {fileID: 640030727}
   - {fileID: 1814562196}
-  - {fileID: 1795293132}
   - {fileID: 715159620}
+  - {fileID: 1795293132}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -903,6 +898,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633597125}
   m_CullTransparentMesh: 1
+--- !u!224 &640030727 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6797688403771350569, guid: 4ff927d82c0cf6f4cb0302c505466c9e, type: 3}
+  m_PrefabInstance: {fileID: 631330617}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &640030728 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1306225518865466699, guid: 4ff927d82c0cf6f4cb0302c505466c9e, type: 3}
+  m_PrefabInstance: {fileID: 631330617}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &645288386
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,11 +1027,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ddce8045aad124595e940a43b7f139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemImage: {fileID: 640030728}
   itemPrefab: {fileID: 1201886882}
   contentPanel: {fileID: 947229584}
   itemNameText: {fileID: 1814562198}
   itemStatText: {fileID: 715159622}
   itemDescriptionText: {fileID: 1795293130}
+  itemPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  equipBtn: {fileID: 1684138793}
+  sellBtn: {fileID: 1910422007}
+  unequipBtn: {fileID: 1020525763}
 --- !u!4 &782305487
 Transform:
   m_ObjectHideFlags: 0
@@ -2137,11 +2213,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 564148a607e224b49ad55007c7b03d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemImage: {fileID: 0}
+  itemImage: {fileID: 640030728}
   itemNameText_Prefab: {fileID: 1010129372}
   itemNameText: {fileID: 1814562198}
   itemStatText: {fileID: 715159622}
   itemDescriptionText: {fileID: 1795293130}
+  equipBtn: {fileID: 1684138793}
+  sellBtn: {fileID: 1910422007}
+  unequipBtn: {fileID: 1020525763}
   MoneyText: {fileID: 258693086}
   item:
     itemId: 0
@@ -2157,6 +2236,7 @@ MonoBehaviour:
       spd: 0
     description: 
     characterItemId: 0
+    image: {fileID: 0}
 --- !u!1 &1298680963
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,6 +2583,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 258693086}
+  itemImage: {fileID: 640030728}
+  equipBtn: {fileID: 1684138793}
+  sellBtn: {fileID: 1910422007}
+  unequipBtn: {fileID: 1020525763}
+  itemNameText: {fileID: 1814562198}
+  itemStatText: {fileID: 715159622}
+  itemDescriptionText: {fileID: 1795293130}
+  contentPanel: {fileID: 947229584}
 --- !u!1 &1591432708
 GameObject:
   m_ObjectHideFlags: 0

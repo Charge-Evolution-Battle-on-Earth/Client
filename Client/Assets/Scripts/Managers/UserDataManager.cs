@@ -30,6 +30,7 @@ public class UserDataManager : MonoBehaviour
     private long _clickedItemId;
     private long _characterItemId;
     private long _itemTypeId;
+    private bool _clearUI = false;
 
     private CONTENT_TYPE _roomInfo;
     private List<CONTENT_TYPE> _roomListInfo = new List<CONTENT_TYPE>();
@@ -51,6 +52,12 @@ public class UserDataManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public bool ClearUI
+    {
+        get { return _clearUI; }
+        set { _clearUI = value; }
     }
 
     public bool OpponentIsReady
