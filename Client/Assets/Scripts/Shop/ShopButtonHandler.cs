@@ -88,14 +88,6 @@ public class ShopButtonHandler : MonoBehaviour
 
     void AddItemsToUI(List<Shop.ShopItemGetResponse> itemList)
     {
-        // itemPrefab 및 contentPanel이 null이 아닌지 확인
-        if (itemPrefab == null || contentPanel == null)
-        {
-            Debug.LogError("itemPrefab 또는 contentPanel이 null입니다.");
-            return;
-        }
-
-        // 새로운 목록 UI 생성
         foreach (var item in itemList)
         {
             if (itemPrefabMap.ContainsKey(item.itemNm))
