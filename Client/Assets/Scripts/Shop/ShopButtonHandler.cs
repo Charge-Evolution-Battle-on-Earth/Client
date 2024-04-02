@@ -105,7 +105,7 @@ public class ShopButtonHandler : MonoBehaviour
                 // 아이템 프리팹을 복제하여 Content 패널의 자식으로 추가
                 GameObject newItem = Instantiate(itemPrefabs.FirstOrDefault(item => item.name == prefabName), contentPanel);
 
-                ItemUIHandler itemUIHandler = newItem.GetComponent<ItemUIHandler>();
+                ShopItemUIHandler itemUIHandler = newItem.GetComponent<ShopItemUIHandler>();
 
                 if (itemUIHandler != null)
                 {

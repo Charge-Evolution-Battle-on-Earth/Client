@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
 using System.Collections;
 
-public class ItemUIHandler : MonoBehaviour
+public class ShopItemUIHandler : MonoBehaviour
 {
     public Image itemImage; // 아이템 이미지를 표시할 Image 컴포넌트
     public TMP_Text itemNameText_Prefab;
