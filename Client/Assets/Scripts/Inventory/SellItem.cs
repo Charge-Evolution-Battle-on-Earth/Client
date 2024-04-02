@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
 using Newtonsoft.Json.Linq;
@@ -7,9 +8,20 @@ using Newtonsoft.Json.Linq;
 public class SellItemManager : MonoBehaviour
 {
     public TMP_Text moneyText;
-
+    public Image itemImage;
+    public Button equipBtn;
+    public Button sellBtn;
+    public Button unequipBtn;
+    public TMP_Text itemNameText;
+    public TMP_Text itemStatText;
+    public TMP_Text itemDescriptionText;
+    public Transform contentPanel;
     public void SellItem()
     {
+        equipBtn.interactable = false;
+        sellBtn.interactable = false;
+        unequipBtn.interactable = false;
+        ImageTransparency();
         StartCoroutine(SellItemCoroutine());
     }
 
@@ -40,7 +52,7 @@ public class SellItemManager : MonoBehaviour
 
                 int money = responseData["money"].Value<int>();
                 moneyText.text = money.ToString();
-
+                UserDataManager.Instance.ClearUI = true;
                 Debug.Log("판매 성공. 현재 잔액: " + money);
             }
             else
@@ -48,5 +60,12 @@ public class SellItemManager : MonoBehaviour
                 Debug.LogError("판매 실패: " + request.error);
             }
         }
+    }
+
+    void ImageTransparency()
+    {
+        Color color = new Color();
+        color.a = 0f;
+        itemImage.color = color;
     }
 }
