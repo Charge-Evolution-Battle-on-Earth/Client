@@ -34,6 +34,7 @@ public class EnterRoom : MonoBehaviour
                 string jsonResponse = www.downloadHandler.text;
                 RoomId room = JsonUtility.FromJson<RoomId>(jsonResponse);
 
+                UserDataManager.Instance.PlayerType = PlayerType.ENTRANT;
                 UserDataManager.Instance.MatchRoomID = room.matchRoomId;
                 UserDataManager.Instance.HostId = room.hostId;
                 UserDataManager.Instance.EntrantId = room.entrantId;

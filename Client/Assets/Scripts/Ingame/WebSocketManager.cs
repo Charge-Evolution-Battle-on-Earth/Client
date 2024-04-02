@@ -104,24 +104,39 @@ public class WebSocketManager : MonoBehaviour
                         {
                             if (jsonData.ContainsKey("greetingMessage"))
                             {
+                                // greeting 응답
                                 string greetingMessage = jsonData["greetingMessage"].ToString();
+                                string userId = "";
+                                foreach (char c in greetingMessage)
+                                {
+                                    if (char.IsDigit(c))
+                                    {
+                                        userId += c;
+                                    }
+                                }
+                                if (int.TryParse(userId, out int number) && UserDataManager.Instance.UserId == 0)
+                                {
+                                    UserDataManager.Instance.UserId = number;
+                                }
+
                                 Debug.Log(greetingMessage);
                             }
                             else if (jsonData.ContainsKey("hostReadyStatus"))
                             {
+                                // ready 응답
                                 bool hostReadyStatus = Convert.ToBoolean(jsonData["hostReadyStatus"]);
                                 bool entrantReadyStatus = Convert.ToBoolean(jsonData["entrantReadyStatus"]);
                                 string matchStatus = Convert.ToString(jsonData["matchStatus"]);
                                 
                                 if(UserDataManager.Instance.UserId==UserDataManager.Instance.HostId)
                                 {
-                                    UserDataManager.Instance.IsReady = hostReadyStatus;
-                                    UserDataManager.Instance.OpponentIsReady = entrantReadyStatus;
+                                    UserDataManager.Instance.HostReady = hostReadyStatus;
+                                    UserDataManager.Instance.EntrantReady = entrantReadyStatus;
                                 }
                                 else
                                 {
-                                    UserDataManager.Instance.IsReady = entrantReadyStatus;
-                                    UserDataManager.Instance.OpponentIsReady = hostReadyStatus;
+                                    UserDataManager.Instance.HostReady = entrantReadyStatus;
+                                    UserDataManager.Instance.EntrantReady = hostReadyStatus;
                                 }
                                 UserDataManager.Instance.MatchStatus = (MatchStatus)Enum.Parse(typeof(MatchStatus), matchStatus);
                             }
@@ -136,10 +151,35 @@ public class WebSocketManager : MonoBehaviour
                             else if (jsonData.ContainsKey("winnerType"))
                             {
                                 // end와 surrender 응답
+                                string winnerType = Convert.ToString(jsonData["winnerType"]);
+                                string loserType = Convert.ToString(jsonData["loserType"]);
+                                PlayerType winner = new PlayerType();
+                                PlayerType loser = new PlayerType();
+                                winner = (PlayerType)Enum.Parse(typeof(PlayerType), winnerType);
+                                loser = (PlayerType)Enum.Parse(typeof(PlayerType), loserType);
+
+                                int winnerGold = Convert.ToInt32(jsonData["winnerGold"]);
+                                int loserGold = Convert.ToInt32(jsonData["loserGold"]);
+                                int winnerTotalGold = Convert.ToInt32(jsonData["winnerTotalGold"]);
+                                int loserTotalGold = Convert.ToInt32(jsonData["loserTotalGold"]);
+                                int winnerTotalExp = Convert.ToInt32(jsonData["winnerTotalExp"]);
+                                int loserTotalExp = Convert.ToInt32(jsonData["loserTotalExp"]);
+                                string msg = Convert.ToString(jsonData["message"]);
                             }
                             else if (jsonData.ContainsKey("playerType"))
                             {
                                 // quit 응답
+                                string playerType = Convert.ToString(jsonData["playerType"]);
+                                string msg = Convert.ToString(jsonData["message"]);
+
+                                UserDataManager.Instance.PlayerType = (PlayerType)Enum.Parse(typeof(PlayerType), playerType);
+                                if (UserDataManager.Instance.PlayerType == PlayerType.CREATOR && UserDataManager.Instance.UserId == UserDataManager.Instance.EntrantId)
+                                {
+                                    // 방장이 나갔을 때 내가 방장으로
+                                    UserDataManager.Instance.HostId = UserDataManager.Instance.UserId;
+                                    UserDataManager.Instance.EntrantId = 0;
+                                }
+                                Debug.Log(msg);
                             }
                         }
                         catch (Exception ex)
@@ -192,8 +232,8 @@ public class ReadyJson
 [Serializable]
 public class ReadyRequest
 {
-    public bool selfReadyStatus;
-    public bool opponentReadyStatus;
+    public bool hostReadyStatus;
+    public bool entrantReadyStatus;
 }
 [Serializable]
 public class StartJson
@@ -213,4 +253,10 @@ public class TurnJson
 public class TurnRequest
 {
     public long skillId;
+}
+[Serializable]
+public enum PlayerType 
+{
+    CREATOR,
+    ENTRANT
 }
