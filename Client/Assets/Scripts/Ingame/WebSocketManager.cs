@@ -104,11 +104,13 @@ public class WebSocketManager : MonoBehaviour
                         {
                             if (jsonData.ContainsKey("greetingMessage"))
                             {
+                                // greeting 응답
                                 string greetingMessage = jsonData["greetingMessage"].ToString();
                                 Debug.Log(greetingMessage);
                             }
                             else if (jsonData.ContainsKey("hostReadyStatus"))
                             {
+                                // ready 응답
                                 bool hostReadyStatus = Convert.ToBoolean(jsonData["hostReadyStatus"]);
                                 bool entrantReadyStatus = Convert.ToBoolean(jsonData["entrantReadyStatus"]);
                                 string matchStatus = Convert.ToString(jsonData["matchStatus"]);
@@ -140,6 +142,11 @@ public class WebSocketManager : MonoBehaviour
                             else if (jsonData.ContainsKey("playerType"))
                             {
                                 // quit 응답
+                                string playerType = Convert.ToString(jsonData["playerType"]);
+                                string msg = Convert.ToString(jsonData["message"]);
+
+                                UserDataManager.Instance.PlayerType = (PlayerType)Enum.Parse(typeof(PlayerType), playerType);
+                                Debug.Log(msg);
                             }
                         }
                         catch (Exception ex)
