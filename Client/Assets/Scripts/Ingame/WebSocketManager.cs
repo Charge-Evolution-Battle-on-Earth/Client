@@ -127,17 +127,10 @@ public class WebSocketManager : MonoBehaviour
                                 bool hostReadyStatus = Convert.ToBoolean(jsonData["hostReadyStatus"]);
                                 bool entrantReadyStatus = Convert.ToBoolean(jsonData["entrantReadyStatus"]);
                                 string matchStatus = Convert.ToString(jsonData["matchStatus"]);
-                                
-                                if(UserDataManager.Instance.UserId==UserDataManager.Instance.HostId)
-                                {
-                                    UserDataManager.Instance.HostReady = hostReadyStatus;
-                                    UserDataManager.Instance.EntrantReady = entrantReadyStatus;
-                                }
-                                else
-                                {
-                                    UserDataManager.Instance.HostReady = entrantReadyStatus;
-                                    UserDataManager.Instance.EntrantReady = hostReadyStatus;
-                                }
+
+                                UserDataManager.Instance.HostReady = hostReadyStatus;
+                                UserDataManager.Instance.EntrantReady = entrantReadyStatus;
+
                                 UserDataManager.Instance.MatchStatus = (MatchStatus)Enum.Parse(typeof(MatchStatus), matchStatus);
                             }
                             else if (jsonData.ContainsKey("hostTotalStat"))
