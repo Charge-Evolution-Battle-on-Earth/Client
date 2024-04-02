@@ -26,10 +26,8 @@ public class InventoryItemsHandler : MonoBehaviour
     {
         contentPanel = GameObject.Find("Content").transform;
 
-        ImageTransparency();
-        equipBtn.interactable = false;
-        sellBtn.interactable = false;
-        unequipBtn.interactable = false;
+        ClearItemList();
+
         // °©¿Ê
         itemPrefabMap["´©ºñÁö°©"] = "´©ºñÁö°©"; itemPrefabMap["ÇÇ°©"] = "ÇÇ°©"; itemPrefabMap["¼®°©"] = "¼®°©";
         itemPrefabMap["Å©·°Èä°©"] = "Å©·°Èä°©"; itemPrefabMap["¸®³ëÅä¶ô½º"] = "¸®³ëÅä¶ô½º"; itemPrefabMap["Ã»µ¿°©¿Ê"] = "Ã»µ¿°©¿Ê";
@@ -135,7 +133,9 @@ public class InventoryItemsHandler : MonoBehaviour
         itemNameText.text = "";
         itemStatText.text = "";
         itemDescriptionText.text = "";
-
+        equipBtn.interactable = false;
+        sellBtn.interactable = false;
+        unequipBtn.interactable = false;
 
         // ºÎ¸ð °´Ã¼ÀÇ ¸ðµç ÀÚ½Ä °´Ã¼ »èÁ¦
         foreach (Transform child in contentPanel)
