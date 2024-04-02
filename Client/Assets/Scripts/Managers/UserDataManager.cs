@@ -35,8 +35,8 @@ public class UserDataManager : MonoBehaviour
     private CONTENT_TYPE _roomInfo;
     private List<CONTENT_TYPE> _roomListInfo = new List<CONTENT_TYPE>();
     /////////////INGAME///////////////
-    private bool _isReady = false;
-    private bool _opponentIsReady = false;
+    private bool _hostReady = false;
+    private bool _entrantReady = false;
     private bool _isPlaying = false;
     private PlayerType _playerType;
 
