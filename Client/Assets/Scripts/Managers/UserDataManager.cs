@@ -6,7 +6,7 @@ public class UserDataManager : MonoBehaviour
     private static UserDataManager _instance;
 
     // 사용자 데이터
-    private string _accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjaGFyYWN0ZXJJZCI6MTMsImlhdCI6MTcwNDYzOTQzMywiZXhwIjoyMDY0NjM5NDMzfQ.ERQcrE0takQCukRaNrSEv3beXCjDbxFmkoFi7Q7Or3c";
+    private string _accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjaGFyYWN0ZXJJZCI6MSwiaWF0IjoxNzEyMDcxMjY0LCJleHAiOjIwNzIwNzEyNjR9.-RWQoK3Z_eXT3pJOjxZ0vjnQBn4deXd__n4SGLqBh1Q";
     private string _nickName;
     private Stat _stat;
     private long _levelId;
