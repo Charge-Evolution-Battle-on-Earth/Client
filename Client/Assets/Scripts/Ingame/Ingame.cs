@@ -30,9 +30,9 @@ public class Ingame : MonoBehaviour
         Greeting();
 
     }
-    private async void Update()
+    private void Update()
     {
-        if (UserDataManager.Instance.HostReady && UserDataManager.Instance.EntrantReady && UserDataManager.Instance.RoomInfo.hostId == UserDataManager.Instance.UserId)
+        if (UserDataManager.Instance.HostReady && UserDataManager.Instance.EntrantReady && UserDataManager.Instance.HostId == UserDataManager.Instance.UserId)
         {
             startBtn.interactable = true;
         }
@@ -78,18 +78,7 @@ public class Ingame : MonoBehaviour
     }
     public void QuitBtn()
     {
-        if(UserDataManager.Instance.MatchStatus == MatchStatus.READY)
-        {
-            Debug.LogWarning("Ready를 해제해주십시오.");
-        }
-        else if (UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)
-        {
-            Debug.LogWarning("게임이 진행중입니다. 나가고 싶으시면 항복 버튼을 누르십시오.");
-        }
-        else
-        {
-            Quit();
-        }
+        Quit();
     }
 
     public void SurrenderBtn()
