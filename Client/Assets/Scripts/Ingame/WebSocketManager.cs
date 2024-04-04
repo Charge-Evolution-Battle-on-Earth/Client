@@ -184,11 +184,6 @@ public class WebSocketManager : MonoBehaviour
                                 turnOwner = (PlayerType)Enum.Parse(typeof(PlayerType), tOwner);
                                 UserDataManager.Instance.TurnOwner = turnOwner;
 
-                                string mStatus = Convert.ToString(jsonData["matchStatus"]);
-                                MatchStatus matchStatus = new MatchStatus();
-                                matchStatus = (MatchStatus)Enum.Parse(typeof(MatchStatus), mStatus);
-                                UserDataManager.Instance.MatchStatus = matchStatus;
-
                                 string msg = Convert.ToString(jsonData["message"]);
 
                                 Debug.Log(msg);
