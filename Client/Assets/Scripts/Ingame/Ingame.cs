@@ -162,5 +162,11 @@ public class Ingame : MonoBehaviour
         requestData.request = emptyRequest;
         await webSocketManager.SendJsonRequest(requestData);
         await webSocketManager.DisconnectWebSocket();
+
+        UserDataManager.Instance.HostReady = false;
+        UserDataManager.Instance.EntrantReady = false;
+        UserDataManager.Instance.HostId = 0;
+        UserDataManager.Instance.EntrantId = 0;
+        UserDataManager.Instance.MatchStatus = MatchStatus.WAITING;
     }
 }
