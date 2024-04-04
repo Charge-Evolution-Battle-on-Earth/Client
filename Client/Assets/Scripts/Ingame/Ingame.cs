@@ -36,6 +36,10 @@ public class Ingame : MonoBehaviour
         {
             startBtn.interactable = true;
         }
+        else
+        {
+            startBtn.interactable = false;
+        }
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS || UserDataManager.Instance.MatchStatus == MatchStatus.FINISHED)
         {
