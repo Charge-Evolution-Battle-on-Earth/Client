@@ -46,7 +46,7 @@ public class Ingame : MonoBehaviour
         {
             surrenderBtn.interactable = false;
             surrenderBtn.gameObject.SetActive(false);
-            startBtn.gameObject.SetActive(false);
+            startBtn.gameObject.SetActive(true);
         }
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.READY || UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)
@@ -76,10 +76,11 @@ public class Ingame : MonoBehaviour
         GameStart();
     }
 
-    public void SkillBtn(long skillId)
+    public void SkillBtn(int skillId)
     {
-        Turn(skillId);
+        Turn((long)skillId);
     }
+
     public void QuitBtn()
     {
         Quit();
