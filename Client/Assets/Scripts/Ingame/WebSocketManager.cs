@@ -163,7 +163,10 @@ public class WebSocketManager : MonoBehaviour
                                     CharacterSkillGetResponse skill = new CharacterSkillGetResponse();
                                     skill.skillId = Convert.ToInt64(skillData["skillId"]);
                                     skill.skillNm = Convert.ToString(skillData["skillNm"]);
-                                    skill.description = Convert.ToString(skillData["description"]);
+                                    if (skillData.ContainsKey("description"))
+                                    {
+                                        skill.description = Convert.ToString(skillData["description"]);
+                                    }
 
                                     hostSkillList.Add(skill);
                                 }
@@ -178,7 +181,10 @@ public class WebSocketManager : MonoBehaviour
                                     CharacterSkillGetResponse skill = new CharacterSkillGetResponse();
                                     skill.skillId = Convert.ToInt64(skillData["skillId"]);
                                     skill.skillNm = Convert.ToString(skillData["skillNm"]);
-                                    skill.description = Convert.ToString(skillData["description"]);
+                                    if (skillData.ContainsKey("description"))
+                                    {
+                                        skill.description = Convert.ToString(skillData["description"]);
+                                    }
 
                                     entrantSkillList.Add(skill);
                                 }
