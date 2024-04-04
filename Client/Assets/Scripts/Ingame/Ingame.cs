@@ -56,7 +56,7 @@ public class Ingame : MonoBehaviour
     }
     public void ReadyBtn()
     {
-        if (UserDataManager.Instance.PlayerType == PlayerType.CREATOR)
+        if (UserDataManager.Instance.PlayerType == PlayerType.HOST)
         {
             UserDataManager.Instance.HostReady = !UserDataManager.Instance.HostReady;
         }

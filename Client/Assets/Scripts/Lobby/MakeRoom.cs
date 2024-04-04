@@ -26,7 +26,7 @@ public class MakeRoom : MonoBehaviour
                 string jsonResponse = www.downloadHandler.text;
                 RoomId roomId = JsonUtility.FromJson<RoomId>(jsonResponse);
 
-                UserDataManager.Instance.PlayerType = PlayerType.CREATOR;
+                UserDataManager.Instance.PlayerType = PlayerType.HOST;
                 UserDataManager.Instance.MatchRoomID = roomId.matchRoomId;
                 UserDataManager.Instance.HostId = roomId.hostId;
                 UserDataManager.Instance.EntrantId = roomId.entrantId;
