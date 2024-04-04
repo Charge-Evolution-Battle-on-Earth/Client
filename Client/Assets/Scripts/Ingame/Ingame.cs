@@ -16,11 +16,6 @@ public class Ingame : MonoBehaviour
     private WebSocketManager webSocketManager;
     private async void Start()
     {
-        startBtn.interactable = false;
-
-        surrenderBtn.interactable = false;
-        surrenderBtn.gameObject.SetActive(false);
-
         webSocketManager = WebSocketManager.Instance;
 
         Uri serverUri = new Uri(GameURL.DBServer.PlayURL);
@@ -28,7 +23,6 @@ public class Ingame : MonoBehaviour
         await webSocketManager.ConnectWebSocket(serverUri);
 
         Greeting();
-
     }
     private void Update()
     {
@@ -46,6 +40,12 @@ public class Ingame : MonoBehaviour
             surrenderBtn.gameObject.SetActive(true);
             surrenderBtn.interactable = true;
             startBtn.interactable = false;
+            startBtn.gameObject.SetActive(false);
+        }
+        else
+        {
+            surrenderBtn.interactable = false;
+            surrenderBtn.gameObject.SetActive(false);
             startBtn.gameObject.SetActive(false);
         }
 
