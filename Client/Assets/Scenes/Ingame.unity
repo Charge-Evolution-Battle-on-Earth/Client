@@ -618,7 +618,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &616374387
 RectTransform:
   m_ObjectHideFlags: 0
@@ -913,7 +913,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startBtn: {fileID: 1715333559}
   quitBtn: {fileID: 1043260250}
-  surrenderBtn: {fileID: 616374388}
+  surrenderBtn: {fileID: 1011084554}
   readyBtn: {fileID: 314191180}
   readyButtonImage: {fileID: 314191179}
 --- !u!1 &838385933
@@ -998,7 +998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1977221545045076374, guid: 6dfd4c936a1f4c342b6a230ad29659cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1977221545045076374, guid: 6dfd4c936a1f4c342b6a230ad29659cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1010,7 +1010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1977221545045076374, guid: 6dfd4c936a1f4c342b6a230ad29659cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SkillBtn
+      value: SurrenderBtn
       objectReference: {fileID: 0}
     - target: {fileID: 1977221545045076374, guid: 6dfd4c936a1f4c342b6a230ad29659cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1026,11 +1026,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2521740727192554779, guid: 6dfd4c936a1f4c342b6a230ad29659cd, type: 3}
       propertyPath: m_text
-      value: "\uC2A4\uD0AC 4"
+      value: "\uD56D\uBCF5\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2521740727192554779, guid: 6dfd4c936a1f4c342b6a230ad29659cd, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2521740727192554779, guid: 6dfd4c936a1f4c342b6a230ad29659cd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2668830089634825125, guid: 6dfd4c936a1f4c342b6a230ad29659cd, type: 3}
       propertyPath: m_Name
-      value: Skill_4Btn
+      value: SurrenderBtn
       objectReference: {fileID: 0}
     - target: {fileID: 5145244035945442821, guid: 6dfd4c936a1f4c342b6a230ad29659cd, type: 3}
       propertyPath: m_Sprite
@@ -1126,6 +1134,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7923675554997220951, guid: 6dfd4c936a1f4c342b6a230ad29659cd, type: 3}
   m_PrefabInstance: {fileID: 1011084552}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1011084554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1977221545045076374, guid: 6dfd4c936a1f4c342b6a230ad29659cd, type: 3}
+  m_PrefabInstance: {fileID: 1011084552}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1015973143
 GameObject:
   m_ObjectHideFlags: 0
