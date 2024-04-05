@@ -190,6 +190,11 @@ public class WebSocketManager : MonoBehaviour
                                 }
                                 UserDataManager.Instance.EntrantSkillList = entrantSkillList;
 
+                                string mStatus = Convert.ToString(jsonData["matchStatus"]);
+                                MatchStatus matchStatus = new MatchStatus();
+                                matchStatus = (MatchStatus)Enum.Parse(typeof(MatchStatus), mStatus);
+                                UserDataManager.Instance.MatchStatus = matchStatus;
+
                                 string tOwner = Convert.ToString(jsonData["turnOwner"]);
                                 PlayerType turnOwner = new PlayerType();
                                 turnOwner = (PlayerType)Enum.Parse(typeof(PlayerType), tOwner);
