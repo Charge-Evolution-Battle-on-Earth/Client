@@ -208,6 +208,7 @@ public class WebSocketManager : MonoBehaviour
                             {
                                 // turn ¿¿¥‰
                                 bool isGameOver = Convert.ToBoolean(jsonData["isGameOver"]);
+                                UserDataManager.Instance.IsGameOver = isGameOver;
 
                                 var hostStatData = jsonData["hostStat"] as Dictionary<string, object>;
                                 Stat hostStat = new Stat();

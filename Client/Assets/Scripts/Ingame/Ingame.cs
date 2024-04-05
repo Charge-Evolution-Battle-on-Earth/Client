@@ -57,6 +57,11 @@ public class Ingame : MonoBehaviour
         {
             quitBtn.interactable = true;
         }
+
+        if(UserDataManager.Instance.IsGameOver)
+        {
+            End();
+        }
     }
     public void ReadyBtn()
     {

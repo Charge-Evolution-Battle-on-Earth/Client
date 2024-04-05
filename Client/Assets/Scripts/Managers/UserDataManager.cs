@@ -43,6 +43,7 @@ public class UserDataManager : MonoBehaviour
     private List<CharacterSkillGetResponse> _entrantSkillList = new List<CharacterSkillGetResponse>();
     private PlayerType _turnOwner;
     private MatchStatus _matchStatus;
+    private bool _isGameOver = false;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -57,6 +58,12 @@ public class UserDataManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public bool IsGameOver
+    {
+        get { return _isGameOver; }
+        set { _isGameOver = value; }
     }
 
     public List<CharacterSkillGetResponse> EntrantSkillList
