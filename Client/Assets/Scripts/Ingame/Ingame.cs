@@ -62,6 +62,15 @@ public class Ingame : MonoBehaviour
         {
             End();
         }
+
+        if(UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
+        {
+            startBtn.gameObject.SetActive(false);
+        }
+        else if(UserDataManager.Instance.PlayerType == PlayerType.HOST)
+        {
+            startBtn.gameObject.SetActive(true);
+        }
     }
     public void ReadyBtn()
     {
