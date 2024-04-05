@@ -256,12 +256,13 @@ public class WebSocketManager : MonoBehaviour
                                 // quit 응답
                                 string playerType = Convert.ToString(jsonData["playerType"]);
                                 string msg = Convert.ToString(jsonData["message"]);
-
-                                UserDataManager.Instance.PlayerType = (PlayerType)Enum.Parse(typeof(PlayerType), playerType);
-                                if (UserDataManager.Instance.PlayerType == PlayerType.HOST && UserDataManager.Instance.UserId == UserDataManager.Instance.EntrantId)
+                                PlayerType outPlayer = (PlayerType)Enum.Parse(typeof(PlayerType), playerType);
+                                
+                                if (outPlayer == PlayerType.HOST && UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
                                 {
                                     // 방장이 나갔을 때 내가 방장으로
                                     UserDataManager.Instance.HostId = UserDataManager.Instance.UserId;
+                                    UserDataManager.Instance.PlayerType = PlayerType.HOST;
                                     UserDataManager.Instance.EntrantId = 0;
                                 }
                                 Debug.Log(msg);
