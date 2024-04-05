@@ -78,7 +78,16 @@ public class Ingame : MonoBehaviour
 
     public void SkillBtn(int skillId)
     {
-        Turn((long)skillId);
+        long skillID = new long();
+        if(UserDataManager.Instance.PlayerType == PlayerType.HOST)
+        {
+            skillID = (long)UserDataManager.Instance.HostSkillList[skillId].skillId;
+        }
+        else if(UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
+        {
+            skillID = (long)UserDataManager.Instance.EntrantSkillList[skillId].skillId;
+        }
+        Turn(skillID);
     }
 
     public void QuitBtn()
