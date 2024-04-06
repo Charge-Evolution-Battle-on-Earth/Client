@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class Ingame : MonoBehaviour
 {
     public Button startBtn;
@@ -12,6 +13,13 @@ public class Ingame : MonoBehaviour
     public Button surrenderBtn;
     public Button readyBtn;
     public Image readyButtonImage;
+    public Button skillBtn0;
+    public Button skillBtn1;
+    public Button skillBtn2;
+    public TMP_Text skillBtn0Text;
+    public TMP_Text skillBtn1Text;
+    public TMP_Text skillBtn2Text;
+
 
     private WebSocketManager webSocketManager;
     private async void Start()
@@ -43,6 +51,21 @@ public class Ingame : MonoBehaviour
             startBtn.gameObject.SetActive(false);
             readyBtn.interactable = false;
             quitBtn.interactable = false;
+            skillBtn0.interactable = true;
+            skillBtn1.interactable = true;
+            skillBtn2.interactable = true;
+            if (UserDataManager.Instance.PlayerType == PlayerType.HOST)
+            {
+                skillBtn0Text.text = UserDataManager.Instance.HostSkillList[0].skillNm;
+                skillBtn1Text.text = UserDataManager.Instance.HostSkillList[1].skillNm;
+                skillBtn2Text.text = UserDataManager.Instance.HostSkillList[2].skillNm;
+            }
+            else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
+            {
+                skillBtn0Text.text = UserDataManager.Instance.EntrantSkillList[0].skillNm;
+                skillBtn1Text.text = UserDataManager.Instance.EntrantSkillList[1].skillNm;
+                skillBtn2Text.text = UserDataManager.Instance.EntrantSkillList[2].skillNm;
+            }
         }
         else
         {
@@ -51,6 +74,12 @@ public class Ingame : MonoBehaviour
             startBtn.gameObject.SetActive(true);
             readyBtn.interactable = true;
             quitBtn.interactable = true;
+            skillBtn0.interactable = false;
+            skillBtn1.interactable = false;
+            skillBtn2.interactable = false;
+            skillBtn0Text.text = "";
+            skillBtn1Text.text = "";
+            skillBtn2Text.text = "";
         }
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.READY || UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)
