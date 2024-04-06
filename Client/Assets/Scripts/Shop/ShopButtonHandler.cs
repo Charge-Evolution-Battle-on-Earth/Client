@@ -38,7 +38,7 @@ public class ShopButtonHandler : MonoBehaviour
         itemPrefabMap["카타나"] = "카타나"; itemPrefabMap["관우의 청룡언월도"] = "관우의 청룡언월도"; itemPrefabMap["할버드"] = "할버드";
         itemPrefabMap["충무공의 장검"] = "충무공의 장검"; itemPrefabMap["글라디우스"] = "글라디우스"; itemPrefabMap["모노호시자오"] = "모노호시자오";
 
-        // 사수 무기
+        // 궁수 무기
         itemPrefabMap["바람총"] = "바람총"; itemPrefabMap["새총"] = "새총"; itemPrefabMap["투석구"] = "투석구";
         itemPrefabMap["카이사르의 필룸"] = "카이사르의 필룸"; itemPrefabMap["와큐"] = "와큐"; itemPrefabMap["골각궁"] = "골각궁";
         itemPrefabMap["쇠뇌"] = "쇠뇌"; itemPrefabMap["승자총통"] = "승자총통"; itemPrefabMap["죽궁"] = "죽궁";

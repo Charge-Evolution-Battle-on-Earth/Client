@@ -36,14 +36,14 @@ public class UserDataManager : MonoBehaviour
     /////////////INGAME///////////////
     private bool _hostReady = false;
     private bool _entrantReady = false;
-    private bool _isPlaying = false;
     private PlayerType _playerType;
-    private Stat _hostStat;
-    private Stat _entrantStat;
+    private Stat _hostStat = new Stat();
+    private Stat _entrantStat = new Stat();
     private List<CharacterSkillGetResponse> _hostSkillList = new List<CharacterSkillGetResponse>();
     private List<CharacterSkillGetResponse> _entrantSkillList = new List<CharacterSkillGetResponse>();
     private PlayerType _turnOwner;
     private MatchStatus _matchStatus;
+    private bool _isGameOver = false;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -58,6 +58,12 @@ public class UserDataManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public bool IsGameOver
+    {
+        get { return _isGameOver; }
+        set { _isGameOver = value; }
     }
 
     public List<CharacterSkillGetResponse> EntrantSkillList
@@ -106,12 +112,6 @@ public class UserDataManager : MonoBehaviour
     {
         get { return _entrantReady; }
         set { _entrantReady = value; }
-    }
-
-    public bool IsPlaying
-    {
-        get { return _isPlaying; }
-        set { _isPlaying = value; }
     }
 
     public bool HostReady
