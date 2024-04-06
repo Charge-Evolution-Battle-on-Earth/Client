@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
 
-public class Money : MonoBehaviour
+public class GetUserInfo : MonoBehaviour
 {
     public TMP_Text MoneyText;
 
