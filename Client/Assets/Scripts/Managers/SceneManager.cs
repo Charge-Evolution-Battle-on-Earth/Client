@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
+using System;
 using System.Collections;
 
 public enum Scenes
@@ -19,6 +20,9 @@ public class CustomSceneManager : MonoBehaviour
 {
     public static void LoadScene(string sceneName)
     {
+        Scenes scene = new Scenes();
+        scene = (Scenes)Enum.Parse(typeof(Scenes), sceneName);
+        UserDataManager.Instance.Scene = scene;
         SceneManager.LoadScene(sceneName);
     }
 
