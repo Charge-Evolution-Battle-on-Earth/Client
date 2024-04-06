@@ -31,7 +31,7 @@ public class Status : MonoBehaviour
                 CharacterInfoGetResponse characterInfo = JsonUtility.FromJson<CharacterInfoGetResponse>(jsonResponse);
 
                 DisplayCharacterInfo(characterInfo);
-            }
+            } 
             else
             {
                 Debug.LogError("Error: " + www.error);
@@ -55,16 +55,7 @@ public class Status : MonoBehaviour
         characterInfoText.text = characterInfoStr;
         characterNickNameText.text = characterInfo.nickname;
 
-        UserDataManager.Instance.Stat = characterInfo.stat;
-        UserDataManager.Instance.LevelId = characterInfo.levelId;
-        UserDataManager.Instance.CurrentExp = characterInfo.currentExp;
-        UserDataManager.Instance.TotalExp = characterInfo.totalExp;
-        UserDataManager.Instance.NationId = characterInfo.nationId;
-        UserDataManager.Instance.NationNm = characterInfo.nationNm;
-        UserDataManager.Instance.JobId = characterInfo.jobId;
-        UserDataManager.Instance.JobNm = characterInfo.jobNm;
-        UserDataManager.Instance.Money = characterInfo.money;
-        UserDataManager.Instance.NickName = characterInfo.nickname;
+        SaveUserData(characterInfo);
 
         Sprite sprite = Resources.Load<Sprite>($"Prefabs/Choice/{UserDataManager.Instance.JobNm}");
         if(sprite!=null)
@@ -75,6 +66,20 @@ public class Status : MonoBehaviour
         {
             Debug.LogError("이미지를 찾을 수 없습니다: " + UserDataManager.Instance.JobNm);
         }
+    }
+
+    void SaveUserData(CharacterInfoGetResponse characterInfo)
+    {
+        UserDataManager.Instance.Stat = characterInfo.stat;
+        UserDataManager.Instance.LevelId = characterInfo.levelId;
+        UserDataManager.Instance.CurrentExp = characterInfo.currentExp;
+        UserDataManager.Instance.TotalExp = characterInfo.totalExp;
+        UserDataManager.Instance.NationId = characterInfo.nationId;
+        UserDataManager.Instance.NationNm = characterInfo.nationNm;
+        UserDataManager.Instance.JobId = characterInfo.jobId;
+        UserDataManager.Instance.JobNm = characterInfo.jobNm;
+        UserDataManager.Instance.Money = characterInfo.money;
+        UserDataManager.Instance.NickName = characterInfo.nickname;
     }
 }
 [System.Serializable]

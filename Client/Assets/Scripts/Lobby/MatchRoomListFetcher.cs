@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-public class CombinedScrollManager : MonoBehaviour
+public class MatchRoomListFetcher : MonoBehaviour
 {
     public Transform content; // ScrollRect.content
     public GameObject listItemPrefab; // 방 목록의 항목에 사용될 프리팹
@@ -88,6 +88,22 @@ public class CombinedScrollManager : MonoBehaviour
 
             isLoading = false;
         }
+
+        url = GameURL.DBServer.Server_URL + GameURL.DBServer.getCharacterInfoPath;
+        using (UnityWebRequest www = UnityWebRequest.Get(url))
+        {
+            www.SetRequestHeader("Authorization", $"Bearer {UserDataManager.Instance.AccessToken}");
+
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                string jsonResponse = www.downloadHandler.text;
+                CharacterInfoGetResponse characterInfo = JsonUtility.FromJson<CharacterInfoGetResponse>(jsonResponse);
+
+                SaveUserData(characterInfo);
+            }
+        }
     }
 
     public void RefreshUI()
@@ -127,6 +143,19 @@ public class CombinedScrollManager : MonoBehaviour
         }
     }
 
+    void SaveUserData(CharacterInfoGetResponse characterInfo)
+    {
+        UserDataManager.Instance.Stat = characterInfo.stat;
+        UserDataManager.Instance.LevelId = characterInfo.levelId;
+        UserDataManager.Instance.CurrentExp = characterInfo.currentExp;
+        UserDataManager.Instance.TotalExp = characterInfo.totalExp;
+        UserDataManager.Instance.NationId = characterInfo.nationId;
+        UserDataManager.Instance.NationNm = characterInfo.nationNm;
+        UserDataManager.Instance.JobId = characterInfo.jobId;
+        UserDataManager.Instance.JobNm = characterInfo.jobNm;
+        UserDataManager.Instance.Money = characterInfo.money;
+        UserDataManager.Instance.NickName = characterInfo.nickname;
+    }
 
     void OnButtonClick(CONTENT_TYPE room)
     {
