@@ -1,8 +1,4 @@
 using System;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -13,6 +9,7 @@ public class Ingame : MonoBehaviour
     public Button surrenderBtn;
     public Button readyBtn;
     public Image readyButtonImage;
+    public Image userImg;
     public Button skillBtn0;
     public Button skillBtn1;
     public Button skillBtn2;
@@ -24,6 +21,7 @@ public class Ingame : MonoBehaviour
     private WebSocketManager webSocketManager;
     private async void Start()
     {
+        LoadJobImg();
         webSocketManager = WebSocketManager.Instance;
 
         Uri serverUri = new Uri(GameURL.DBServer.PlayURL);
@@ -229,5 +227,18 @@ public class Ingame : MonoBehaviour
         UserDataManager.Instance.HostId = 0;
         UserDataManager.Instance.EntrantId = 0;
         UserDataManager.Instance.MatchStatus = MatchStatus.WAITING;
+    }
+
+    void LoadJobImg()
+    {
+        Sprite sprite = Resources.Load<Sprite>($"Prefabs/Choice/{UserDataManager.Instance.JobNm}");
+        if (sprite != null)
+        {
+            userImg.sprite = sprite;
+        }
+        else
+        {
+            Debug.LogError("이미지를 찾을 수 없습니다: " + UserDataManager.Instance.JobNm);
+        }
     }
 }

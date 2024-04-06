@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
+using System;
 using System.Collections;
 
 public enum Scenes
@@ -19,19 +20,20 @@ public class CustomSceneManager : MonoBehaviour
 {
     public static void LoadScene(string sceneName)
     {
+        Scenes scene = new Scenes();
+        scene = (Scenes)Enum.Parse(typeof(Scenes), sceneName);
+        UserDataManager.Instance.Scene = scene;
         SceneManager.LoadScene(sceneName);
     }
 
     private void Start()
     {
-        // 씬이 로드될 때 호출되는 함수 등록
-        //SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 만약 로드된 씬이 Shop 씬이라면 UserData를 업데이트
-        if (scene.name == "Shop")
+        if (scene.name == "Shop" || scene.name == "Lobby")
         {
             GetCharacterInfo();
         }

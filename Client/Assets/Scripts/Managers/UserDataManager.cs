@@ -33,6 +33,7 @@ public class UserDataManager : MonoBehaviour
 
     private CONTENT_TYPE _roomInfo;
     private List<CONTENT_TYPE> _roomListInfo = new List<CONTENT_TYPE>();
+    private Scenes _scenes;
     /////////////INGAME///////////////
     private bool _hostReady = false;
     private bool _entrantReady = false;
@@ -58,6 +59,12 @@ public class UserDataManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public Scenes Scene
+    {
+        get { return _scenes; }
+        set { _scenes = value; }
     }
 
     public bool IsGameOver
