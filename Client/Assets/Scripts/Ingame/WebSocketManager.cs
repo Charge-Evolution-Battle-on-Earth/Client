@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
-
+using TMPro;
 public class WebSocketManager : MonoBehaviour
 {
     private static WebSocketManager instance;
     private ClientWebSocket ws;
     private Uri serverUri;
+    public TMP_Text serverMsg;
 
     public static WebSocketManager Instance
     {
@@ -118,8 +119,7 @@ public class WebSocketManager : MonoBehaviour
                                 {
                                     UserDataManager.Instance.UserId = number;
                                 }
-
-                                Debug.Log(greetingMessage);
+                                serverMsg.text += greetingMessage + Environment.NewLine;
                             }
                             else if (jsonData.ContainsKey("hostReadyStatus"))
                             {
@@ -131,6 +131,23 @@ public class WebSocketManager : MonoBehaviour
                                 UserDataManager.Instance.HostReady = hostReadyStatus;
                                 UserDataManager.Instance.EntrantReady = entrantReadyStatus;
                                 UserDataManager.Instance.MatchStatus = (MatchStatus)Enum.Parse(typeof(MatchStatus), matchStatus);
+
+                                if (UserDataManager.Instance.HostReady)
+                                {
+                                    serverMsg.text += "방장: 레디 ";
+                                }
+                                else
+                                {
+                                    serverMsg.text += "방장: 레디안함 ";
+                                }
+                                if (UserDataManager.Instance.EntrantReady)
+                                {
+                                    serverMsg.text += "참가자: 레디" + Environment.NewLine;
+                                }
+                                else
+                                {
+                                    serverMsg.text += "참가자: 레디안함" + Environment.NewLine;
+                                }
                             }
                             else if (jsonData.ContainsKey("hostTotalStat"))
                             {
@@ -200,8 +217,7 @@ public class WebSocketManager : MonoBehaviour
                                 UserDataManager.Instance.TurnOwner = turnOwner;
 
                                 string msg = Convert.ToString(jsonData["message"]);
-
-                                Debug.Log(msg);
+                                serverMsg.text += msg + Environment.NewLine;
                             }
                             else if (jsonData.ContainsKey("isGameOver"))
                             {
@@ -235,8 +251,7 @@ public class WebSocketManager : MonoBehaviour
 
                                 string useSkillNm = Convert.ToString(jsonData["useSkillNm"]);
                                 string msg = Convert.ToString(jsonData["message"]);
-
-                                Debug.Log(msg);
+                                serverMsg.text += msg + Environment.NewLine;
                             }
                             else if (jsonData.ContainsKey("winnerType"))
                             {
@@ -254,9 +269,9 @@ public class WebSocketManager : MonoBehaviour
                                 int loserTotalGold = Convert.ToInt32(jsonData["loserTotalGold"]);
                                 int winnerTotalExp = Convert.ToInt32(jsonData["winnerTotalExp"]);
                                 int loserTotalExp = Convert.ToInt32(jsonData["loserTotalExp"]);
+                                
                                 string msg = Convert.ToString(jsonData["message"]);
-
-                                Debug.Log(msg);
+                                serverMsg.text += msg + Environment.NewLine;
                             }
                             else if (jsonData.ContainsKey("playerType"))
                             {
@@ -264,7 +279,7 @@ public class WebSocketManager : MonoBehaviour
                                 string playerType = Convert.ToString(jsonData["playerType"]);
                                 string msg = Convert.ToString(jsonData["message"]);
                                 PlayerType outPlayer = (PlayerType)Enum.Parse(typeof(PlayerType), playerType);
-                                
+
                                 if (outPlayer == PlayerType.HOST && UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
                                 {
                                     // 방장이 나갔을 때 내가 방장으로
@@ -272,7 +287,7 @@ public class WebSocketManager : MonoBehaviour
                                     UserDataManager.Instance.PlayerType = PlayerType.HOST;
                                     UserDataManager.Instance.EntrantId = 0;
                                 }
-                                Debug.Log(msg);
+                                serverMsg.text += msg + Environment.NewLine;
                             }
                         }
                         catch (Exception ex)
