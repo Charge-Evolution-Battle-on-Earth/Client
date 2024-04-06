@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using TMPro;
 
@@ -7,6 +8,8 @@ public class Status : MonoBehaviour
 {
     public TMP_Text characterInfoText;
     public TMP_Text characterNickNameText;
+    public Image characterImage;
+
     void Start()
     {
         StartCoroutine(GetCharacterInfo());
@@ -51,6 +54,27 @@ public class Status : MonoBehaviour
 
         characterInfoText.text = characterInfoStr;
         characterNickNameText.text = characterInfo.nickname;
+
+        UserDataManager.Instance.Stat = characterInfo.stat;
+        UserDataManager.Instance.LevelId = characterInfo.levelId;
+        UserDataManager.Instance.CurrentExp = characterInfo.currentExp;
+        UserDataManager.Instance.TotalExp = characterInfo.totalExp;
+        UserDataManager.Instance.NationId = characterInfo.nationId;
+        UserDataManager.Instance.NationNm = characterInfo.nationNm;
+        UserDataManager.Instance.JobId = characterInfo.jobId;
+        UserDataManager.Instance.JobNm = characterInfo.jobNm;
+        UserDataManager.Instance.Money = characterInfo.money;
+        UserDataManager.Instance.NickName = characterInfo.nickname;
+
+        Sprite sprite = Resources.Load<Sprite>($"Prefabs/Choice/{UserDataManager.Instance.JobNm}");
+        if(sprite!=null)
+        {
+            characterImage.sprite = sprite;
+        }
+        else
+        {
+            Debug.LogError("이미지를 찾을 수 없습니다: " + UserDataManager.Instance.JobNm);
+        }
     }
 }
 [System.Serializable]
