@@ -16,11 +16,12 @@ public class Ingame : MonoBehaviour
     public TMP_Text skillBtn0Text;
     public TMP_Text skillBtn1Text;
     public TMP_Text skillBtn2Text;
-
+    public TMP_Text roomIdText;
 
     private WebSocketManager webSocketManager;
     private async void Start()
     {
+        roomIdText.text = "¹æ ¹øÈ£: " + UserDataManager.Instance.MatchRoomID.ToString();
         LoadJobImg();
         webSocketManager = WebSocketManager.Instance;
 
