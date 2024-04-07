@@ -59,7 +59,8 @@ public class Register : MonoBehaviour
 
                 if (request.result != UnityWebRequest.Result.Success)
                 {
-                    Debug.LogError(request.error);
+                    string jsonResponse = "Error Type: " + request.downloadHandler.error + ": " + request.downloadHandler.text;
+                    Debug.LogError(jsonResponse);
                 }
                 else
                 {
