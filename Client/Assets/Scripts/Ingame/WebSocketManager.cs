@@ -256,6 +256,11 @@ public class WebSocketManager : MonoBehaviour
                             else if (jsonData.ContainsKey("winnerType"))
                             {
                                 // end와 surrender 응답
+                                string mStatus = Convert.ToString(jsonData["matchStatus"]);
+                                MatchStatus matchStatus = new MatchStatus();
+                                matchStatus = (MatchStatus)Enum.Parse(typeof(MatchStatus), mStatus);
+                                UserDataManager.Instance.MatchStatus = matchStatus;
+
                                 string winnerType = Convert.ToString(jsonData["winnerType"]);
                                 string loserType = Convert.ToString(jsonData["loserType"]);
                                 PlayerType winner = new PlayerType();
@@ -280,12 +285,14 @@ public class WebSocketManager : MonoBehaviour
                                 string msg = Convert.ToString(jsonData["message"]);
                                 PlayerType outPlayer = (PlayerType)Enum.Parse(typeof(PlayerType), playerType);
 
-                                if (outPlayer == PlayerType.HOST && UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
+                                if (outPlayer == PlayerType.HOST)
                                 {
                                     // 방장이 나갔을 때 내가 방장으로
-                                    UserDataManager.Instance.HostId = UserDataManager.Instance.UserId;
-                                    UserDataManager.Instance.PlayerType = PlayerType.HOST;
-                                    UserDataManager.Instance.EntrantId = 0;
+                                    UserDataManager.Instance.HostQuit();
+                                }
+                                else if(outPlayer == PlayerType.ENTRANT)
+                                {
+                                    UserDataManager.Instance.EntrantQuit();
                                 }
                                 serverMsg.text += msg + Environment.NewLine;
                             }
