@@ -93,7 +93,7 @@ public class Ingame : MonoBehaviour
             quitBtn.interactable = true;
         }
 
-        if(UserDataManager.Instance.IsGameOver)
+        if(UserDataManager.Instance.IsGameOver && UserDataManager.Instance.PlayerType == PlayerType.HOST)
         {
             End();
         }
