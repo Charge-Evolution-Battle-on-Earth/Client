@@ -107,6 +107,7 @@ public class WebSocketManager : MonoBehaviour
                             {
                                 // error 응답
                                 string errorMessage = jsonData["error"].ToString();
+                                serverMsg.text += errorMessage + Environment.NewLine;
                             }
                             else if (jsonData.ContainsKey("greetingMessage"))
                             {
@@ -184,27 +185,31 @@ public class WebSocketManager : MonoBehaviour
                                     CharacterSkillGetResponse skill = new CharacterSkillGetResponse();
                                     skill.skillId = Convert.ToInt64(skillData["skillId"]);
                                     skill.skillNm = Convert.ToString(skillData["skillNm"]);
+                                    skill.manaCost = Convert.ToInt32(skillData["manaCost"]);
+                                    skill.description = "소모 마나: " + skill.manaCost.ToString();
                                     if (skillData.ContainsKey("description"))
-                                    {
-                                        skill.description = Convert.ToString(skillData["description"]);
-                                    }
-
+                                    {                   
+                                        skill.description += "\n" + Convert.ToString(skillData["description"]);
+                                    }                   
+                                                        
                                     hostSkillList.Add(skill);
-                                }
+                                }                       
                                 UserDataManager.Instance.HostSkillList = hostSkillList;
-
+                                                        
                                 string entrantSkillListString = Convert.ToString(jsonData["entrantSkillList"]);
                                 List<Dictionary<string, object>> entrantSkillListData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(entrantSkillListString);
-
+                                                        
                                 List<CharacterSkillGetResponse> entrantSkillList = new List<CharacterSkillGetResponse>();
                                 foreach (var skillData in entrantSkillListData)
-                                {
+                                {                       
                                     CharacterSkillGetResponse skill = new CharacterSkillGetResponse();
                                     skill.skillId = Convert.ToInt64(skillData["skillId"]);
                                     skill.skillNm = Convert.ToString(skillData["skillNm"]);
+                                    skill.manaCost = Convert.ToInt32(skillData["manaCost"]);
+                                    skill.description = "소모 마나: " + skill.manaCost.ToString();
                                     if (skillData.ContainsKey("description"))
                                     {
-                                        skill.description = Convert.ToString(skillData["description"]);
+                                        skill.description += "\n" + Convert.ToString(skillData["description"]);
                                     }
 
                                     entrantSkillList.Add(skill);
@@ -392,7 +397,7 @@ public enum PlayerType
 public class CharacterSkillGetResponse
 {
     public long skillId;
-    public int skillMp;
+    public int manaCost;
     public string skillNm;
     public string description;
 }
