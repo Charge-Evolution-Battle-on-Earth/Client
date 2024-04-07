@@ -13,6 +13,7 @@ public class MatchRoomListFetcher : MonoBehaviour
     public ScrollRect scrollRect;
     public Button roomEnterBtn;
     public TMP_Text selectedRoomInfo;
+    public TMP_Text userInfo;
 
     private int itemsPerPage = 10; // 한 페이지에 표시될 아이템 개수
     private int currentPage = 0;
@@ -102,6 +103,7 @@ public class MatchRoomListFetcher : MonoBehaviour
                 CharacterInfoGetResponse characterInfo = JsonUtility.FromJson<CharacterInfoGetResponse>(jsonResponse);
 
                 SaveUserData(characterInfo);
+                userInfo.text = "닉네임: " + UserDataManager.Instance.NickName + "\n레벨: " + UserDataManager.Instance.LevelId;
             }
         }
     }
