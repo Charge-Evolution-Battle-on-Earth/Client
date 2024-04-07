@@ -84,7 +84,10 @@ public class ShopItemUIHandler : MonoBehaviour
         Color color = new Color();
         color.a = 0f;
         itemImage.color = color;
-    }
+        itemNameText.text = "";
+        itemStatText.text = "";
+        itemDescriptionText.text = "";
+}
 
     void ImageOpaque()
     {
