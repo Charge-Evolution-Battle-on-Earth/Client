@@ -67,7 +67,9 @@ public class Login : HttpServerBase
                 }
                 else
                 {
-                    Debug.LogError(request.error);
+                    string jsonResponse = "Error Type: " + request.downloadHandler.error + ": " + request.downloadHandler.text;
+
+                    Debug.LogError(jsonResponse);
                 }
             }
         }
