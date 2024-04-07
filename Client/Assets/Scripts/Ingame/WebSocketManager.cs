@@ -159,16 +159,16 @@ public class WebSocketManager : MonoBehaviour
                                 hostTotalStat.atk = Convert.ToInt32(hostTotalStatData["atk"]);
                                 hostTotalStat.mp = Convert.ToInt32(hostTotalStatData["mp"]);
                                 hostTotalStat.spd = Convert.ToInt32(hostTotalStatData["spd"]);
-                                UserDataManager.Instance.HostStat = hostTotalStat;
+                                UserDataManager.Instance.HostTotalStat = hostTotalStat;
 
-                                string entrantTotalStatString = Convert.ToString(jsonData["hostTotalStat"]);
+                                string entrantTotalStatString = Convert.ToString(jsonData["entrantTotalStat"]);
                                 Dictionary<string, object> entrantTotalStatData = JsonConvert.DeserializeObject<Dictionary<string, object>>(entrantTotalStatString);
                                 Stat entrantTotalStat = new Stat();
                                 entrantTotalStat.hp = Convert.ToInt32(entrantTotalStatData["hp"]);
                                 entrantTotalStat.atk = Convert.ToInt32(entrantTotalStatData["atk"]);
                                 entrantTotalStat.mp = Convert.ToInt32(entrantTotalStatData["mp"]);
                                 entrantTotalStat.spd = Convert.ToInt32(entrantTotalStatData["spd"]);
-                                UserDataManager.Instance.EntrantStat = entrantTotalStat;
+                                UserDataManager.Instance.EntrantTotalStat = entrantTotalStat;
 
                                 string hostSkillListString = Convert.ToString(jsonData["hostSkillList"]);
                                 List<Dictionary<string, object>> hostSkillListData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(hostSkillListString);
@@ -225,23 +225,23 @@ public class WebSocketManager : MonoBehaviour
                                 bool isGameOver = Convert.ToBoolean(jsonData["isGameOver"]);
                                 UserDataManager.Instance.IsGameOver = isGameOver;
 
-                                string hostTotalStatString = Convert.ToString(jsonData["hostTotalStat"]);
-                                Dictionary<string, object> hostTotalStatData = JsonConvert.DeserializeObject<Dictionary<string, object>>(hostTotalStatString);
-                                Stat hostTotalStat = new Stat();
-                                hostTotalStat.hp = Convert.ToInt32(hostTotalStatData["hp"]);
-                                hostTotalStat.atk = Convert.ToInt32(hostTotalStatData["atk"]);
-                                hostTotalStat.mp = Convert.ToInt32(hostTotalStatData["mp"]);
-                                hostTotalStat.spd = Convert.ToInt32(hostTotalStatData["spd"]);
-                                UserDataManager.Instance.HostStat = hostTotalStat;
+                                string hostStatString = Convert.ToString(jsonData["hostStat"]);
+                                Dictionary<string, object> hostStatData = JsonConvert.DeserializeObject<Dictionary<string, object>>(hostStatString);
+                                Stat hostStat = new Stat();
+                                hostStat.hp = Convert.ToInt32(hostStatData["hp"]);
+                                hostStat.atk = Convert.ToInt32(hostStatData["atk"]);
+                                hostStat.mp = Convert.ToInt32(hostStatData["mp"]);
+                                hostStat.spd = Convert.ToInt32(hostStatData["spd"]);
+                                UserDataManager.Instance.HostStat = hostStat;
 
-                                string entrantTotalStatString = Convert.ToString(jsonData["hostTotalStat"]);
-                                Dictionary<string, object> entrantTotalStatData = JsonConvert.DeserializeObject<Dictionary<string, object>>(entrantTotalStatString);
-                                Stat entrantTotalStat = new Stat();
-                                entrantTotalStat.hp = Convert.ToInt32(entrantTotalStatData["hp"]);
-                                entrantTotalStat.atk = Convert.ToInt32(entrantTotalStatData["atk"]);
-                                entrantTotalStat.mp = Convert.ToInt32(entrantTotalStatData["mp"]);
-                                entrantTotalStat.spd = Convert.ToInt32(entrantTotalStatData["spd"]);
-                                UserDataManager.Instance.EntrantStat = entrantTotalStat;
+                                string entrantStatString = Convert.ToString(jsonData["entrantStat"]);
+                                Dictionary<string, object> entrantStatData = JsonConvert.DeserializeObject<Dictionary<string, object>>(entrantStatString);
+                                Stat entrantStat = new Stat();
+                                entrantStat.hp = Convert.ToInt32(entrantStatData["hp"]);
+                                entrantStat.atk = Convert.ToInt32(entrantStatData["atk"]);
+                                entrantStat.mp = Convert.ToInt32(entrantStatData["mp"]);
+                                entrantStat.spd = Convert.ToInt32(entrantStatData["spd"]);
+                                UserDataManager.Instance.EntrantStat = entrantStat;
 
 
                                 string tOwner = Convert.ToString(jsonData["turnOwner"]);

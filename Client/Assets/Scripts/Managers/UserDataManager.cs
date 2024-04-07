@@ -38,6 +38,8 @@ public class UserDataManager : MonoBehaviour
     private bool _hostReady = false;
     private bool _entrantReady = false;
     private PlayerType _playerType;
+    private Stat _hostTotalStat = new Stat();
+    private Stat _entrantTotalStat = new Stat();
     private Stat _hostStat = new Stat();
     private Stat _entrantStat = new Stat();
     private List<CharacterSkillGetResponse> _hostSkillList = new List<CharacterSkillGetResponse>();
@@ -61,6 +63,17 @@ public class UserDataManager : MonoBehaviour
         }
     }
 
+    public Stat EntrantTotalStat
+    {
+        get { return _entrantTotalStat; }
+        set { _entrantTotalStat = value; }
+    }
+
+    public Stat HostTotalStat
+    {
+        get { return _hostTotalStat; }
+        set { _hostTotalStat = value; }
+    }
     public Scenes Scene
     {
         get { return _scenes; }
