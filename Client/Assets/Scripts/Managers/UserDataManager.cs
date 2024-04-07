@@ -21,9 +21,6 @@ public class UserDataManager : MonoBehaviour
 
     private long _userId;
     private long _characterId;
-    private long _matchRoomId;
-    private long _hostId;
-    private long _entrantId;
     private int _stakeGold;
 
     private long _clickedItemId;
@@ -35,9 +32,14 @@ public class UserDataManager : MonoBehaviour
     private List<CONTENT_TYPE> _roomListInfo = new List<CONTENT_TYPE>();
     private Scenes _scenes;
     /////////////INGAME///////////////
+    private long _matchRoomId;
+    private long _hostId;
+    private long _entrantId;
     private bool _hostReady = false;
     private bool _entrantReady = false;
     private PlayerType _playerType;
+    private Stat _hostTotalStat = new Stat();
+    private Stat _entrantTotalStat = new Stat();
     private Stat _hostStat = new Stat();
     private Stat _entrantStat = new Stat();
     private List<CharacterSkillGetResponse> _hostSkillList = new List<CharacterSkillGetResponse>();
@@ -61,6 +63,61 @@ public class UserDataManager : MonoBehaviour
         }
     }
 
+    public void GameEnd()
+    {
+        _isGameOver = false;
+        _hostReady = false;
+        _entrantReady = false;
+    }
+
+    public void ResetIngameData()
+    {
+        _matchRoomId = 0;
+        _hostId = 0;
+        _entrantId = 0;
+        _hostReady = false;
+        _entrantReady = false;
+        _playerType = PlayerType.HOST;
+        _hostTotalStat = new Stat();
+        _entrantTotalStat = new Stat();
+        _hostStat = new Stat();
+        _entrantStat = new Stat();
+        _hostSkillList.Clear();
+        _entrantSkillList.Clear();
+        _turnOwner = PlayerType.HOST;
+        _matchStatus = MatchStatus.WAITING;
+        _isGameOver = false;
+    }
+
+    public void HostQuit()
+    {
+        _hostId = _entrantId;
+        _entrantId = 0;
+        _playerType = PlayerType.HOST;
+        _hostReady = false;
+        _entrantReady = false;
+        _isGameOver = false;
+    }
+
+    public void EntrantQuit()
+    {
+        _entrantId = 0;
+        _hostReady = false;
+        _entrantReady = false;
+        _isGameOver = false;
+    }
+
+    public Stat EntrantTotalStat
+    {
+        get { return _entrantTotalStat; }
+        set { _entrantTotalStat = value; }
+    }
+
+    public Stat HostTotalStat
+    {
+        get { return _hostTotalStat; }
+        set { _hostTotalStat = value; }
+    }
     public Scenes Scene
     {
         get { return _scenes; }

@@ -16,11 +16,12 @@ public class Ingame : MonoBehaviour
     public TMP_Text skillBtn0Text;
     public TMP_Text skillBtn1Text;
     public TMP_Text skillBtn2Text;
-
+    public TMP_Text roomIdText;
 
     private WebSocketManager webSocketManager;
     private async void Start()
     {
+        roomIdText.text = "방 번호: " + UserDataManager.Instance.MatchRoomID.ToString();
         LoadJobImg();
         webSocketManager = WebSocketManager.Instance;
 
@@ -32,8 +33,9 @@ public class Ingame : MonoBehaviour
     }
     private void Update()
     {
-        if (UserDataManager.Instance.HostReady && UserDataManager.Instance.EntrantReady && UserDataManager.Instance.HostId == UserDataManager.Instance.UserId)
+        if (UserDataManager.Instance.MatchStatus == MatchStatus.READY && UserDataManager.Instance.PlayerType == PlayerType.HOST)
         {
+            // 둘 다 레디 상태이고 HOST일 경우 시작 버튼 활성화
             startBtn.interactable = true;
         }
         else
@@ -43,6 +45,7 @@ public class Ingame : MonoBehaviour
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS || UserDataManager.Instance.MatchStatus == MatchStatus.FINISHED)
         {
+            // 게임이 진행 중이면 시작 버튼 & 레디 버튼 비활성화, 스킬 버튼 & 항복 버튼 활성화
             surrenderBtn.gameObject.SetActive(true);
             surrenderBtn.interactable = true;
             startBtn.interactable = false;
@@ -52,7 +55,7 @@ public class Ingame : MonoBehaviour
             skillBtn0.interactable = true;
             skillBtn1.interactable = true;
             skillBtn2.interactable = true;
-            if (UserDataManager.Instance.PlayerType == PlayerType.HOST)
+            if (UserDataManager.Instance.PlayerType == PlayerType.HOST) // 스킬 설명 저장
             {
                 skillBtn0Text.text = UserDataManager.Instance.HostSkillList[0].skillNm;
                 skillBtn1Text.text = UserDataManager.Instance.HostSkillList[1].skillNm;
@@ -82,6 +85,7 @@ public class Ingame : MonoBehaviour
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.READY || UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)
         {
+            // 둘 다 레디 상태이거나 게임이 진행 중이면 못 나감
             quitBtn.interactable = false;
         }
         else
@@ -89,18 +93,31 @@ public class Ingame : MonoBehaviour
             quitBtn.interactable = true;
         }
 
-        if(UserDataManager.Instance.IsGameOver)
+        if(UserDataManager.Instance.IsGameOver && UserDataManager.Instance.PlayerType == PlayerType.HOST)
         {
             End();
         }
 
-        if(UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
+        if(UserDataManager.Instance.PlayerType == PlayerType.ENTRANT) // HOST만 시작 버튼 보이게
         {
             startBtn.gameObject.SetActive(false);
         }
         else if(UserDataManager.Instance.PlayerType == PlayerType.HOST)
         {
             startBtn.gameObject.SetActive(true);
+        }
+
+        if (UserDataManager.Instance.TurnOwner == UserDataManager.Instance.PlayerType)//자신의 차례에만 스킬 버튼 활성화
+        {
+            skillBtn0.interactable = true;
+            skillBtn1.interactable = true;
+            skillBtn2.interactable = true;
+        }
+        else
+        {
+            skillBtn0.interactable = false;
+            skillBtn1.interactable = false;
+            skillBtn2.interactable = false;
         }
     }
     public void ReadyBtn()
@@ -200,6 +217,7 @@ public class Ingame : MonoBehaviour
         EmptyRequest emptyRequest = new EmptyRequest();
         requestData.request = emptyRequest;
         await webSocketManager.SendJsonRequest(requestData);
+        UserDataManager.Instance.GameEnd();
     }
 
     async void Surrender()
@@ -210,6 +228,7 @@ public class Ingame : MonoBehaviour
         EmptyRequest emptyRequest = new EmptyRequest();
         requestData.request = emptyRequest;
         await webSocketManager.SendJsonRequest(requestData);
+        UserDataManager.Instance.GameEnd();
     }
 
     async void Quit()
@@ -222,11 +241,7 @@ public class Ingame : MonoBehaviour
         await webSocketManager.SendJsonRequest(requestData);
         await webSocketManager.DisconnectWebSocket();
 
-        UserDataManager.Instance.HostReady = false;
-        UserDataManager.Instance.EntrantReady = false;
-        UserDataManager.Instance.HostId = 0;
-        UserDataManager.Instance.EntrantId = 0;
-        UserDataManager.Instance.MatchStatus = MatchStatus.WAITING;
+        UserDataManager.Instance.ResetIngameData();
     }
 
     void LoadJobImg()
