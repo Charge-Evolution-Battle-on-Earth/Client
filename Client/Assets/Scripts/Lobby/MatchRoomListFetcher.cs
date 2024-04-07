@@ -21,7 +21,6 @@ public class MatchRoomListFetcher : MonoBehaviour
 
     void Start()
     {
-        userInfo.text = "닉네임: " + UserDataManager.Instance.NickName + "\n레벨: " + UserDataManager.Instance.LevelId;
         if (UserDataManager.Instance.RoomListInfo.Count > 0)
         {
             UserDataManager.Instance.RoomListInfo.Clear();
@@ -104,6 +103,7 @@ public class MatchRoomListFetcher : MonoBehaviour
                 CharacterInfoGetResponse characterInfo = JsonUtility.FromJson<CharacterInfoGetResponse>(jsonResponse);
 
                 SaveUserData(characterInfo);
+                userInfo.text = "닉네임: " + UserDataManager.Instance.NickName + "\n레벨: " + UserDataManager.Instance.LevelId;
             }
         }
     }
