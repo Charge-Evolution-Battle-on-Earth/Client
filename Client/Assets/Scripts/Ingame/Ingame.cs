@@ -216,6 +216,7 @@ public class Ingame : MonoBehaviour
         EmptyRequest emptyRequest = new EmptyRequest();
         requestData.request = emptyRequest;
         await webSocketManager.SendJsonRequest(requestData);
+        UserDataManager.Instance.GameEnd();
     }
 
     async void Surrender()
@@ -226,6 +227,7 @@ public class Ingame : MonoBehaviour
         EmptyRequest emptyRequest = new EmptyRequest();
         requestData.request = emptyRequest;
         await webSocketManager.SendJsonRequest(requestData);
+        UserDataManager.Instance.GameEnd();
     }
 
     async void Quit()
@@ -238,11 +240,7 @@ public class Ingame : MonoBehaviour
         await webSocketManager.SendJsonRequest(requestData);
         await webSocketManager.DisconnectWebSocket();
 
-        UserDataManager.Instance.HostReady = false;
-        UserDataManager.Instance.EntrantReady = false;
-        UserDataManager.Instance.HostId = 0;
-        UserDataManager.Instance.EntrantId = 0;
-        UserDataManager.Instance.MatchStatus = MatchStatus.WAITING;
+        UserDataManager.Instance.ResetIngameData();
     }
 
     void LoadJobImg()
