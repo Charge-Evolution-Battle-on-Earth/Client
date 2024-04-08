@@ -21,6 +21,10 @@ public class Ingame : MonoBehaviour
     public Image myMpBar;
     public Image opponentHpBar;
     public Image opponentMpBar;
+    public Image myHpBarBackground;
+    public Image myMpBarBackground;
+    public Image opponentHpBarBackground;
+    public Image opponentMpBarBackground;
     public TMP_Text myHpBarText;
     public TMP_Text myMpBarText;
     public TMP_Text opponentHpBarText;
@@ -54,7 +58,7 @@ public class Ingame : MonoBehaviour
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS || UserDataManager.Instance.MatchStatus == MatchStatus.FINISHED)
         {
-            // 게임이 진행 중이면 시작 버튼 & 레디 버튼 비활성화, 스킬 버튼 & 항복 버튼 활성화
+            // 게임이 진행 중이면 시작 버튼 & 레디 버튼 비활성화, 스킬 버튼 & 항복 버튼 활성화, HP & MP 바 활성화
             surrenderBtn.gameObject.SetActive(true);
             surrenderBtn.interactable = true;
             startBtn.interactable = false;
@@ -79,6 +83,15 @@ public class Ingame : MonoBehaviour
             float hostMPfillAmount = hostCurrentMP / hostMaxMP;
             float entrantHPfillAmount = entrantCurrentHP / entrantMaxHP;
             float entrantMPfillAmount = entrantCurrentMP / entrantMaxMP;
+
+            myHpBar.enabled = true;
+            myMpBar.enabled = true;
+            opponentHpBar.enabled = true;
+            opponentMpBar.enabled = true;
+            myHpBarBackground.enabled = true;
+            myMpBarBackground.enabled = true;
+            opponentHpBarBackground.enabled = true;
+            opponentMpBarBackground.enabled = true;
 
             if (UserDataManager.Instance.PlayerType == PlayerType.HOST)
             {
@@ -129,6 +142,14 @@ public class Ingame : MonoBehaviour
             skillBtn0Text.text = "";
             skillBtn1Text.text = "";
             skillBtn2Text.text = "";
+            myHpBar.enabled = false;
+            myMpBar.enabled = false;
+            opponentHpBar.enabled = false;
+            opponentMpBar.enabled = false;
+            myHpBarBackground.enabled = false;
+            myMpBarBackground.enabled = false;
+            opponentHpBarBackground.enabled = false;
+            opponentMpBarBackground.enabled = false;
         }
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.READY || UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)

@@ -1058,10 +1058,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 985043826}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 212.06516, y: 0}
+  m_SizeDelta: {x: 424.1303, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &523441940
 MonoBehaviour:
@@ -2205,11 +2205,15 @@ MonoBehaviour:
   myMpBar: {fileID: 596022211}
   opponentHpBar: {fileID: 574605407}
   opponentMpBar: {fileID: 279605380}
+  myHpBarBackground: {fileID: 628352923}
+  myMpBarBackground: {fileID: 1698802154}
+  opponentHpBarBackground: {fileID: 2119164875}
+  opponentMpBarBackground: {fileID: 1130899657}
   myHpBarText: {fileID: 735524759}
   myMpBarText: {fileID: 619445812}
   opponentHpBarText: {fileID: 1864991570}
   opponentMpBarText: {fileID: 1664322843}
-  maxBarWidth: 200
+  maxBarWidth: 350
 --- !u!1 &838385933
 GameObject:
   m_ObjectHideFlags: 0
