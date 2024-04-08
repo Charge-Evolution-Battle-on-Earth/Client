@@ -21,6 +21,7 @@ public class MatchRoomListFetcher : MonoBehaviour
 
     void Start()
     {
+        roomEnterBtn.interactable = false;
         if (UserDataManager.Instance.RoomListInfo.Count > 0)
         {
             UserDataManager.Instance.RoomListInfo.Clear();
@@ -111,6 +112,7 @@ public class MatchRoomListFetcher : MonoBehaviour
     public void RefreshUI()
     {
         ClearUI();
+        roomEnterBtn.interactable = false;
         UserDataManager.Instance.RoomListInfo.Clear();
         currentPage = 0;
         StartCoroutine(FetchMatchRoomList(currentPage));
