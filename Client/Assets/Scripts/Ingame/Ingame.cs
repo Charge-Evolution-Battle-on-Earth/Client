@@ -21,6 +21,10 @@ public class Ingame : MonoBehaviour
     public Image myMpBar;
     public Image opponentHpBar;
     public Image opponentMpBar;
+    public TMP_Text myHpBarText;
+    public TMP_Text myMpBarText;
+    public TMP_Text opponentHpBarText;
+    public TMP_Text opponentMpBarText;
     public float maxBarWidth = 350f;
 
     private WebSocketManager webSocketManager;
@@ -82,6 +86,10 @@ public class Ingame : MonoBehaviour
                 myMpBar.fillAmount = hostMPfillAmount;
                 opponentHpBar.fillAmount = entrantHPfillAmount;
                 opponentMpBar.fillAmount = entrantMPfillAmount;
+                myHpBarText.text = hostCurrentHP + " / " + hostMaxHP;
+                myMpBarText.text = hostCurrentMP + " / " + hostMaxMP;
+                opponentHpBarText.text = entrantCurrentHP + " / " + entrantMaxHP;
+                opponentMpBarText.text = entrantCurrentMP + " / " + entrantMaxMP;
             }
             else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
             {
@@ -89,6 +97,10 @@ public class Ingame : MonoBehaviour
                 myMpBar.fillAmount = entrantMPfillAmount;
                 opponentHpBar.fillAmount = hostHPfillAmount;
                 opponentMpBar.fillAmount = hostMPfillAmount;
+                myHpBarText.text = entrantCurrentHP + " / " + entrantMaxHP;
+                myMpBarText.text = entrantCurrentMP + " / " + entrantMaxMP;
+                opponentHpBarText.text = hostCurrentHP + " / " + hostMaxHP;
+                opponentMpBarText.text = hostCurrentMP + " / " + hostMaxMP;
             } 
 
             if (UserDataManager.Instance.PlayerType == PlayerType.HOST) // 스킬 설명 저장
