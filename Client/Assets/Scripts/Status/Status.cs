@@ -8,8 +8,9 @@ public class Status : MonoBehaviour
 {
     public TMP_Text characterInfoText;
     public TMP_Text characterNickNameText;
+    public TMP_Text expText;
     public Image characterImage;
-
+    public Image expBar;
     void Start()
     {
         StartCoroutine(GetCharacterInfo());
@@ -54,6 +55,9 @@ public class Status : MonoBehaviour
 
         characterInfoText.text = characterInfoStr;
         characterNickNameText.text = characterInfo.nickname;
+
+        expText.text = characterInfo.currentExp + " / " + characterInfo.totalExp;
+        expBar.fillAmount = (float)characterInfo.currentExp / (float)characterInfo.totalExp;
 
         SaveUserData(characterInfo);
 
