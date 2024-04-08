@@ -17,6 +17,19 @@ public class Ingame : MonoBehaviour
     public TMP_Text skillBtn1Text;
     public TMP_Text skillBtn2Text;
     public TMP_Text roomIdText;
+    public Image myHpBar;
+    public Image myMpBar;
+    public Image opponentHpBar;
+    public Image opponentMpBar;
+    public Image myHpBarBackground;
+    public Image myMpBarBackground;
+    public Image opponentHpBarBackground;
+    public Image opponentMpBarBackground;
+    public TMP_Text myHpBarText;
+    public TMP_Text myMpBarText;
+    public TMP_Text opponentHpBarText;
+    public TMP_Text opponentMpBarText;
+    public float maxBarWidth = 350f;
 
     private WebSocketManager webSocketManager;
     private async void Start()
@@ -45,7 +58,7 @@ public class Ingame : MonoBehaviour
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS || UserDataManager.Instance.MatchStatus == MatchStatus.FINISHED)
         {
-            // 게임이 진행 중이면 시작 버튼 & 레디 버튼 비활성화, 스킬 버튼 & 항복 버튼 활성화
+            // 게임이 진행 중이면 시작 버튼 & 레디 버튼 비활성화, 스킬 버튼 & 항복 버튼 활성화, HP & MP 바 활성화
             surrenderBtn.gameObject.SetActive(true);
             surrenderBtn.interactable = true;
             startBtn.interactable = false;
@@ -55,6 +68,54 @@ public class Ingame : MonoBehaviour
             skillBtn0.interactable = true;
             skillBtn1.interactable = true;
             skillBtn2.interactable = true;
+
+            float hostMaxHP = UserDataManager.Instance.HostTotalStat.hp;
+            float hostMaxMP = UserDataManager.Instance.HostTotalStat.mp;
+            float entrantMaxHP = UserDataManager.Instance.EntrantTotalStat.hp;
+            float entrantMaxMP = UserDataManager.Instance.EntrantTotalStat.mp;
+
+            float hostCurrentHP = UserDataManager.Instance.HostStat.hp;
+            float hostCurrentMP = UserDataManager.Instance.HostStat.mp;
+            float entrantCurrentHP = UserDataManager.Instance.EntrantStat.hp;
+            float entrantCurrentMP = UserDataManager.Instance.EntrantStat.mp;
+
+            float hostHPfillAmount = hostCurrentHP / hostMaxHP;
+            float hostMPfillAmount = hostCurrentMP / hostMaxMP;
+            float entrantHPfillAmount = entrantCurrentHP / entrantMaxHP;
+            float entrantMPfillAmount = entrantCurrentMP / entrantMaxMP;
+
+            myHpBar.enabled = true;
+            myMpBar.enabled = true;
+            opponentHpBar.enabled = true;
+            opponentMpBar.enabled = true;
+            myHpBarBackground.enabled = true;
+            myMpBarBackground.enabled = true;
+            opponentHpBarBackground.enabled = true;
+            opponentMpBarBackground.enabled = true;
+
+            if (UserDataManager.Instance.PlayerType == PlayerType.HOST)
+            {
+                myHpBar.fillAmount = hostHPfillAmount;
+                myMpBar.fillAmount = hostMPfillAmount;
+                opponentHpBar.fillAmount = entrantHPfillAmount;
+                opponentMpBar.fillAmount = entrantMPfillAmount;
+                myHpBarText.text = hostCurrentHP + " / " + hostMaxHP;
+                myMpBarText.text = hostCurrentMP + " / " + hostMaxMP;
+                opponentHpBarText.text = entrantCurrentHP + " / " + entrantMaxHP;
+                opponentMpBarText.text = entrantCurrentMP + " / " + entrantMaxMP;
+            }
+            else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
+            {
+                myHpBar.fillAmount = entrantHPfillAmount;
+                myMpBar.fillAmount = entrantMPfillAmount;
+                opponentHpBar.fillAmount = hostHPfillAmount;
+                opponentMpBar.fillAmount = hostMPfillAmount;
+                myHpBarText.text = entrantCurrentHP + " / " + entrantMaxHP;
+                myMpBarText.text = entrantCurrentMP + " / " + entrantMaxMP;
+                opponentHpBarText.text = hostCurrentHP + " / " + hostMaxHP;
+                opponentMpBarText.text = hostCurrentMP + " / " + hostMaxMP;
+            } 
+
             if (UserDataManager.Instance.PlayerType == PlayerType.HOST) // 스킬 설명 저장
             {
                 skillBtn0Text.text = UserDataManager.Instance.HostSkillList[0].skillNm;
@@ -81,6 +142,14 @@ public class Ingame : MonoBehaviour
             skillBtn0Text.text = "";
             skillBtn1Text.text = "";
             skillBtn2Text.text = "";
+            myHpBar.enabled = false;
+            myMpBar.enabled = false;
+            opponentHpBar.enabled = false;
+            opponentMpBar.enabled = false;
+            myHpBarBackground.enabled = false;
+            myMpBarBackground.enabled = false;
+            opponentHpBarBackground.enabled = false;
+            opponentMpBarBackground.enabled = false;
         }
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.READY || UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)

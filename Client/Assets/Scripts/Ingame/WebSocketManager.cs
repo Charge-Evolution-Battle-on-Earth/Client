@@ -103,10 +103,12 @@ public class WebSocketManager : MonoBehaviour
 
                         try
                         {
-                            if (jsonData.ContainsKey("error"))
+                            if (jsonData.ContainsKey("ErrorResponse"))
                             {
                                 // error 응답
-                                string errorMessage = jsonData["error"].ToString();
+                                string errorType = jsonData["type"].ToString();
+                                string errorMessage = jsonData["message"].ToString();
+                                serverMsg.text += errorType + ": " + errorMessage + Environment.NewLine;
                             }
                             else if (jsonData.ContainsKey("greetingMessage"))
                             {
@@ -139,19 +141,19 @@ public class WebSocketManager : MonoBehaviour
 
                                 if (UserDataManager.Instance.HostReady)
                                 {
-                                    serverMsg.text += "방장: 레디 ";
+                                    serverMsg.text += "방장: Ready ";
                                 }
                                 else
                                 {
-                                    serverMsg.text += "방장: 레디안함 ";
+                                    serverMsg.text += "방장: Not Ready ";
                                 }
                                 if (UserDataManager.Instance.EntrantReady)
                                 {
-                                    serverMsg.text += "참가자: 레디" + Environment.NewLine;
+                                    serverMsg.text += "참가자: Ready" + Environment.NewLine;
                                 }
                                 else
                                 {
-                                    serverMsg.text += "참가자: 레디안함" + Environment.NewLine;
+                                    serverMsg.text += "참가자: Not Ready" + Environment.NewLine;
                                 }
                             }
                             else if (jsonData.ContainsKey("hostTotalStat"))
@@ -165,6 +167,7 @@ public class WebSocketManager : MonoBehaviour
                                 hostTotalStat.mp = Convert.ToInt32(hostTotalStatData["mp"]);
                                 hostTotalStat.spd = Convert.ToInt32(hostTotalStatData["spd"]);
                                 UserDataManager.Instance.HostTotalStat = hostTotalStat;
+                                UserDataManager.Instance.HostStat = hostTotalStat;
 
                                 string entrantTotalStatString = Convert.ToString(jsonData["entrantTotalStat"]);
                                 Dictionary<string, object> entrantTotalStatData = JsonConvert.DeserializeObject<Dictionary<string, object>>(entrantTotalStatString);
@@ -174,6 +177,7 @@ public class WebSocketManager : MonoBehaviour
                                 entrantTotalStat.mp = Convert.ToInt32(entrantTotalStatData["mp"]);
                                 entrantTotalStat.spd = Convert.ToInt32(entrantTotalStatData["spd"]);
                                 UserDataManager.Instance.EntrantTotalStat = entrantTotalStat;
+                                UserDataManager.Instance.EntrantStat = entrantTotalStat;
 
                                 string hostSkillListString = Convert.ToString(jsonData["hostSkillList"]);
                                 List<Dictionary<string, object>> hostSkillListData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(hostSkillListString);
@@ -184,27 +188,31 @@ public class WebSocketManager : MonoBehaviour
                                     CharacterSkillGetResponse skill = new CharacterSkillGetResponse();
                                     skill.skillId = Convert.ToInt64(skillData["skillId"]);
                                     skill.skillNm = Convert.ToString(skillData["skillNm"]);
+                                    skill.manaCost = Convert.ToInt32(skillData["manaCost"]);
+                                    skill.description = "소모 마나: " + skill.manaCost.ToString();
                                     if (skillData.ContainsKey("description"))
-                                    {
-                                        skill.description = Convert.ToString(skillData["description"]);
-                                    }
-
+                                    {                   
+                                        skill.description += "\n" + Convert.ToString(skillData["description"]);
+                                    }                   
+                                                        
                                     hostSkillList.Add(skill);
-                                }
+                                }                       
                                 UserDataManager.Instance.HostSkillList = hostSkillList;
-
+                                                        
                                 string entrantSkillListString = Convert.ToString(jsonData["entrantSkillList"]);
                                 List<Dictionary<string, object>> entrantSkillListData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(entrantSkillListString);
-
+                                                        
                                 List<CharacterSkillGetResponse> entrantSkillList = new List<CharacterSkillGetResponse>();
                                 foreach (var skillData in entrantSkillListData)
-                                {
+                                {                       
                                     CharacterSkillGetResponse skill = new CharacterSkillGetResponse();
                                     skill.skillId = Convert.ToInt64(skillData["skillId"]);
                                     skill.skillNm = Convert.ToString(skillData["skillNm"]);
+                                    skill.manaCost = Convert.ToInt32(skillData["manaCost"]);
+                                    skill.description = "소모 마나: " + skill.manaCost.ToString();
                                     if (skillData.ContainsKey("description"))
                                     {
-                                        skill.description = Convert.ToString(skillData["description"]);
+                                        skill.description += "\n" + Convert.ToString(skillData["description"]);
                                     }
 
                                     entrantSkillList.Add(skill);
@@ -392,7 +400,7 @@ public enum PlayerType
 public class CharacterSkillGetResponse
 {
     public long skillId;
-    public int skillMp;
+    public int manaCost;
     public string skillNm;
     public string description;
 }
