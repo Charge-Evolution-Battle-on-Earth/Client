@@ -17,6 +17,11 @@ public class Ingame : MonoBehaviour
     public TMP_Text skillBtn1Text;
     public TMP_Text skillBtn2Text;
     public TMP_Text roomIdText;
+    public Image myHpBar;
+    public Image myMpBar;
+    public Image opponentHpBar;
+    public Image opponentMpBar;
+    public float maxBarWidth = 350f;
 
     private WebSocketManager webSocketManager;
     private async void Start()
@@ -55,6 +60,37 @@ public class Ingame : MonoBehaviour
             skillBtn0.interactable = true;
             skillBtn1.interactable = true;
             skillBtn2.interactable = true;
+
+            float hostMaxHP = UserDataManager.Instance.HostTotalStat.hp;
+            float hostMaxMP = UserDataManager.Instance.HostTotalStat.mp;
+            float entrantMaxHP = UserDataManager.Instance.EntrantTotalStat.hp;
+            float entrantMaxMP = UserDataManager.Instance.EntrantTotalStat.mp;
+
+            float hostCurrentHP = UserDataManager.Instance.HostStat.hp;
+            float hostCurrentMP = UserDataManager.Instance.HostStat.mp;
+            float entrantCurrentHP = UserDataManager.Instance.EntrantStat.hp;
+            float entrantCurrentMP = UserDataManager.Instance.EntrantStat.mp;
+
+            float hostHPfillAmount = hostCurrentHP / hostMaxHP;
+            float hostMPfillAmount = hostCurrentMP / hostMaxMP;
+            float entrantHPfillAmount = entrantCurrentHP / entrantMaxHP;
+            float entrantMPfillAmount = entrantCurrentMP / entrantMaxMP;
+
+            if (UserDataManager.Instance.PlayerType == PlayerType.HOST)
+            {
+                myHpBar.fillAmount = hostHPfillAmount;
+                myMpBar.fillAmount = hostMPfillAmount;
+                opponentHpBar.fillAmount = entrantHPfillAmount;
+                opponentMpBar.fillAmount = entrantMPfillAmount;
+            }
+            else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
+            {
+                myHpBar.fillAmount = entrantHPfillAmount;
+                myMpBar.fillAmount = entrantMPfillAmount;
+                opponentHpBar.fillAmount = hostHPfillAmount;
+                opponentMpBar.fillAmount = hostMPfillAmount;
+            } 
+
             if (UserDataManager.Instance.PlayerType == PlayerType.HOST) // 스킬 설명 저장
             {
                 skillBtn0Text.text = UserDataManager.Instance.HostSkillList[0].skillNm;
