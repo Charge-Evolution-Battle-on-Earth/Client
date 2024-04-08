@@ -167,6 +167,7 @@ public class WebSocketManager : MonoBehaviour
                                 hostTotalStat.mp = Convert.ToInt32(hostTotalStatData["mp"]);
                                 hostTotalStat.spd = Convert.ToInt32(hostTotalStatData["spd"]);
                                 UserDataManager.Instance.HostTotalStat = hostTotalStat;
+                                UserDataManager.Instance.HostStat = hostTotalStat;
 
                                 string entrantTotalStatString = Convert.ToString(jsonData["entrantTotalStat"]);
                                 Dictionary<string, object> entrantTotalStatData = JsonConvert.DeserializeObject<Dictionary<string, object>>(entrantTotalStatString);
@@ -176,6 +177,7 @@ public class WebSocketManager : MonoBehaviour
                                 entrantTotalStat.mp = Convert.ToInt32(entrantTotalStatData["mp"]);
                                 entrantTotalStat.spd = Convert.ToInt32(entrantTotalStatData["spd"]);
                                 UserDataManager.Instance.EntrantTotalStat = entrantTotalStat;
+                                UserDataManager.Instance.EntrantStat = entrantTotalStat;
 
                                 string hostSkillListString = Convert.ToString(jsonData["hostSkillList"]);
                                 List<Dictionary<string, object>> hostSkillListData = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(hostSkillListString);
