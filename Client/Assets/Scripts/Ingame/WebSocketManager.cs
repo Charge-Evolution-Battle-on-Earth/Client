@@ -103,11 +103,12 @@ public class WebSocketManager : MonoBehaviour
 
                         try
                         {
-                            if (jsonData.ContainsKey("error"))
+                            if (jsonData.ContainsKey("ErrorResponse"))
                             {
                                 // error 응답
-                                string errorMessage = jsonData["error"].ToString();
-                                serverMsg.text += errorMessage + Environment.NewLine;
+                                string errorType = jsonData["type"].ToString();
+                                string errorMessage = jsonData["message"].ToString();
+                                serverMsg.text += errorType + ": " + errorMessage + Environment.NewLine;
                             }
                             else if (jsonData.ContainsKey("greetingMessage"))
                             {
@@ -140,19 +141,19 @@ public class WebSocketManager : MonoBehaviour
 
                                 if (UserDataManager.Instance.HostReady)
                                 {
-                                    serverMsg.text += "방장: 레디 ";
+                                    serverMsg.text += "방장: Ready ";
                                 }
                                 else
                                 {
-                                    serverMsg.text += "방장: 레디안함 ";
+                                    serverMsg.text += "방장: Not Ready ";
                                 }
                                 if (UserDataManager.Instance.EntrantReady)
                                 {
-                                    serverMsg.text += "참가자: 레디" + Environment.NewLine;
+                                    serverMsg.text += "참가자: Ready" + Environment.NewLine;
                                 }
                                 else
                                 {
-                                    serverMsg.text += "참가자: 레디안함" + Environment.NewLine;
+                                    serverMsg.text += "참가자: Not Ready" + Environment.NewLine;
                                 }
                             }
                             else if (jsonData.ContainsKey("hostTotalStat"))
