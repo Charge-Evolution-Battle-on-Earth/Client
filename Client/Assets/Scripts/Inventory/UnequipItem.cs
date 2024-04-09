@@ -5,6 +5,21 @@ using Newtonsoft.Json.Linq;
 
 public class UnequipItemManager : MonoBehaviour
 {
+    public PopupManager popupManager;
+
+    void Start()
+    {
+        popupManager.HidePopup();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
+    }
+
     public void UnequipItem()
     {
         StartCoroutine(UnequipItemCoroutine());
@@ -32,14 +47,11 @@ public class UnequipItemManager : MonoBehaviour
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                // 응답 데이터를 JObject로 변환
-                //JObject request = JsonUtility.FromJson<EquipItemResponse>(request.downloadHandler.text);
-
-                Debug.Log($"해제 성공. CharacterItemId: {UserDataManager.Instance.CharacterItemId}");
+                popupManager.ShowPopup($"해제 성공\nCharacterItemId: {UserDataManager.Instance.CharacterItemId}");
             }
             else
             {
-                Debug.LogError("해제 실패: " + request.error);
+                popupManager.ShowPopup("해제 실패: " + request.error);
             }
         }
     }

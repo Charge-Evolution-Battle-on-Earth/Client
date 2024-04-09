@@ -5,6 +5,21 @@ using Newtonsoft.Json.Linq;
 
 public class EquipItemManager : MonoBehaviour
 {
+    public PopupManager popupManager;
+
+    void Start()
+    {
+        popupManager.HidePopup();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
+    }
+
     public void EquipItem()
     {
         StartCoroutine(EquipItemCoroutine());
@@ -35,11 +50,11 @@ public class EquipItemManager : MonoBehaviour
                 // 응답 데이터를 JObject로 변환
                 EquipItemResponse responseData = JsonUtility.FromJson<EquipItemResponse>(request.downloadHandler.text);
 
-                Debug.Log("아이템 장착 성공. CharacterItemId: " + responseData.characterItemId);
+                popupManager.ShowPopup("장착 성공\nCharacterItemId: " + responseData.characterItemId);
             }
             else
             {
-                Debug.LogError("장착 실패: " + request.error);
+                popupManager.ShowPopup("장착 실패: " + request.error);
             }
         }
     }
