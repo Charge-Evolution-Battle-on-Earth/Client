@@ -36,8 +36,6 @@ public class Login : HttpServerBase
             return;
         }
 
-        // TODO: 아이디 또는 비밀번호 오류시 메세지
-
         //Newtonsoft.Json 패키지를 이용한 Json 생성
         JObject userData = new JObject();
         userData["email"] = id;

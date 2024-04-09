@@ -1,11 +1,28 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
 public class EnterRoom : MonoBehaviour
 {
+    public Image popup;
+    public TMP_Text popupMessage;
+
+    public void Start()
+    {
+        popup.enabled = false;
+    }
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popup.enabled = false;
+            popupMessage.text = "";
+        }
+    }
+
     public void OnclickButton()
     {
         StartCoroutine(RoomEnter());
@@ -47,8 +64,16 @@ public class EnterRoom : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Error: " + www.error);
+                ShowErrorMessage("Error: " + www.error);
             }
         }
+    }
+
+    public void ShowErrorMessage(string errorMessage)
+    {
+        popup.enabled = true;
+        popupMessage.text = errorMessage;
+
+        popup.transform.position = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
     }
 }
