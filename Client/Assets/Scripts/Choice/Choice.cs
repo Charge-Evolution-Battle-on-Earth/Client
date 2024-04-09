@@ -15,7 +15,7 @@ public class Choice : MonoBehaviour
 
     private void Start()
     {
-        popup.enabled = false;
+        HideErrorMessage();
         dropdownController.dropdown.ClearOptions();
         StartCoroutine(GetNationList());
     }
@@ -24,8 +24,7 @@ public class Choice : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            popup.enabled = false;
-            popupMessage.text = "";
+            HideErrorMessage();
         }
     }
 
@@ -110,12 +109,16 @@ public class Choice : MonoBehaviour
         }
     }
 
-    public void ShowErrorMessage(string errorMessage)
+    void ShowErrorMessage(string errorMessage)
     {
-        popup.enabled = true;
         popupMessage.text = errorMessage;
 
         popup.transform.position = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+    }
+
+    void HideErrorMessage()
+    {
+        popup.transform.position = new Vector3(Screen.width * 2f, Screen.height * 2f, 0);
     }
 }
 [System.Serializable]

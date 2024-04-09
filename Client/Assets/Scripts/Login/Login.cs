@@ -14,14 +14,13 @@ public class Login : HttpServerBase
 
     public void Start()
     {
-        popup.enabled = false;
+        HideErrorMessage();
     }
     public void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            popup.enabled = false;
-            popupMessage.text = "";
+            HideErrorMessage();
         }
     }
 
@@ -99,11 +98,15 @@ public class Login : HttpServerBase
         SceneController.LoadScene(Scenes.Register.ToString());
     }
 
-    public void ShowErrorMessage(string errorMessage)
+    void ShowErrorMessage(string errorMessage)
     {
-        popup.enabled = true;
         popupMessage.text = errorMessage;
 
         popup.transform.position = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+    }
+
+    void HideErrorMessage()
+    {
+        popup.transform.position = new Vector3(Screen.width * 2f, Screen.height * 2f, 0);
     }
 }
