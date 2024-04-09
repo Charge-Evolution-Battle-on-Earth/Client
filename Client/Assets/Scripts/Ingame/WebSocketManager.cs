@@ -15,6 +15,9 @@ public class WebSocketManager : MonoBehaviour
     private Uri serverUri;
     public TMP_Text serverMsg;
     public Scrollbar verticalScrollbar;
+    public Image popup;
+    public TMP_Text popupMessage;
+    // ServerMessage/Viewport/Content/MessageText에 참조되어있음
 
     public static WebSocketManager Instance
     {
@@ -30,6 +33,17 @@ public class WebSocketManager : MonoBehaviour
                 }
             }
             return instance;
+        }
+    }
+    public void Start()
+    {
+        HideErrorMessage();
+    }
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            HideErrorMessage();
         }
     }
 
@@ -61,7 +75,7 @@ public class WebSocketManager : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError("WebSocket 연결 실패: " + ex.Message);
+            ShowErrorMessage("WebSocket 연결 실패: " + ex.Message);
         }
     }
 
@@ -78,12 +92,12 @@ public class WebSocketManager : MonoBehaviour
             }
             catch (Exception ex)
             {
-                Debug.LogError("JSON 요청 보내기 실패: " + ex.Message);
+                ShowErrorMessage("JSON 요청 보내기 실패: " + ex.Message);
             }
         }
         else
         {
-            Debug.LogError("WebSocket이 연결되어 있지 않습니다.");
+            ShowErrorMessage("WebSocket이 연결되어 있지 않습니다.");
         }
     }
 
@@ -281,6 +295,10 @@ public class WebSocketManager : MonoBehaviour
 
                                 string useSkillNm = Convert.ToString(jsonData["useSkillNm"]);
                                 string msg = Convert.ToString(jsonData["message"]);
+                                if (isGameOver)
+                                {
+                                    serverMsg.text += useSkillNm + "발동!" + Environment.NewLine;
+                                }
                                 serverMsg.text += msg + Environment.NewLine;
                                 verticalScrollbar.value = 0f;
                             }
@@ -332,7 +350,7 @@ public class WebSocketManager : MonoBehaviour
                         }
                         catch (Exception ex)
                         {
-                            Debug.LogError("JSON 파싱 오류: " + ex.Message);
+                            ShowErrorMessage("JSON 파싱 오류: " + ex.Message);
                         }
                     }
                     else
@@ -344,7 +362,7 @@ public class WebSocketManager : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError("메시지 수신 중 오류 발생: " + ex.Message);
+            ShowErrorMessage("메시지 수신 중 오류 발생: " + ex.Message);
         }
     }
 
@@ -356,6 +374,18 @@ public class WebSocketManager : MonoBehaviour
             await ws.CloseAsync(WebSocketCloseStatus.NormalClosure, "Connection closed by client", CancellationToken.None);
             Debug.Log("WebSocket 연결 종료");
         }
+    }
+
+    void ShowErrorMessage(string errorMessage)
+    {
+        popupMessage.text = errorMessage;
+
+        popup.transform.position = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+    }
+
+    void HideErrorMessage()
+    {
+        popup.transform.position = new Vector3(Screen.width * 2f, Screen.height * 2f, 0);
     }
 }
 [Serializable]
