@@ -29,7 +29,9 @@ public class Ingame : MonoBehaviour
     public TMP_Text myMpBarText;
     public TMP_Text opponentHpBarText;
     public TMP_Text opponentMpBarText;
+    public TMP_Text serverMsg;
     public float maxBarWidth = 350f;
+    public Scrollbar verticalScrollbar;
 
     private WebSocketManager webSocketManager;
     private async void Start()
@@ -150,6 +152,10 @@ public class Ingame : MonoBehaviour
             myMpBarBackground.enabled = false;
             opponentHpBarBackground.enabled = false;
             opponentMpBarBackground.enabled = false;
+            myHpBarText.text = "";
+            myMpBarText.text = "";
+            opponentHpBarText.text = "";
+            opponentMpBarText.text = "";
         }
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.READY || UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)
@@ -212,13 +218,30 @@ public class Ingame : MonoBehaviour
         long skillID = new long();
         if(UserDataManager.Instance.PlayerType == PlayerType.HOST)
         {
-            skillID = (long)UserDataManager.Instance.HostSkillList[skillId].skillId;
+            if(UserDataManager.Instance.HostSkillList[skillId].manaCost<=UserDataManager.Instance.HostStat.mp)
+            {
+                skillID = (long)UserDataManager.Instance.HostSkillList[skillId].skillId;
+                Turn(skillID);
+            }
+            else
+            {
+                serverMsg.text += "MP가 부족합니다." + Environment.NewLine;
+                verticalScrollbar.value = 0f;
+            }
         }
         else if(UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
         {
-            skillID = (long)UserDataManager.Instance.EntrantSkillList[skillId].skillId;
+            if (UserDataManager.Instance.EntrantSkillList[skillId].manaCost <= UserDataManager.Instance.EntrantStat.mp)
+            {
+                skillID = (long)UserDataManager.Instance.EntrantSkillList[skillId].skillId;
+                Turn(skillID);
+            }
+            else
+            {
+                serverMsg.text += "MP가 부족합니다." + Environment.NewLine;
+                verticalScrollbar.value = 0f;
+            }
         }
-        Turn(skillID);
     }
 
     public void QuitBtn()
