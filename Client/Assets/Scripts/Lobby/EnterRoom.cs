@@ -7,19 +7,18 @@ using Newtonsoft.Json.Linq;
 
 public class EnterRoom : MonoBehaviour
 {
-    public Image popup;
-    public TMP_Text popupMessage;
+    public PopupManager popupManager;
 
-    public void Start()
+    void Start()
     {
-        popup.enabled = false;
+        popupManager.HidePopup();
     }
-    public void Update()
+
+    void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            popup.enabled = false;
-            popupMessage.text = "";
+            popupManager.HidePopup();
         }
     }
 
@@ -64,16 +63,8 @@ public class EnterRoom : MonoBehaviour
             }
             else
             {
-                ShowErrorMessage("Error: " + www.error);
+                popupManager.ShowPopup("Error: " + www.error);
             }
         }
-    }
-
-    public void ShowErrorMessage(string errorMessage)
-    {
-        popup.enabled = true;
-        popupMessage.text = errorMessage;
-
-        popup.transform.position = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
     }
 }
