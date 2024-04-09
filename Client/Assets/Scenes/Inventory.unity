@@ -2451,6 +2451,10 @@ PrefabInstance:
       propertyPath: MoneyText
       value: 
       objectReference: {fileID: 258693086}
+    - target: {fileID: 3091254709955738590, guid: d996f3e7e29e6ba4ab16e6a5e34a383b, type: 3}
+      propertyPath: popupManager
+      value: 
+      objectReference: {fileID: 309234373}
     - target: {fileID: 4888778787107692814, guid: d996f3e7e29e6ba4ab16e6a5e34a383b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 448.95966

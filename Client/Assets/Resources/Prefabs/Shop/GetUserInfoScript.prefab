@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4888778787107692814}
   - component: {fileID: 3091254709955738590}
   m_Layer: 0
-  m_Name: Money
+  m_Name: GetUserInfoScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
