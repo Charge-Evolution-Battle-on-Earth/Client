@@ -225,6 +225,7 @@ RectTransform:
   - {fileID: 1853436256}
   - {fileID: 2013829342}
   - {fileID: 1521598370}
+  - {fileID: 1203154878}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -592,6 +593,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 561311404}
   m_CullTransparentMesh: 1
+--- !u!1001 &739311874
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 27639300}
+    m_Modifications:
+    - target: {fileID: 2353324045873688864, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_Name
+      value: Popup
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 287.2513
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 160.2435
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -853
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
 --- !u!1 &765533167
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,6 +724,7 @@ MonoBehaviour:
   expText: {fileID: 1187414417}
   characterImage: {fileID: 2013829343}
   expBar: {fileID: 1929201984}
+  popupManager: {fileID: 1203154879}
 --- !u!4 &765533169
 Transform:
   m_ObjectHideFlags: 0
@@ -756,6 +855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillListText: {fileID: 1402022011}
+  popupManager: {fileID: 1203154879}
 --- !u!1 &1173555484
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,6 +1062,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187414415}
   m_CullTransparentMesh: 1
+--- !u!224 &1203154878 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3169131175192283290, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+  m_PrefabInstance: {fileID: 739311874}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1203154879 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9106970421476179186, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+  m_PrefabInstance: {fileID: 739311874}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 499d205fa38f04e4981b723c4364f004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1386601661
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,7 +1357,7 @@ GameObject:
   - component: {fileID: 1521598372}
   - component: {fileID: 1521598371}
   m_Layer: 5
-  m_Name: ExpBar_BackGround
+  m_Name: ExpBar_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

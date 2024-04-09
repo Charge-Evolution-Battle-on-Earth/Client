@@ -8,10 +8,20 @@ using Newtonsoft.Json.Linq;
 public class SkillList : MonoBehaviour
 {
     public TMP_Text skillListText;
+    public PopupManager popupManager;
 
     private void Start()
     {
+        popupManager.HidePopup();
         StartCoroutine(GetSkillInfo());
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
     }
 
     IEnumerator GetSkillInfo()
@@ -56,7 +66,7 @@ public class SkillList : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Error: " + www.error);
+                popupManager.ShowPopup("Error: " + www.error);
             }
         }
     }
