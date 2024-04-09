@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 49659891}
   - component: {fileID: 49659892}
   m_Layer: 0
-  m_Name: Choice
+  m_Name: ChoiceScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,8 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropdownController: {fileID: 1428410172}
-  popup: {fileID: 1672767593}
-  popupMessage: {fileID: 1672767592}
+  popupManager: {fileID: 1672767592}
 --- !u!1 &81056514
 GameObject:
   m_ObjectHideFlags: 0
@@ -2968,24 +2967,13 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1672767592 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7358361583712669929, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
+  m_CorrespondingSourceObject: {fileID: 9106970421476179186, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
   m_PrefabInstance: {fileID: 1672767590}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1672767593 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8025676512438934570, guid: a6f19088d03927c47bb191ae32795ced, type: 3}
-  m_PrefabInstance: {fileID: 1672767590}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 499d205fa38f04e4981b723c4364f004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1736985318

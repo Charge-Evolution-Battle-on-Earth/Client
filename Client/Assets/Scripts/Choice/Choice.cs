@@ -10,21 +10,18 @@ using Newtonsoft.Json.Linq;
 public class Choice : MonoBehaviour
 {
     public DropdownController dropdownController;
-    public Image popup;
-    public TMP_Text popupMessage;
+    public PopupManager popupManager;
 
-    private void Start()
+    void Start()
     {
-        HideErrorMessage();
-        dropdownController.dropdown.ClearOptions();
-        StartCoroutine(GetNationList());
+        popupManager.HidePopup();
     }
 
-    public void Update()
+    void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            HideErrorMessage();
+            popupManager.HidePopup();
         }
     }
 
@@ -54,7 +51,7 @@ public class Choice : MonoBehaviour
             }
             else
             {
-                ShowErrorMessage("Error: " + www.error);
+                popupManager.ShowPopup("Error: " + www.error);
             }
         }
     }
@@ -107,18 +104,6 @@ public class Choice : MonoBehaviour
                 }
             }
         }
-    }
-
-    void ShowErrorMessage(string errorMessage)
-    {
-        popupMessage.text = errorMessage;
-
-        popup.transform.position = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
-    }
-
-    void HideErrorMessage()
-    {
-        popup.transform.position = new Vector3(Screen.width * 2f, Screen.height * 2f, 0);
     }
 }
 [System.Serializable]

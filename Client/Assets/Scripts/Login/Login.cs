@@ -9,18 +9,18 @@ public class Login : HttpServerBase
 {
     public TMP_InputField id_Input;
     public TMP_InputField pw_Input;
-    public Image popup;
-    public TMP_Text popupMessage;
+    public PopupManager popupManager;
 
-    public void Start()
+    void Start()
     {
-        HideErrorMessage();
+        popupManager.HidePopup();
     }
-    public void Update()
+
+    void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            HideErrorMessage();
+            popupManager.HidePopup();
         }
     }
 
@@ -31,7 +31,7 @@ public class Login : HttpServerBase
         
         if(string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pw))
         {
-            ShowErrorMessage("입력하지 않은 칸이 있습니다.");
+            popupManager.ShowPopup("입력하지 않은 칸이 있습니다.");
             return;
         }
 
@@ -76,7 +76,7 @@ public class Login : HttpServerBase
                     }
                     else
                     {
-                        ShowErrorMessage("로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
+                        popupManager.ShowPopup("로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
                     }
                 }
                 else
@@ -87,7 +87,7 @@ public class Login : HttpServerBase
                     string errorType = json["type"].ToString();
                     string errorMessage = json["message"].ToString();
                     string error = errorType + ": " + errorMessage;
-                    ShowErrorMessage(error);
+                    popupManager.ShowPopup(error);
                 }
             }
         }
@@ -96,17 +96,5 @@ public class Login : HttpServerBase
     public void RegisterBtn()
     {
         SceneController.LoadScene(Scenes.Register.ToString());
-    }
-
-    void ShowErrorMessage(string errorMessage)
-    {
-        popupMessage.text = errorMessage;
-
-        popup.transform.position = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
-    }
-
-    void HideErrorMessage()
-    {
-        popup.transform.position = new Vector3(Screen.width * 2f, Screen.height * 2f, 0);
     }
 }
