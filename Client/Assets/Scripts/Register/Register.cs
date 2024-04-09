@@ -13,6 +13,21 @@ public class Register : MonoBehaviour
     public TMP_InputField pw_Input;
     public TMP_InputField confirmPw_Input;
     public Button registerBtn;
+    public Image popup;
+    public TMP_Text popupMessage;
+
+    public void Start()
+    {
+        popup.enabled = false;
+    }
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popup.enabled = false;
+            popupMessage.text = "";
+        }
+    }
 
     public void RegisterUser()
     {
@@ -25,12 +40,12 @@ public class Register : MonoBehaviour
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(nick) || 
             string.IsNullOrEmpty(pw) || string.IsNullOrEmpty(confirmPw))
         {
-            Debug.LogWarning("입력하지 않은 칸이 있습니다.");
+            ShowErrorMessage("입력하지 않은 칸이 있습니다.");
             return;
         }
         if (pw != confirmPw)
         {
-            Debug.LogWarning("비밀번호가 비밀번호 확인이 일치하지 않습니다.");
+            ShowErrorMessage("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
             return;
         }
 
@@ -59,8 +74,13 @@ public class Register : MonoBehaviour
 
                 if (request.result != UnityWebRequest.Result.Success)
                 {
-                    string jsonResponse = "Error Type: " + request.downloadHandler.error + ": " + request.downloadHandler.text;
-                    Debug.LogError(jsonResponse);
+                    string jsonResponse = request.downloadHandler.text;
+                    JObject json = JObject.Parse(jsonResponse);
+
+                    string errorType = json["type"].ToString();
+                    string errorMessage = json["message"].ToString();
+                    string error = errorType + ": " + errorMessage;
+                    ShowErrorMessage(error);
                 }
                 else
                 {
@@ -76,17 +96,23 @@ public class Register : MonoBehaviour
                         UserDataManager.Instance.UserId = Convert.ToInt64(userId);
 
                     }
+                    ShowErrorMessage("가입 성공");
                     CustomSceneManager.LoadScene(Scenes.Choice.ToString());
-                    Debug.Log("가입 성공");
                 }
             }
         }
-
-        // TODO: 이메일이 같거나 닉네임이 같은 사용자가 있을 시 메시지
     }
 
     public void ReturnScene()
     {
         SceneController.LoadScene(Scenes.Login.ToString());
+    }
+
+    public void ShowErrorMessage(string errorMessage)
+    {
+        popup.enabled = true;
+        popupMessage.text = errorMessage;
+
+        popup.transform.position = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
     }
 }
