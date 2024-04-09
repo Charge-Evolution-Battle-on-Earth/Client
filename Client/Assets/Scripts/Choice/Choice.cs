@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
+using TMPro;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,12 +10,25 @@ using Newtonsoft.Json.Linq;
 public class Choice : MonoBehaviour
 {
     public DropdownController dropdownController;
+    public Image popup;
+    public TMP_Text popupMessage;
+
     private void Start()
     {
+        popup.enabled = false;
         dropdownController.dropdown.ClearOptions();
         StartCoroutine(GetNationList());
     }
-    
+
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popup.enabled = false;
+            popupMessage.text = "";
+        }
+    }
+
     IEnumerator GetNationList()
     {
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getNationsPath;
@@ -40,7 +55,7 @@ public class Choice : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Error: " + www.error);
+                ShowErrorMessage("Error: " + www.error);
             }
         }
     }
@@ -93,6 +108,14 @@ public class Choice : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ShowErrorMessage(string errorMessage)
+    {
+        popup.enabled = true;
+        popupMessage.text = errorMessage;
+
+        popup.transform.position = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
     }
 }
 [System.Serializable]
