@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
 using TMPro;
@@ -8,6 +9,22 @@ public class Login : HttpServerBase
 {
     public TMP_InputField id_Input;
     public TMP_InputField pw_Input;
+    public Image popup;
+    public TMP_Text popupMessage;
+
+    public void Start()
+    {
+        popup.enabled = false;
+    }
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popup.enabled = false;
+            popupMessage.text = "";
+        }
+    }
+
     public void LoginBtn()
     {
         string id = id_Input.text;
@@ -15,7 +32,7 @@ public class Login : HttpServerBase
         
         if(string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pw))
         {
-            Debug.LogWarning("입력하지 않은 칸이 있습니다.");
+            ShowErrorMessage("입력하지 않은 칸이 있습니다.");
             return;
         }
 
@@ -62,14 +79,18 @@ public class Login : HttpServerBase
                     }
                     else
                     {
-                        Debug.LogError("로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
+                        ShowErrorMessage("로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
                     }
                 }
                 else
                 {
-                    string jsonResponse = "Error Type: " + request.downloadHandler.error + ": " + request.downloadHandler.text;
+                    string jsonResponse = request.downloadHandler.text;
+                    JObject json = JObject.Parse(jsonResponse);
 
-                    Debug.LogError(jsonResponse);
+                    string errorType = json["type"].ToString();
+                    string errorMessage = json["message"].ToString();
+                    string error = errorType + ": " + errorMessage;
+                    ShowErrorMessage(error);
                 }
             }
         }
@@ -78,5 +99,13 @@ public class Login : HttpServerBase
     public void RegisterBtn()
     {
         SceneController.LoadScene(Scenes.Register.ToString());
+    }
+
+    public void ShowErrorMessage(string errorMessage)
+    {
+        popup.enabled = true;
+        popupMessage.text = errorMessage;
+
+        popup.transform.position = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
     }
 }
