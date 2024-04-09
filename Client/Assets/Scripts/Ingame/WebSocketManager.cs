@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 public class WebSocketManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class WebSocketManager : MonoBehaviour
     private ClientWebSocket ws;
     private Uri serverUri;
     public TMP_Text serverMsg;
+    public Scrollbar verticalScrollbar;
 
     public static WebSocketManager Instance
     {
@@ -109,6 +111,7 @@ public class WebSocketManager : MonoBehaviour
                                 string errorType = jsonData["type"].ToString();
                                 string errorMessage = jsonData["message"].ToString();
                                 serverMsg.text += errorType + ": " + errorMessage + Environment.NewLine;
+                                verticalScrollbar.value = 0f;
                             }
                             else if (jsonData.ContainsKey("greetingMessage"))
                             {
@@ -127,6 +130,7 @@ public class WebSocketManager : MonoBehaviour
                                     UserDataManager.Instance.UserId = number;
                                 }
                                 serverMsg.text += greetingMessage + Environment.NewLine;
+                                verticalScrollbar.value = 0f;
                             }
                             else if (jsonData.ContainsKey("hostReadyStatus"))
                             {
@@ -141,19 +145,23 @@ public class WebSocketManager : MonoBehaviour
 
                                 if (UserDataManager.Instance.HostReady)
                                 {
-                                    serverMsg.text += "방장: Ready ";
+                                    serverMsg.text += "방장: Ready " + Environment.NewLine;
+                                    verticalScrollbar.value = 0f;
                                 }
                                 else
                                 {
-                                    serverMsg.text += "방장: Not Ready ";
+                                    serverMsg.text += "방장: Not Ready " + Environment.NewLine;
+                                    verticalScrollbar.value = 0f;
                                 }
                                 if (UserDataManager.Instance.EntrantReady)
                                 {
                                     serverMsg.text += "참가자: Ready" + Environment.NewLine;
+                                    verticalScrollbar.value = 0f;
                                 }
                                 else
                                 {
                                     serverMsg.text += "참가자: Not Ready" + Environment.NewLine;
+                                    verticalScrollbar.value = 0f;
                                 }
                             }
                             else if (jsonData.ContainsKey("hostTotalStat"))
@@ -231,6 +239,7 @@ public class WebSocketManager : MonoBehaviour
 
                                 string msg = Convert.ToString(jsonData["message"]);
                                 serverMsg.text += msg + Environment.NewLine;
+                                verticalScrollbar.value = 0f;
                             }
                             else if (jsonData.ContainsKey("isGameOver"))
                             {
@@ -273,6 +282,7 @@ public class WebSocketManager : MonoBehaviour
                                 string useSkillNm = Convert.ToString(jsonData["useSkillNm"]);
                                 string msg = Convert.ToString(jsonData["message"]);
                                 serverMsg.text += msg + Environment.NewLine;
+                                verticalScrollbar.value = 0f;
                             }
                             else if (jsonData.ContainsKey("winnerType"))
                             {
@@ -298,6 +308,7 @@ public class WebSocketManager : MonoBehaviour
 
                                 string msg = Convert.ToString(jsonData["message"]);
                                 serverMsg.text += msg + Environment.NewLine;
+                                verticalScrollbar.value = 0f;
                             }
                             else if (jsonData.ContainsKey("playerType"))
                             {
@@ -316,6 +327,7 @@ public class WebSocketManager : MonoBehaviour
                                     UserDataManager.Instance.EntrantQuit();
                                 }
                                 serverMsg.text += msg + Environment.NewLine;
+                                verticalScrollbar.value = 0f;
                             }
                         }
                         catch (Exception ex)
