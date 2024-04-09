@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
+using TMPro;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,12 +10,21 @@ using Newtonsoft.Json.Linq;
 public class Choice : MonoBehaviour
 {
     public DropdownController dropdownController;
-    private void Start()
+    public PopupManager popupManager;
+
+    void Start()
     {
-        dropdownController.dropdown.ClearOptions();
-        StartCoroutine(GetNationList());
+        popupManager.HidePopup();
     }
-    
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
+    }
+
     IEnumerator GetNationList()
     {
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getNationsPath;
@@ -40,7 +51,7 @@ public class Choice : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Error: " + www.error);
+                popupManager.ShowPopup("Error: " + www.error);
             }
         }
     }

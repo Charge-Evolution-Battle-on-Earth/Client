@@ -1,11 +1,27 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
 public class EnterRoom : MonoBehaviour
 {
+    public PopupManager popupManager;
+
+    void Start()
+    {
+        popupManager.HidePopup();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
+    }
+
     public void OnclickButton()
     {
         StartCoroutine(RoomEnter());
@@ -47,7 +63,7 @@ public class EnterRoom : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Error: " + www.error);
+                popupManager.ShowPopup("Error: " + www.error);
             }
         }
     }

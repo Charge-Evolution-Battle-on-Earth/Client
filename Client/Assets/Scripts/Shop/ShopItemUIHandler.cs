@@ -1,9 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Networking;
-using Newtonsoft.Json.Linq;
-using System.Collections;
 
 public class ShopItemUIHandler : MonoBehaviour
 {
@@ -15,10 +12,9 @@ public class ShopItemUIHandler : MonoBehaviour
     public TMP_Text itemStatText;
     public TMP_Text itemDescriptionText;
 
-    public TMP_Text MoneyText;
-
     public Shop.ShopItemGetResponse item;
     public Button purchaseButton;
+    private PurchaseItem purchaseItem;
 
     public void SetItemInfo(Shop.ShopItemGetResponse newItem)
     {
@@ -43,41 +39,11 @@ public class ShopItemUIHandler : MonoBehaviour
     public void purchaseOnButtonClick()
     {
         ImageTransparency();
-        StartCoroutine(BuyItem());
+
+        purchaseItem = FindObjectOfType<PurchaseItem>();
+        StartCoroutine(purchaseItem.BuyItem());
     }
-    IEnumerator BuyItem()
-    {
-        JObject jobjItemId = new JObject();
-        jobjItemId["itemId"] = UserDataManager.Instance.ClickedItemId;
-
-        string jsonData = jobjItemId.ToString();
-        string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getShopBuyPath;
-
-        using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
-        {
-            request.SetRequestHeader("Authorization", $"Bearer {UserDataManager.Instance.AccessToken}");
-
-            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            request.downloadHandler = new DownloadHandlerBuffer();
-            request.SetRequestHeader("Content-Type", "application/json");
-
-            yield return request.SendWebRequest();
-
-            if (request.result == UnityWebRequest.Result.Success)
-            {
-                string jsonResponse = request.downloadHandler.text;
-                BuyGetResponse buyGetResponse = JsonUtility.FromJson<BuyGetResponse>(jsonResponse);
-
-                MoneyText.text = buyGetResponse.money.ToString();
-                Debug.Log("구매에 성공했습니다.");
-            }
-            else
-            {
-                Debug.LogError("구매에 실패했습니다.");
-            }
-        }
-    }
+    
 
     void ImageTransparency()
     {
@@ -87,7 +53,7 @@ public class ShopItemUIHandler : MonoBehaviour
         itemNameText.text = "";
         itemStatText.text = "";
         itemDescriptionText.text = "";
-}
+    }
 
     void ImageOpaque()
     {

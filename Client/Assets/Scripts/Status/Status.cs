@@ -11,9 +11,20 @@ public class Status : MonoBehaviour
     public TMP_Text expText;
     public Image characterImage;
     public Image expBar;
+    public PopupManager popupManager;
+
     void Start()
     {
+        popupManager.HidePopup();
         StartCoroutine(GetCharacterInfo());
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
     }
 
     IEnumerator GetCharacterInfo()
@@ -35,7 +46,7 @@ public class Status : MonoBehaviour
             } 
             else
             {
-                Debug.LogError("Error: " + www.error);
+                popupManager.ShowPopup("Error: " + www.error);
             }
         }
     }
@@ -68,7 +79,7 @@ public class Status : MonoBehaviour
         }
         else
         {
-            Debug.LogError("이미지를 찾을 수 없습니다: " + UserDataManager.Instance.JobNm);
+            popupManager.ShowPopup("직업 이미지를 찾을 수 없습니다: " + UserDataManager.Instance.JobNm);
         }
     }
 

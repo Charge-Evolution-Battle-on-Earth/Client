@@ -6,10 +6,20 @@ using TMPro;
 public class GetUserInfo : MonoBehaviour
 {
     public TMP_Text MoneyText;
+    public PopupManager popupManager;
 
     void Start()
     {
+        popupManager.HidePopup();
         StartCoroutine(GetMoneyInfo());
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
     }
 
     IEnumerator GetMoneyInfo()
@@ -31,7 +41,7 @@ public class GetUserInfo : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Error: " + www.error);
+                popupManager.ShowPopup("Error: " + www.error);
             }
         }
     }

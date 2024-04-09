@@ -16,6 +16,21 @@ public class SellItemManager : MonoBehaviour
     public TMP_Text itemStatText;
     public TMP_Text itemDescriptionText;
     public Transform contentPanel;
+    public PopupManager popupManager;
+
+    void Start()
+    {
+        popupManager.HidePopup();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
+    }
+
     public void SellItem()
     {
         equipBtn.interactable = false;
@@ -53,11 +68,11 @@ public class SellItemManager : MonoBehaviour
                 int money = responseData["money"].Value<int>();
                 moneyText.text = money.ToString();
                 UserDataManager.Instance.ClearUI = true;
-                Debug.Log("판매 성공. 현재 잔액: " + money);
+                popupManager.ShowPopup("판매 성공\n현재 잔액: " + money);
             }
             else
             {
-                Debug.LogError("판매 실패: " + request.error);
+                popupManager.ShowPopup("판매 실패: " + request.error);
             }
         }
     }

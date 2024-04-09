@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
 using TMPro;
@@ -8,6 +9,21 @@ public class Login : HttpServerBase
 {
     public TMP_InputField id_Input;
     public TMP_InputField pw_Input;
+    public PopupManager popupManager;
+
+    void Start()
+    {
+        popupManager.HidePopup();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
+    }
+
     public void LoginBtn()
     {
         string id = id_Input.text;
@@ -15,11 +31,9 @@ public class Login : HttpServerBase
         
         if(string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pw))
         {
-            Debug.LogWarning("입력하지 않은 칸이 있습니다.");
+            popupManager.ShowPopup("입력하지 않은 칸이 있습니다.");
             return;
         }
-
-        // TODO: 아이디 또는 비밀번호 오류시 메세지
 
         //Newtonsoft.Json 패키지를 이용한 Json 생성
         JObject userData = new JObject();
@@ -62,14 +76,18 @@ public class Login : HttpServerBase
                     }
                     else
                     {
-                        Debug.LogError("로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
+                        popupManager.ShowPopup("로그인에 실패했습니다. 아이디와 비밀번호를 다시 확인해주세요.");
                     }
                 }
                 else
                 {
-                    string jsonResponse = "Error Type: " + request.downloadHandler.error + ": " + request.downloadHandler.text;
+                    string jsonResponse = request.downloadHandler.text;
+                    JObject json = JObject.Parse(jsonResponse);
 
-                    Debug.LogError(jsonResponse);
+                    string errorType = json["type"].ToString();
+                    string errorMessage = json["message"].ToString();
+                    string error = errorType + ": " + errorMessage;
+                    popupManager.ShowPopup(error);
                 }
             }
         }

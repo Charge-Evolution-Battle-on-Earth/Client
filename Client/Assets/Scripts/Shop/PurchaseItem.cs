@@ -1,18 +1,20 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using Newtonsoft.Json.Linq;
 
-public class UnequipItemManager : MonoBehaviour
+public class PurchaseItem : MonoBehaviour
 {
+    public TMP_Text MoneyText;
     public PopupManager popupManager;
 
-    void Start()
+    public void Start()
     {
         popupManager.HidePopup();
     }
 
-    void Update()
+    public void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -20,19 +22,13 @@ public class UnequipItemManager : MonoBehaviour
         }
     }
 
-    public void UnequipItem()
+    public IEnumerator BuyItem()
     {
-        StartCoroutine(UnequipItemCoroutine());
-    }
+        JObject jobjItemId = new JObject();
+        jobjItemId["itemId"] = UserDataManager.Instance.ClickedItemId;
 
-    IEnumerator UnequipItemCoroutine()
-    {
-        JObject unequipItemRequest = new JObject();
-        unequipItemRequest["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
-        unequipItemRequest["characterItemId"] = UserDataManager.Instance.CharacterItemId;
-
-        string jsonData = unequipItemRequest.ToString();
-        string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemUnequipPath;
+        string jsonData = jobjItemId.ToString();
+        string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getShopBuyPath;
 
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
         {
@@ -47,11 +43,15 @@ public class UnequipItemManager : MonoBehaviour
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                popupManager.ShowPopup($"해제 성공\nCharacterItemId: {UserDataManager.Instance.CharacterItemId}");
+                string jsonResponse = request.downloadHandler.text;
+                BuyGetResponse buyGetResponse = JsonUtility.FromJson<BuyGetResponse>(jsonResponse);
+
+                MoneyText.text = buyGetResponse.money.ToString();
+                popupManager.ShowPopup("구매 성공");
             }
             else
             {
-                popupManager.ShowPopup("해제 실패: " + request.error);
+                popupManager.ShowPopup("구매 실패");
             }
         }
     }

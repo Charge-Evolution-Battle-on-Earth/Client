@@ -4,6 +4,21 @@ using System.Collections;
 
 public class MakeRoom : MonoBehaviour
 {
+    public PopupManager popupManager;
+
+    void Start()
+    {
+        popupManager.HidePopup();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
+    }
+
     public void onClickButton()
     {
         StartCoroutine(RoomMake());
@@ -39,7 +54,7 @@ public class MakeRoom : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Error: " + www.error);
+                popupManager.ShowPopup("방 생성 실패: " + www.error);
             }
         }
     }

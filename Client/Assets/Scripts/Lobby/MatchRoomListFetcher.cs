@@ -14,6 +14,7 @@ public class MatchRoomListFetcher : MonoBehaviour
     public Button roomEnterBtn;
     public TMP_Text selectedRoomInfo;
     public TMP_Text userInfo;
+    public PopupManager popupManager;
 
     private int itemsPerPage = 10; // 한 페이지에 표시될 아이템 개수
     private int currentPage = 0;
@@ -21,6 +22,7 @@ public class MatchRoomListFetcher : MonoBehaviour
 
     void Start()
     {
+        popupManager.HidePopup();
         roomEnterBtn.interactable = false;
         if (UserDataManager.Instance.RoomListInfo.Count > 0)
         {
@@ -33,12 +35,19 @@ public class MatchRoomListFetcher : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ScrollRect component not found!");
+            popupManager.ShowPopup("ScrollRect component not found!");
         }
 
         StartCoroutine(FetchMatchRoomList(currentPage));
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
+    }
 
     IEnumerator FetchMatchRoomList(int pageNm)
     {
@@ -79,13 +88,9 @@ public class MatchRoomListFetcher : MonoBehaviour
                     StartCoroutine(FetchMatchRoomList(currentPage));
                 }
             }
-            else if (www.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogError(www.error + www.downloadHandler.text);
-            }
             else
             {
-                Debug.LogError("Error: " + www.error + www.downloadHandler.text);
+                popupManager.ShowPopup("Error: " + www.error + www.downloadHandler.text);
             }
 
             isLoading = false;

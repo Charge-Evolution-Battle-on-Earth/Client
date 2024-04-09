@@ -13,6 +13,20 @@ public class Register : MonoBehaviour
     public TMP_InputField pw_Input;
     public TMP_InputField confirmPw_Input;
     public Button registerBtn;
+    public PopupManager popupManager;
+
+    void Start()
+    {
+        popupManager.HidePopup();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
+    }
 
     public void RegisterUser()
     {
@@ -20,17 +34,16 @@ public class Register : MonoBehaviour
         string nick = nick_Input.text;
         string pw = pw_Input.text;
         string confirmPw = confirmPw_Input.text;
-        //PlayerPrefs.DeleteAll();
 
-        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(nick) || 
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(nick) ||
             string.IsNullOrEmpty(pw) || string.IsNullOrEmpty(confirmPw))
         {
-            Debug.LogWarning("입력하지 않은 칸이 있습니다.");
+            popupManager.ShowPopup("입력하지 않은 칸이 있습니다.");
             return;
         }
         if (pw != confirmPw)
         {
-            Debug.LogWarning("비밀번호가 비밀번호 확인이 일치하지 않습니다.");
+            popupManager.ShowPopup("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
             return;
         }
 
@@ -41,48 +54,47 @@ public class Register : MonoBehaviour
 
         string jsonData = userData.ToString();
 
-        // UnityWebRequest를 사용하여 서버에 POST 요청 보내기
         StartCoroutine(SendData(jsonData));
+    }
 
-        IEnumerator SendData(string jsonData)
+    private IEnumerator SendData(string jsonData)
+    {
+        string url = GameURL.AuthServer.Server_URL + GameURL.AuthServer.userJoinPath;
+
+        using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
         {
-            string url = GameURL.AuthServer.Server_URL+GameURL.AuthServer.userJoinPath;  //서버 주소로 변경
+            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
 
-            using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
             {
-                byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-                request.downloadHandler = new DownloadHandlerBuffer();
-                request.SetRequestHeader("Content-Type", "application/json");
+                string jsonResponse = request.downloadHandler.text;
+                JObject json = JObject.Parse(jsonResponse);
 
-                yield return request.SendWebRequest();
+                string errorType = json["type"].ToString();
+                string errorMessage = json["message"].ToString();
+                string error = errorType + ": " + errorMessage;
+                popupManager.ShowPopup(error);
+            }
+            else
+            {
+                string jsonResponse = request.downloadHandler.text;
+                JObject json = JObject.Parse(jsonResponse);
 
-                if (request.result != UnityWebRequest.Result.Success)
+                if (json.ContainsKey("userId"))
                 {
-                    string jsonResponse = "Error Type: " + request.downloadHandler.error + ": " + request.downloadHandler.text;
-                    Debug.LogError(jsonResponse);
+                    string userId = json["userId"].ToString();
+                    PlayerPrefs.SetString("userId", userId);
+                    UserDataManager.Instance.UserId = Convert.ToInt64(userId);
                 }
-                else
-                {
-                    // JSON 응답 파싱
-                    string jsonResponse = request.downloadHandler.text;
-                    JObject json = JObject.Parse(jsonResponse);
-
-                    if(json.ContainsKey("userId"))
-                    {
-                        // userId 저장
-                        string userId = json["userId"].ToString();
-                        PlayerPrefs.SetString("userId", userId);
-                        UserDataManager.Instance.UserId = Convert.ToInt64(userId);
-
-                    }
-                    CustomSceneManager.LoadScene(Scenes.Choice.ToString());
-                    Debug.Log("가입 성공");
-                }
+                popupManager.ShowPopup("가입 성공");
+                CustomSceneManager.LoadScene(Scenes.Choice.ToString());
             }
         }
-
-        // TODO: 이메일이 같거나 닉네임이 같은 사용자가 있을 시 메시지
     }
 
     public void ReturnScene()
