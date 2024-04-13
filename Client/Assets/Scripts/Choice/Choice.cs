@@ -15,6 +15,7 @@ public class Choice : MonoBehaviour
     void Start()
     {
         popupManager.HidePopup();
+        StartCoroutine(GetNationList());
     }
 
     void Update()
