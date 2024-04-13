@@ -21,9 +21,11 @@ public class InventoryItemsHandler : MonoBehaviour
     public Button equipBtn;
     public Button sellBtn;
     public Button unequipBtn;
+    public PopupManager popupManager;
 
     private void Start()
     {
+        popupManager.HidePopup();
         contentPanel = GameObject.Find("Content").transform;
 
         ClearItemList();
@@ -66,6 +68,11 @@ public class InventoryItemsHandler : MonoBehaviour
             StartCoroutine(GetItems(invenItemList));
             UserDataManager.Instance.ClearUI = false;
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            popupManager.HidePopup();
+        }
     }
     public void OnClickButton(string itemType)//무기 갑옷 버튼
     {
@@ -96,7 +103,7 @@ public class InventoryItemsHandler : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Error: " + www.error);
+                popupManager.ShowPopup("Error: " + www.error);
             }
         }
     }
@@ -121,7 +128,7 @@ public class InventoryItemsHandler : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("인스턴스화된 아이템 프리팹에서 InventoryItemUIHandler 구성 요소를 찾을 수 없습니다.");
+                    popupManager.ShowPopup("인스턴스화된 아이템 프리팹에서 InventoryItemUIHandler 구성 요소를 찾을 수 없습니다.");
                 }
             }
         }
