@@ -51,7 +51,13 @@ public class UnequipItemManager : MonoBehaviour
             }
             else
             {
-                popupManager.ShowPopup("해제 실패: " + request.error);
+                string jsonResponse = request.downloadHandler.text;
+                JObject json = JObject.Parse(jsonResponse);
+
+                string errorType = json["type"].ToString();
+                string errorMessage = json["message"].ToString();
+                string error = errorType + ": " + errorMessage;
+                popupManager.ShowPopup(error);
             }
         }
     }

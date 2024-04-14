@@ -1374,6 +1374,7 @@ MonoBehaviour:
   equipBtn: {fileID: 1684138793}
   sellBtn: {fileID: 1910422007}
   unequipBtn: {fileID: 1020525763}
+  popupManager: {fileID: 309234373}
 --- !u!4 &782305487
 Transform:
   m_ObjectHideFlags: 0

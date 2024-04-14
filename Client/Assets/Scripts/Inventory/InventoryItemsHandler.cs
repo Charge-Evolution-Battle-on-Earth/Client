@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class InventoryItemsHandler : MonoBehaviour
 {
@@ -103,7 +104,13 @@ public class InventoryItemsHandler : MonoBehaviour
             }
             else
             {
-                popupManager.ShowPopup("Error: " + www.error);
+                string jsonResponse = www.downloadHandler.text;
+                JObject json = JObject.Parse(jsonResponse);
+
+                string errorType = json["type"].ToString();
+                string errorMessage = json["message"].ToString();
+                string error = errorType + ": " + errorMessage;
+                popupManager.ShowPopup(error);
             }
         }
     }
