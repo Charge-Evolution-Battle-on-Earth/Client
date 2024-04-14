@@ -54,7 +54,13 @@ public class EquipItemManager : MonoBehaviour
             }
             else
             {
-                popupManager.ShowPopup("장착 실패: " + request.error);
+                string jsonResponse = request.downloadHandler.text;
+                JObject json = JObject.Parse(jsonResponse);
+
+                string errorType = json["type"].ToString();
+                string errorMessage = json["message"].ToString();
+                string error = errorType + ": " + errorMessage;
+                popupManager.ShowPopup(error);
             }
         }
     }
