@@ -58,6 +58,8 @@ public class InventoryItemsHandler : MonoBehaviour
         itemPrefabMap["발렌시아의 성배"] = "발렌시아의 성배"; itemPrefabMap["석장"] = "석장"; itemPrefabMap["성십자가"] = "성십자가";
         itemPrefabMap["근초고왕의 칠지도"] = "근초고왕의 칠지도"; itemPrefabMap["금동대향로"] = "금동대향로"; itemPrefabMap["잔다르크의 반지"] = "잔다르크의 반지";
         itemPrefabMap["사해문서"] = "사해문서"; itemPrefabMap["무구정광대다라니경"] = "무구정광대다라니경"; itemPrefabMap["쿠란"] = "쿠란";
+
+        OnClickButton("1");
     }
 
     private void Update()
