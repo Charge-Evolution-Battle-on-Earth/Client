@@ -107,7 +107,7 @@ public class WebSocketManager : MonoBehaviour
     {
         try
         {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[10240];
             while (ws != null && ws.State == WebSocketState.Open)
             {
                 WebSocketReceiveResult result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
