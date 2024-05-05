@@ -39,11 +39,18 @@ public class ShopItemUIHandler : MonoBehaviour
     public void purchaseOnButtonClick()
     {
         ImageTransparency();
-
+        clearItem();
         purchaseItem = FindObjectOfType<PurchaseItem>();
         StartCoroutine(purchaseItem.BuyItem());
     }
     
+    void clearItem()
+    {
+        itemNameText.text = "";
+        itemStatText.text = "";
+        itemDescriptionText.text = "";
+        purchaseButton.interactable = false;
+    }
 
     void ImageTransparency()
     {
