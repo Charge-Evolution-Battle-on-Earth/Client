@@ -1,11 +1,31 @@
 # Charge! Evolution Battle on Earth Client
+![GitHub Release](https://img.shields.io/github/v/release/Charge-Evolution-Battle-on-Earth/Client)
+
 이 프로젝트는 Unity를 사용하여 클라이언트를 개발한 프로젝트입니다.   
 클라이언트는 HTTP 통신과 WebSocket 통신을 사용하여 서버와 통신합니다.   
+
+## OS별 실행 방법
+
+### Windows
+> CEBE_v1.0.0_win.zip 압축 해제 후 Client.exe 파일 실행
+### macOS
+> CEBE_v1.0.0_mac.app.zip 압축 해제 후 Contents/MacOS에서 Client 파일 실행
 
 ## 개발환경
 - Unity version : 2022.3.13f1
 - IDE : Unity, Visual Studio 2019
 - language : C#
+
+## 주요 기능
+- 회원 가입 및 로그인
+- 로비 - 방 생성 및 입장
+- 상점 - 아이템 구매
+- 인벤토리 - 아이템 장착, 해제, 판매
+- 상태창 - 자신의 정보 확인, 경험치
+- 인게임 - 실시간 통신으로 게임 진행
+
+## 화면 샘플
+![example](https://github.com/Charge-Evolution-Battle-on-Earth/Client/assets/110733523/0a55d648-7984-44b7-941a-57c3a2cf2b2c)
 
 ## 특징
 - 이 프로젝트는 HTTP 통신과 WebSocket 통신을 사용하여 서버와의 통신을 구현했습니다.
