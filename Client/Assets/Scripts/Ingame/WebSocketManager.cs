@@ -66,6 +66,7 @@ public class WebSocketManager : MonoBehaviour
         this.serverUri = serverUri;
         ws = new ClientWebSocket();
         ws.Options.SetRequestHeader("Authorization", "Bearer " + UserDataManager.Instance.AccessToken);
+        ws.Options.SetBuffer(8192, 8192);
 
         try
         {

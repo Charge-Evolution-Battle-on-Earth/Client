@@ -922,7 +922,7 @@ PrefabInstance:
       objectReference: {fileID: 2145754548}
     - target: {fileID: 5091475292246329942, guid: c65aa6d9aab43364d8a5d0ca7b32e8c1, type: 3}
       propertyPath: m_Name
-      value: "\uBBF8\uB298\uAC11"
+      value: "\uC2A4\uCF00\uC77C \uC544\uBA38"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4236,6 +4236,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\uC1E0\uB1CC"
       objectReference: {fileID: 0}
+    - target: {fileID: 7953618712096836287, guid: 4d9f4561fdc827c438b961a8dc257b4c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fe9e73ce8ca571d41aa83b7ba9ffad07, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4249,6 +4253,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 334253445}
     m_Modifications:
+    - target: {fileID: 592778708709065527, guid: 194eac08ff658154b9971555e593bce0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c68970be84b68f746be104e55e390acd, type: 3}
     - target: {fileID: 4156912688425509219, guid: 194eac08ff658154b9971555e593bce0, type: 3}
       propertyPath: m_Name
       value: "\uACE8\uAC01\uAD81"
@@ -4398,6 +4406,10 @@ PrefabInstance:
       propertyPath: itemDescriptionText
       value: 
       objectReference: {fileID: 2145754548}
+    - target: {fileID: 4720959308177756513, guid: 11d0253058498734cb31b5fdbf18f3fc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f103332d82c981440b7bf247ff01fd95, type: 3}
     - target: {fileID: 6268529297552036465, guid: 11d0253058498734cb31b5fdbf18f3fc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4575,6 +4587,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\uC0AC\uC778\uAC80"
       objectReference: {fileID: 0}
+    - target: {fileID: 6357474354798896789, guid: f7429ac5d3413c846a7ff386147af096, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2a9073de25b3901418ef270f9eb26b78, type: 3}
     - target: {fileID: 8336033530621321146, guid: f7429ac5d3413c846a7ff386147af096, type: 3}
       propertyPath: MoneyText
       value: 
@@ -4720,6 +4736,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6565382485142250859, guid: d078f93dde2e9f34ea4a53494ad43bd3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bc458891a08b4e94bb0e9b510358f6ac, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4761,6 +4781,10 @@ PrefabInstance:
       propertyPath: itemDescriptionText
       value: 
       objectReference: {fileID: 2145754548}
+    - target: {fileID: 7429208249590733306, guid: a162a45b95ff66c49bee07e4fce66cc7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3319b5e33d4e6cc47a17de7ab13719ce, type: 3}
     - target: {fileID: 7707040602278136999, guid: a162a45b95ff66c49bee07e4fce66cc7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4878,6 +4902,10 @@ PrefabInstance:
       propertyPath: itemDescriptionText
       value: 
       objectReference: {fileID: 2145754548}
+    - target: {fileID: 7522155139714793619, guid: cb44aafaf9617af45aee3c3fb82c4a8b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 09cbb20cf9ef3e1498a1d3a0a21fc9be, type: 3}
     - target: {fileID: 7722357868211043644, guid: cb44aafaf9617af45aee3c3fb82c4a8b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4975,6 +5003,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2106197031}
     m_Modifications:
+    - target: {fileID: 3387114754575597047, guid: ec92f606a49107d4d97558cd7378edae, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 53de44ace3a8fbc408c3366e21471c4a, type: 3}
     - target: {fileID: 5593305505798466616, guid: ec92f606a49107d4d97558cd7378edae, type: 3}
       propertyPath: MoneyText
       value: 
@@ -5100,6 +5132,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\uC624\uC624\uC988\uCE20"
       objectReference: {fileID: 0}
+    - target: {fileID: 4620950254575473469, guid: 40e8af35a1061b948b763671f5e08124, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8ff29b9b4185aed4c9c8ad0ddb07a05d, type: 3}
     - target: {fileID: 4723739344751891935, guid: 40e8af35a1061b948b763671f5e08124, type: 3}
       propertyPath: MoneyText
       value: 
@@ -5614,6 +5650,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2364748410797010298, guid: 934017bc6fb0b554abeb4183b8b2f74b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e9aa02800d91d84482a59983d887f70, type: 3}
     - target: {fileID: 7233879512669114105, guid: 934017bc6fb0b554abeb4183b8b2f74b, type: 3}
       propertyPath: m_Name
       value: "\uB2F9\uD30C\uCC3D"
@@ -5759,6 +5799,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5787354687906246338, guid: ba0d1d056817db3478cb8f047e5ac8c0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9e1145206e56d6548be80e256b998681, type: 3}
     - target: {fileID: 8083007640246055142, guid: ba0d1d056817db3478cb8f047e5ac8c0, type: 3}
       propertyPath: m_Name
       value: "\uD22C\uC11D\uAD6C"
@@ -5804,6 +5848,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\uC8FD\uCC3D"
       objectReference: {fileID: 0}
+    - target: {fileID: 3300975084968366991, guid: 571de782989054c45b51c581621f3390, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2b80fa41364e9124d8c27f789c24225d, type: 3}
     - target: {fileID: 6174690487921149171, guid: 571de782989054c45b51c581621f3390, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5897,6 +5945,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2106197031}
     m_Modifications:
+    - target: {fileID: 1700539035139660546, guid: 504df7994b896db4da88b628342c3c6c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7f69d87687bb0ec43b190940798c57bf, type: 3}
     - target: {fileID: 3214075904815010620, guid: 504df7994b896db4da88b628342c3c6c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6003,7 +6055,7 @@ PrefabInstance:
       objectReference: {fileID: 2145754548}
     - target: {fileID: 5523900266740143632, guid: 504df7994b896db4da88b628342c3c6c, type: 3}
       propertyPath: m_Name
-      value: "\uB86C\uBC14\uB974\uB514\uC544 \uCCA0\uAD00"
+      value: "\uB871\uAE30\uB204\uC2A4\uC758 \uCC3D"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6046,6 +6098,10 @@ PrefabInstance:
       propertyPath: itemDescriptionText
       value: 
       objectReference: {fileID: 2145754548}
+    - target: {fileID: 3806444302057407799, guid: 84b0cc8ac1d8396469dd08e0ddc5ec62, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: be1e3a08320a1764f90460c5e47a4f36, type: 3}
     - target: {fileID: 7371895081650051217, guid: 84b0cc8ac1d8396469dd08e0ddc5ec62, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6139,6 +6195,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2106197031}
     m_Modifications:
+    - target: {fileID: 440004889112093281, guid: 8558e4a3d4eacfa45b958f43a324b6c0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cf60a2536324a734595b1abe18674202, type: 3}
     - target: {fileID: 1849934325812770766, guid: 8558e4a3d4eacfa45b958f43a324b6c0, type: 3}
       propertyPath: m_Name
       value: "\uCCAD\uB3D9\uBC29\uC6B8"
@@ -6472,6 +6532,10 @@ PrefabInstance:
       propertyPath: itemDescriptionText
       value: 
       objectReference: {fileID: 2145754548}
+    - target: {fileID: 5026201181552732537, guid: cbe1befaaca319a4790b3f4675a1cd5f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 79374a7d712c70d48af5c95789f1dc40, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6589,6 +6653,10 @@ PrefabInstance:
       propertyPath: itemDescriptionText
       value: 
       objectReference: {fileID: 2145754548}
+    - target: {fileID: 4275620799171697693, guid: 6a74b6893abcbcb4982213e61283d030, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bb21358aaeb789044a556c6b59e478ef, type: 3}
     - target: {fileID: 8893861645095897276, guid: 6a74b6893abcbcb4982213e61283d030, type: 3}
       propertyPath: m_Name
       value: "\uCCAD\uB3D9\uAC80"
@@ -6634,6 +6702,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\uBB34\uAD6C\uC815\uAD11\uB300\uB2E4\uB77C\uB2C8\uACBD"
       objectReference: {fileID: 0}
+    - target: {fileID: 1291436720236363960, guid: 0168005107fd0ef4d81e29bb4766965e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ae8b4e971fd22c44f9c65be36b5ed837, type: 3}
     - target: {fileID: 8078403963949953008, guid: 0168005107fd0ef4d81e29bb4766965e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6729,8 +6801,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 822441168134533779, guid: 447cfd6435163294e8915fbfad88426c, type: 3}
       propertyPath: m_Name
-      value: "\uC774\uC131\uACC4\uC758 \uC5B4\uAD81\uAD6C"
+      value: "\uD0DC\uC870\uC758 \uC5B4\uAD81\uAD6C"
       objectReference: {fileID: 0}
+    - target: {fileID: 2497491050573919841, guid: 447cfd6435163294e8915fbfad88426c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 09db1cc1fa965e9499dceeb9ca9face3, type: 3}
     - target: {fileID: 6134181110394466701, guid: 447cfd6435163294e8915fbfad88426c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6848,6 +6924,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1655732152}
     m_Modifications:
+    - target: {fileID: 2268152581523055562, guid: 049dc8a5cb0481746b168a1d9ccbb0be, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a0397225550990a49a63288e9c98e290, type: 3}
     - target: {fileID: 2398327078736943694, guid: 049dc8a5cb0481746b168a1d9ccbb0be, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6969,6 +7049,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 334253445}
     m_Modifications:
+    - target: {fileID: 420726892038896322, guid: 4fe276fe33e49bf4c8e789631b7f88d8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cebab9463b510de4f81e9e1371b1e8bb, type: 3}
     - target: {fileID: 602416968104870965, guid: 4fe276fe33e49bf4c8e789631b7f88d8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7155,6 +7239,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 334253445}
     m_Modifications:
+    - target: {fileID: 328166296809361820, guid: 25438b17638a9174599ede46cdcabadf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e51cc603b0d2ef34790e26daeb7be146, type: 3}
     - target: {fileID: 1240696086267097505, guid: 25438b17638a9174599ede46cdcabadf, type: 3}
       propertyPath: m_Name
       value: "\uC640\uD050"
@@ -7304,6 +7392,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\uC0F4\uC26C\uB974"
       objectReference: {fileID: 0}
+    - target: {fileID: 6507318278226014441, guid: c0d7f91948aa66a45aff65405173b25b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 00f465654a0c6744caa670fd361e2057, type: 3}
     - target: {fileID: 7677249823416947500, guid: c0d7f91948aa66a45aff65405173b25b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7477,6 +7569,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1755992654269841048, guid: b3641779c1b56f84fa8bc774be1e49b8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 381c2608b11159c42934ca74a8c421d5, type: 3}
     - target: {fileID: 4626060019656361348, guid: b3641779c1b56f84fa8bc774be1e49b8, type: 3}
       propertyPath: m_Name
       value: "\uD3B8\uACE4"
@@ -7518,6 +7614,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1655732152}
     m_Modifications:
+    - target: {fileID: 1671498973841316492, guid: f06f448e9d63d8145b0494548998f452, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3032097ed80871a4db318e3bf553ce8d, type: 3}
     - target: {fileID: 2519458620599814630, guid: f06f448e9d63d8145b0494548998f452, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7939,6 +8039,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2146832395846929555, guid: f688f8c50d801314182c5d8419a4e703, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 22a84fb33598f814293d7af651918520, type: 3}
     - target: {fileID: 6403193956632189990, guid: f688f8c50d801314182c5d8419a4e703, type: 3}
       propertyPath: MoneyText
       value: 
@@ -7980,6 +8084,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1655732152}
     m_Modifications:
+    - target: {fileID: 333419849565631071, guid: 6a38535066d5067409a9459c4267d177, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ec50da157680e7c4dadef1fd4ecb4ec1, type: 3}
     - target: {fileID: 3352648468592353537, guid: 6a38535066d5067409a9459c4267d177, type: 3}
       propertyPath: MoneyText
       value: 
@@ -8185,6 +8293,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6428055254796374497, guid: 24411f3e017ded740bbde7b0b03963d0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9ca796f4494a57d429461483d6d653ac, type: 3}
     - target: {fileID: 6474823025043866751, guid: 24411f3e017ded740bbde7b0b03963d0, type: 3}
       propertyPath: MoneyText
       value: 
@@ -8330,6 +8442,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7146540426265016532, guid: c8def4a320212eb43bbb5a7204729441, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c6144654e06d47b4aabac8283840afb1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8505,6 +8621,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2106197031}
     m_Modifications:
+    - target: {fileID: 1771345432384632418, guid: e58fb83b66eae7b49ac8c08233c5327c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f962adaf247d36c47a13d7b2811f87b7, type: 3}
     - target: {fileID: 2602633730886010177, guid: e58fb83b66eae7b49ac8c08233c5327c, type: 3}
       propertyPath: m_Name
       value: "\uAE08\uC81C\uAC10\uC7A5\uBCF4\uAC80"
@@ -8626,6 +8746,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1655732152}
     m_Modifications:
+    - target: {fileID: 665543771965728423, guid: 7aa8b8fb2be20bf4089aa71d95e94dcd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 182af545d99bf6a4cb459dc13eb91c58, type: 3}
     - target: {fileID: 1159408209286198613, guid: 7aa8b8fb2be20bf4089aa71d95e94dcd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8851,6 +8975,10 @@ PrefabInstance:
       propertyPath: itemDescriptionText
       value: 
       objectReference: {fileID: 2145754548}
+    - target: {fileID: 7849473754154567566, guid: 573d38ea7b0b8a14692a6955284ac4f1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7b57181afb89b0e45bf60e42814f51d5, type: 3}
     - target: {fileID: 7925026275390430429, guid: 573d38ea7b0b8a14692a6955284ac4f1, type: 3}
       propertyPath: m_Name
       value: "\uCE74\uC774\uC0AC\uB974\uC758 \uD544\uB8F8"
@@ -8952,6 +9080,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\uC5D8\uB808\uB098\uC758 \uC131\uC815"
       objectReference: {fileID: 0}
+    - target: {fileID: 5773596507934112403, guid: 321e25cdfdaf99143a8cff78841e94dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 01917dc83b47247438359007be421813, type: 3}
     - target: {fileID: 6478401163300455301, guid: 321e25cdfdaf99143a8cff78841e94dd, type: 3}
       propertyPath: MoneyText
       value: 
@@ -9069,6 +9201,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2526113033934147673, guid: c78719c456e43be48a6475214aafe464, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 15d8010b0d12ac941aa13fbb99e3eb74, type: 3}
     - target: {fileID: 3747541008452722096, guid: c78719c456e43be48a6475214aafe464, type: 3}
       propertyPath: MoneyText
       value: 
@@ -9231,6 +9367,10 @@ PrefabInstance:
       propertyPath: itemDescriptionText
       value: 
       objectReference: {fileID: 2145754548}
+    - target: {fileID: 3024306097518851240, guid: 3db3b8263e5d46f4eac98b843d6c2072, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bdb7862fc817dd74ebd0a8e201c96dce, type: 3}
     - target: {fileID: 4023178208356522232, guid: 3db3b8263e5d46f4eac98b843d6c2072, type: 3}
       propertyPath: m_Name
       value: "\uBC1C\uB80C\uC2DC\uC544\uC758 \uC131\uBC30"
@@ -9661,6 +9801,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2106197031}
     m_Modifications:
+    - target: {fileID: 3403554055502748753, guid: 53c95cc865ec1ff4cbe3486c0ed6aa6d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a06a2021d1582844097eac3e3df982e4, type: 3}
     - target: {fileID: 3454984242259379620, guid: 53c95cc865ec1ff4cbe3486c0ed6aa6d, type: 3}
       propertyPath: m_Name
       value: "\uC11D\uC7A5"
@@ -9782,6 +9926,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1655732152}
     m_Modifications:
+    - target: {fileID: 682970146779279750, guid: a586bd1b46c299b42b3e14af53f976e8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 067c130aa3aec424fac6a029162fab66, type: 3}
     - target: {fileID: 1653286158904803801, guid: a586bd1b46c299b42b3e14af53f976e8, type: 3}
       propertyPath: MoneyText
       value: 
@@ -10011,6 +10159,10 @@ PrefabInstance:
       propertyPath: itemDescriptionText
       value: 
       objectReference: {fileID: 2145754548}
+    - target: {fileID: 6417764486674504567, guid: 538704e4f29ed1b4a8bccbd4089c67fd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c72851c65e8faee40ab84f7eab958017, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10024,6 +10176,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2106197031}
     m_Modifications:
+    - target: {fileID: 2180094603155648888, guid: 0f550769be6e9b94f9100301e2d40817, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9c00c9f3714c43649a1b3d7d0ad029de, type: 3}
     - target: {fileID: 7489599135223197385, guid: 0f550769be6e9b94f9100301e2d40817, type: 3}
       propertyPath: m_Name
       value: "\uADFC\uCD08\uACE0\uC655\uC758 \uCE60\uC9C0\uB3C4"
@@ -10249,6 +10405,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4862529909185652641, guid: 8f25e55cfe0e8094fad1cab294940d65, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ea0837bbcc6e18a45b4123ed18700648, type: 3}
     - target: {fileID: 6439611702081756920, guid: 8f25e55cfe0e8094fad1cab294940d65, type: 3}
       propertyPath: m_Name
       value: "\uC2B9\uC790\uCD1D\uD1B5"
@@ -10467,6 +10627,10 @@ PrefabInstance:
       propertyPath: itemDescriptionText
       value: 
       objectReference: {fileID: 2145754548}
+    - target: {fileID: 7623429763036846048, guid: 7be658139ee85e9459a7d8598a2cb41a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 861b8d7eb746a3d42a407354ecf76ae9, type: 3}
     - target: {fileID: 8829784662243865567, guid: 7be658139ee85e9459a7d8598a2cb41a, type: 3}
       propertyPath: m_Name
       value: "\uC7A5\uCC3D"
@@ -10484,6 +10648,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1655732152}
     m_Modifications:
+    - target: {fileID: 201409574947175735, guid: cb04cb62948063947bc96e2533b0e753, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5eab80489ea01f64e833b48ea36d40c0, type: 3}
     - target: {fileID: 3108912862804445905, guid: cb04cb62948063947bc96e2533b0e753, type: 3}
       propertyPath: m_Name
       value: "\uBAA8\uB178\uD638\uC2DC\uC790\uC624"
@@ -10713,6 +10881,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3183721674220749998, guid: 3a200ac6b8dcdf444bcd7f72f0f58cb1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: efc5f27d0aec68b459fdfd20581333d5, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10726,6 +10898,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1655732152}
     m_Modifications:
+    - target: {fileID: 5846301010111972405, guid: 89829c872dbc99944ba2134cbac5e6c6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a942615ef5e0a844ca1c75c174cff16d, type: 3}
     - target: {fileID: 7593782776345745838, guid: 89829c872dbc99944ba2134cbac5e6c6, type: 3}
       propertyPath: m_Name
       value: "\uD1A0\uB9C8\uD638\uD06C"
@@ -10847,6 +11023,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2106197031}
     m_Modifications:
+    - target: {fileID: 4364435423118820433, guid: fd38f35111bbe8e42b3257e7745d5973, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 67fe51729c4249141b9daaf240ddd57e, type: 3}
     - target: {fileID: 5444271342981904733, guid: fd38f35111bbe8e42b3257e7745d5973, type: 3}
       propertyPath: MoneyText
       value: 

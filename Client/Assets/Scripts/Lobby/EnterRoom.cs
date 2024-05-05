@@ -63,7 +63,13 @@ public class EnterRoom : MonoBehaviour
             }
             else
             {
-                popupManager.ShowPopup("Error: " + www.error);
+                string jsonResponse = www.downloadHandler.text;
+                JObject json = JObject.Parse(jsonResponse);
+
+                string errorType = json["type"].ToString();
+                string errorMessage = json["message"].ToString();
+                string error = errorType + ": " + errorMessage;
+                popupManager.ShowPopup(error);
             }
         }
     }
