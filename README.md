@@ -32,6 +32,50 @@
 - HTTP 통신은 UnityEngine.Networking을 사용하여 구현되었습니다.
 - WebSocket 통신은 System.Net.WebSockets을 사용하여 구현되었습니다.
 
+## 파일 구조
+📦Scripts   
+ ┣ 📂Choice   
+ ┃ ┣ 📜Choice.cs   
+ ┣ 📂Controllers   
+ ┃ ┣ 📜DropdownController.cs   
+ ┃ ┣ 📜ImageButtonController.cs   
+ ┃ ┣ 📜JobController.cs   
+ ┃ ┣ 📜SceneController.cs   
+ ┣ 📂Ingame   
+ ┃ ┣ 📜ButtonHoverPopup.cs   
+ ┃ ┣ 📜Ingame.cs   
+ ┃ ┣ 📜WebSocketManager.cs   
+ ┣ 📂Inventory   
+ ┃ ┣ 📜EquipItem.cs   
+ ┃ ┣ 📜InventoryItemsHandler.cs   
+ ┃ ┣ 📜InventoryItemUIHandler.cs   
+ ┃ ┣ 📜SellItem.cs   
+ ┃ ┣ 📜UnequipItem.cs   
+ ┣ 📂Lobby   
+ ┃ ┣ 📜EnterRoom.cs   
+ ┃ ┣ 📜MakeRoom.cs   
+ ┃ ┣ 📜MatchRoomListFetcher.cs   
+ ┣ 📂Login   
+ ┃ ┣ 📜Login.cs   
+ ┃ ┣ 📜TabNavigation.cs   
+ ┣ 📂Managers   
+ ┃ ┣ 📜PopupManager.cs   
+ ┃ ┣ 📜SceneManager.cs   
+ ┃ ┣ 📜ServerManager.cs   
+ ┃ ┣ 📜UserDataManager.cs   
+ ┣ 📂Register   
+ ┃ ┣ 📜Register.cs   
+ ┣ 📂Shop   
+ ┃ ┣ 📜GetUserInfo.cs   
+ ┃ ┣ 📜NoHorizontalScroll.cs   
+ ┃ ┣ 📜PurchaseItem.cs   
+ ┃ ┣ 📜ShopButtonHandler.cs   
+ ┃ ┣ 📜ShopItemUIHandler.cs   
+ ┣ 📂Status   
+ ┃ ┣ 📜SkillList.cs   
+ ┃ ┣ 📜Status.cs   
+ ┣ 📜Url.cs   
+   
 ## 통신 방법
 - **HTTP 통신** : 서버에서 정해둔 API를 사용해 GET 요청으로 원하는 데이터를 받아오고, POST 요청으로 클라이언트의 데이터를 보냅니다. 데이터의 형식은 JSON으로 이루어집니다.
 > GET 요청 예시
