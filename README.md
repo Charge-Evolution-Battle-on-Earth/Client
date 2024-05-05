@@ -1,5 +1,5 @@
 # Charge! Evolution Battle on Earth Client
-![GitHub Release](https://img.shields.io/github/v/release/Charge-Evolution-Battle-on-Earth/Client)
+[![GitHub Release](https://img.shields.io/github/v/release/Charge-Evolution-Battle-on-Earth/Client)](https://github.com/Charge-Evolution-Battle-on-Earth/Client/releases)
 
 이 프로젝트는 Unity를 사용하여 클라이언트를 개발한 프로젝트입니다.   
 클라이언트는 HTTP 통신과 WebSocket 통신을 사용하여 서버와 통신합니다.   
