@@ -66,6 +66,7 @@ public class WebSocketManager : MonoBehaviour
         this.serverUri = serverUri;
         ws = new ClientWebSocket();
         ws.Options.SetRequestHeader("Authorization", "Bearer " + UserDataManager.Instance.AccessToken);
+        ws.Options.SetBuffer(8192, 8192);
 
         try
         {
@@ -106,7 +107,7 @@ public class WebSocketManager : MonoBehaviour
     {
         try
         {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[10240];
             while (ws != null && ws.State == WebSocketState.Open)
             {
                 WebSocketReceiveResult result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);

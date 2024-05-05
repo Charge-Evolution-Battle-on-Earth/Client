@@ -34,7 +34,7 @@ public class InventoryItemsHandler : MonoBehaviour
         // 갑옷
         itemPrefabMap["누비지갑"] = "누비지갑"; itemPrefabMap["피갑"] = "피갑"; itemPrefabMap["석갑"] = "석갑";
         itemPrefabMap["크럭흉갑"] = "크럭흉갑"; itemPrefabMap["리노토락스"] = "리노토락스"; itemPrefabMap["청동갑옷"] = "청동갑옷";
-        itemPrefabMap["면제배갑"] = "면제배갑"; itemPrefabMap["미늘갑"] = "미늘갑"; itemPrefabMap["탄코"] = "탄코";
+        itemPrefabMap["면제배갑"] = "면제배갑"; itemPrefabMap["스케일 아머"] = "스케일 아머"; itemPrefabMap["탄코"] = "탄코";
         itemPrefabMap["찰갑"] = "찰갑"; itemPrefabMap["산문갑"] = "산문갑"; itemPrefabMap["로리카 세그멘타타"] = "로리카 세그멘타타";
         itemPrefabMap["두정갑"] = "두정갑"; itemPrefabMap["토세이구소쿠"] = "토세이구소쿠"; itemPrefabMap["풀 플레이트아머"] = "풀 플레이트아머";
 
@@ -50,11 +50,11 @@ public class InventoryItemsHandler : MonoBehaviour
         itemPrefabMap["카이사르의 필룸"] = "카이사르의 필룸"; itemPrefabMap["와큐"] = "와큐"; itemPrefabMap["골각궁"] = "골각궁";
         itemPrefabMap["쇠뇌"] = "쇠뇌"; itemPrefabMap["승자총통"] = "승자총통"; itemPrefabMap["죽궁"] = "죽궁";
         itemPrefabMap["화승총"] = "화승총"; itemPrefabMap["제갈량의 연노"] = "제갈량의 연노"; itemPrefabMap["흑각궁"] = "흑각궁";
-        itemPrefabMap["대제의 플린트락머스킷"] = "대제의 플린트락머스킷"; itemPrefabMap["오오즈츠"] = "오오즈츠"; itemPrefabMap["이성계의 어궁구"] = "이성계의 어궁구";
+        itemPrefabMap["대제의 플린트락머스킷"] = "대제의 플린트락머스킷"; itemPrefabMap["오오즈츠"] = "오오즈츠"; itemPrefabMap["태조의 어궁구"] = "태조의 어궁구";
 
         // 성직자 무기
         itemPrefabMap["청동방울"] = "청동방울"; itemPrefabMap["사인검"] = "사인검"; itemPrefabMap["엘레나의 성정"] = "엘레나의 성정";
-        itemPrefabMap["청동검"] = "청동검"; itemPrefabMap["롬바르디아 철관"] = "롬바르디아 철관"; itemPrefabMap["금제감장보검"] = "금제감장보검";
+        itemPrefabMap["청동검"] = "청동검"; itemPrefabMap["롱기누스의 창"] = "롱기누스의 창"; itemPrefabMap["금제감장보검"] = "금제감장보검";
         itemPrefabMap["발렌시아의 성배"] = "발렌시아의 성배"; itemPrefabMap["석장"] = "석장"; itemPrefabMap["성십자가"] = "성십자가";
         itemPrefabMap["근초고왕의 칠지도"] = "근초고왕의 칠지도"; itemPrefabMap["금동대향로"] = "금동대향로"; itemPrefabMap["잔다르크의 반지"] = "잔다르크의 반지";
         itemPrefabMap["사해문서"] = "사해문서"; itemPrefabMap["무구정광대다라니경"] = "무구정광대다라니경"; itemPrefabMap["쿠란"] = "쿠란";

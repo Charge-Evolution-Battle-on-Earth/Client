@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Networking;
+using Newtonsoft.Json.Linq;
 using System.Collections;
 
 public class MakeRoom : MonoBehaviour
@@ -54,7 +55,13 @@ public class MakeRoom : MonoBehaviour
             }
             else
             {
-                popupManager.ShowPopup("방 생성 실패: " + www.error);
+                string jsonResponse = www.downloadHandler.text;
+                JObject json = JObject.Parse(jsonResponse);
+
+                string errorType = json["type"].ToString();
+                string errorMessage = json["message"].ToString();
+                string error = errorType + ": " + errorMessage;
+                popupManager.ShowPopup(error);
             }
         }
     }
