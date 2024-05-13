@@ -45,7 +45,28 @@ public class SellItemManager : MonoBehaviour
         JObject sellItemData = new JObject();
         sellItemData["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
         sellItemData["characterItemId"] = UserDataManager.Instance.CharacterItemId;
-
+        if(UserDataManager.Instance.ItemTypeId == 1)
+        {
+            for(int i = 0; i < UserDataManager.Instance.WeaponItemList.Count; i++)
+            {
+                if(UserDataManager.Instance.WeaponItemList[i].characterItemId == UserDataManager.Instance.CharacterItemId)
+                {
+                    UserDataManager.Instance.WeaponItemList.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+        else if(UserDataManager.Instance.ItemTypeId == 2)
+        {
+            for (int i = 0; i < UserDataManager.Instance.ArmorItemList.Count; i++)
+            {
+                if (UserDataManager.Instance.ArmorItemList[i].characterItemId == UserDataManager.Instance.CharacterItemId)
+                {
+                    UserDataManager.Instance.ArmorItemList.RemoveAt(i);
+                    break;
+                }
+            }
+        }
         string jsonData = sellItemData.ToString();
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemSellPath;
 

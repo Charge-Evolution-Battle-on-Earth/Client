@@ -31,6 +31,8 @@ public class UserDataManager : MonoBehaviour
     private CONTENT_TYPE _roomInfo;
     private List<CONTENT_TYPE> _roomListInfo = new List<CONTENT_TYPE>();
     private Scenes _scenes;
+    private List<Shop.ShopItemGetResponse> _weaponItemList = new List<Shop.ShopItemGetResponse>();
+    private List<Shop.ShopItemGetResponse> _armorItemList = new List<Shop.ShopItemGetResponse>();
     /////////////INGAME///////////////
     private long _matchRoomId;
     private long _hostId;
@@ -105,6 +107,18 @@ public class UserDataManager : MonoBehaviour
         _hostReady = false;
         _entrantReady = false;
         _isGameOver = false;
+    }
+
+    public List<Shop.ShopItemGetResponse> ArmorItemList
+    {
+        get { return _armorItemList; }
+        set { _armorItemList = value; }
+    }
+
+    public List<Shop.ShopItemGetResponse> WeaponItemList
+    {
+        get { return _weaponItemList; }
+        set { _weaponItemList = value; }
     }
 
     public Stat EntrantTotalStat
