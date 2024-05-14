@@ -164,6 +164,7 @@ public class MatchRoomListFetcher : MonoBehaviour
         UserDataManager.Instance.JobNm = characterInfo.jobNm;
         UserDataManager.Instance.Money = characterInfo.money;
         UserDataManager.Instance.NickName = characterInfo.nickname;
+        UserDataManager.Instance.CharacterId = characterInfo.characterId;
     }
 
     void OnButtonClick(CONTENT_TYPE room)

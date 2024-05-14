@@ -89,9 +89,9 @@ public class Choice : MonoBehaviour
                     if (json.ContainsKey("characterId"))
                     {
                         // userId ¿˙¿Â
-                        string userId = json["characterId"].ToString();
-                        PlayerPrefs.SetString("characterId", userId);
-                        UserDataManager.Instance.UserId = Convert.ToInt64(userId);
+                        string characterId = json["characterId"].ToString();
+                        PlayerPrefs.SetString("characterId", characterId);
+                        UserDataManager.Instance.CharacterId = Convert.ToInt64(characterId);
                     }
                     if (json.ContainsKey("accessToken"))
                     {
