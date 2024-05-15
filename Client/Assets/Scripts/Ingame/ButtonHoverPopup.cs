@@ -9,19 +9,6 @@ public class ButtonHoverPopup : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public GameObject popupWindow;
     public TMP_Text description;
 
-    void Update()
-    {
-        if(UserDataManager.Instance.MatchStatus != MatchStatus.IN_PROGRESS)
-        {
-            description.text = "";
-            popupWindow.gameObject.SetActive(false);
-        }
-        else
-        {
-            popupWindow.gameObject.SetActive(true);
-        }
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (UserDataManager.Instance.HostSkillList.Count > skillIndex)
@@ -30,7 +17,7 @@ public class ButtonHoverPopup : MonoBehaviour, IPointerEnterHandler, IPointerExi
             {
                 description.text = UserDataManager.Instance.HostSkillList[skillIndex].description;
             }
-            else if(UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
+            else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
             {
                 description.text = UserDataManager.Instance.EntrantSkillList[skillIndex].description;
             }
