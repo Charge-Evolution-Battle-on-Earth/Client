@@ -147,7 +147,7 @@ public class MatchRoomListFetcher : MonoBehaviour
             listItem.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
             TMP_Text[] textComponents = listItem.GetComponentsInChildren<TMP_Text>();
             textComponents[0].text = $"방 번호: {room.matchRoomId}";
-            textComponents[1].text = $"방장: {room.hostId}\t 참가자: {room.entrantId}";
+            textComponents[1].text = $"방장: {room.hostNickname}\t 참가자: {room.entrantNickname}";
             textComponents[2].text = $"상태: {room.matchStatus}";
 
             listItem.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(room));
@@ -174,7 +174,7 @@ public class MatchRoomListFetcher : MonoBehaviour
         roomEnterBtn.interactable = true;
         UserDataManager.Instance.SelectedRoomInfo = room;
         UserDataManager.Instance.MatchRoomID = room.matchRoomId;
-        selectedRoomInfo.text = $"방 번호: {UserDataManager.Instance.SelectedRoomInfo.matchRoomId}\n방장: {UserDataManager.Instance.SelectedRoomInfo.hostId}\n참가자: {UserDataManager.Instance.SelectedRoomInfo.entrantId}\n상금: {UserDataManager.Instance.SelectedRoomInfo.stakeGold}\n";
+        selectedRoomInfo.text = $"방 번호: {UserDataManager.Instance.SelectedRoomInfo.matchRoomId}\n방장: {UserDataManager.Instance.SelectedRoomInfo.hostNickname}\n참가자: {UserDataManager.Instance.SelectedRoomInfo.entrantNickname}\n상금: {UserDataManager.Instance.SelectedRoomInfo.stakeGold}\n";
     }
 
     void ClearUI()
@@ -235,6 +235,8 @@ public class CONTENT_TYPE
     public long matchRoomId;
     public long hostId;
     public long? entrantId;//?를 사용하면 null값이어도 됨
+    public string hostNickname;
+    public string entrantNickname;
     public MatchStatus matchStatus { get; set; }
     public int stakeGold;
 }
