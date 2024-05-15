@@ -212,8 +212,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC120\uD0DD \uC644\uB8CC\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fb3818f390ee8be46a56918f911ab5e1, type: 2}
-  m_sharedMaterial: {fileID: -6819744726752699788, guid: fb3818f390ee8be46a56918f911ab5e1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 62205fcaf2332b94fb5f0565e0520170, type: 2}
+  m_sharedMaterial: {fileID: 1981798837169831904, guid: 62205fcaf2332b94fb5f0565e0520170, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
