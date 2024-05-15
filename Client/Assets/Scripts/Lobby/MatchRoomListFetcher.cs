@@ -183,6 +183,7 @@ public class MatchRoomListFetcher : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        selectedRoomInfo.text = "";
     }
 
     // onValueChanged 이벤트에 대응하는 메서드
