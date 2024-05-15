@@ -133,17 +133,17 @@ public class WebSocketManager : MonoBehaviour
                             {
                                 // greeting ¿¿¥‰
                                 string greetingMessage = jsonData["greetingMessage"].ToString();
-                                string userId = "";
+                                string characterId = "";
                                 foreach (char c in greetingMessage)
                                 {
                                     if (char.IsDigit(c))
                                     {
-                                        userId += c;
+                                        characterId += c;
                                     }
                                 }
-                                if (int.TryParse(userId, out int number) && UserDataManager.Instance.UserId == 0)
+                                if (int.TryParse(characterId, out int number) && UserDataManager.Instance.UserId == 0)
                                 {
-                                    UserDataManager.Instance.UserId = number;
+                                    UserDataManager.Instance.CharacterId = number;
                                 }
                                 serverMsg.text += greetingMessage + Environment.NewLine;
                                 verticalScrollbar.value = 0f;

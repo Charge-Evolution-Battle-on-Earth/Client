@@ -32,8 +32,13 @@ public class Ingame : MonoBehaviour
     public TMP_Text serverMsg;
     public float maxBarWidth = 350f;
     public Scrollbar verticalScrollbar;
+    public TMP_Text text_Timer;
+    public Image myImg;
+    public Image opponentImg;
 
     private WebSocketManager webSocketManager;
+    private float LimitTime = 30f;
+
     private async void Start()
     {
         roomIdText.text = "방 번호: " + UserDataManager.Instance.MatchRoomID.ToString();
@@ -58,7 +63,7 @@ public class Ingame : MonoBehaviour
             startBtn.interactable = false;
         }
 
-        if (UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS || UserDataManager.Instance.MatchStatus == MatchStatus.FINISHED)
+        if (UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)
         {
             // 게임이 진행 중이면 시작 버튼 & 레디 버튼 비활성화, 스킬 버튼 & 항복 버튼 활성화, HP & MP 바 활성화
             surrenderBtn.gameObject.SetActive(true);
@@ -70,7 +75,9 @@ public class Ingame : MonoBehaviour
             skillBtn0.interactable = true;
             skillBtn1.interactable = true;
             skillBtn2.interactable = true;
-
+            skillBtn0.gameObject.SetActive(true);
+            skillBtn1.gameObject.SetActive(true);
+            skillBtn2.gameObject.SetActive(true);
             float hostMaxHP = UserDataManager.Instance.HostTotalStat.hp;
             float hostMaxMP = UserDataManager.Instance.HostTotalStat.mp;
             float entrantMaxHP = UserDataManager.Instance.EntrantTotalStat.hp;
@@ -95,6 +102,21 @@ public class Ingame : MonoBehaviour
             opponentHpBarBackground.enabled = true;
             opponentMpBarBackground.enabled = true;
 
+            /*if(UserDataManager.Instance.TurnOwner == UserDataManager.Instance.PlayerType)
+            {
+                LimitTime -= Time.deltaTime;
+                text_Timer.text = Mathf.Round(LimitTime).ToString();
+                if (LimitTime == 0)
+                {
+                    SkillBtn(0);
+                    LimitTime = 30f;
+                }
+            }
+            else
+            {
+                text_Timer.text = "";
+            }*/
+
             if (UserDataManager.Instance.PlayerType == PlayerType.HOST)
             {
                 myHpBar.fillAmount = hostHPfillAmount;
@@ -105,6 +127,10 @@ public class Ingame : MonoBehaviour
                 myMpBarText.text = hostCurrentMP + " / " + hostMaxMP;
                 opponentHpBarText.text = entrantCurrentHP + " / " + entrantMaxHP;
                 opponentMpBarText.text = entrantCurrentMP + " / " + entrantMaxMP;
+
+                skillBtn0Text.text = UserDataManager.Instance.HostSkillList[0].skillNm;
+                skillBtn1Text.text = UserDataManager.Instance.HostSkillList[1].skillNm;
+                skillBtn2Text.text = UserDataManager.Instance.HostSkillList[2].skillNm;
             }
             else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
             {
@@ -116,16 +142,7 @@ public class Ingame : MonoBehaviour
                 myMpBarText.text = entrantCurrentMP + " / " + entrantMaxMP;
                 opponentHpBarText.text = hostCurrentHP + " / " + hostMaxHP;
                 opponentMpBarText.text = hostCurrentMP + " / " + hostMaxMP;
-            } 
 
-            if (UserDataManager.Instance.PlayerType == PlayerType.HOST) // 스킬 설명 저장
-            {
-                skillBtn0Text.text = UserDataManager.Instance.HostSkillList[0].skillNm;
-                skillBtn1Text.text = UserDataManager.Instance.HostSkillList[1].skillNm;
-                skillBtn2Text.text = UserDataManager.Instance.HostSkillList[2].skillNm;
-            }
-            else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
-            {
                 skillBtn0Text.text = UserDataManager.Instance.EntrantSkillList[0].skillNm;
                 skillBtn1Text.text = UserDataManager.Instance.EntrantSkillList[1].skillNm;
                 skillBtn2Text.text = UserDataManager.Instance.EntrantSkillList[2].skillNm;
@@ -139,8 +156,11 @@ public class Ingame : MonoBehaviour
             readyBtn.interactable = true;
             quitBtn.interactable = true;
             skillBtn0.interactable = false;
+            skillBtn0.gameObject.SetActive(false);
             skillBtn1.interactable = false;
+            skillBtn1.gameObject.SetActive(false);
             skillBtn2.interactable = false;
+            skillBtn2.gameObject.SetActive(false);
             skillBtn0Text.text = "";
             skillBtn1Text.text = "";
             skillBtn2Text.text = "";
@@ -195,6 +215,7 @@ public class Ingame : MonoBehaviour
             skillBtn2.interactable = false;
         }
     }
+
     public void ReadyBtn()
     {
         if (UserDataManager.Instance.PlayerType == PlayerType.HOST)
@@ -269,12 +290,12 @@ public class Ingame : MonoBehaviour
         ReadyJson requestData = new ReadyJson();
         requestData.command = "READY";
         requestData.matchId = UserDataManager.Instance.MatchRoomID;
-        if(UserDataManager.Instance.UserId == UserDataManager.Instance.HostId)
+        if(UserDataManager.Instance.CharacterId == UserDataManager.Instance.HostId)
         {
             requestData.request.hostReadyStatus = !UserDataManager.Instance.HostReady;
             requestData.request.entrantReadyStatus = UserDataManager.Instance.EntrantReady;
         }
-        else if(UserDataManager.Instance.UserId==UserDataManager.Instance.EntrantId)
+        else if(UserDataManager.Instance.CharacterId == UserDataManager.Instance.EntrantId)
         {
             requestData.request.hostReadyStatus = UserDataManager.Instance.HostReady;
             requestData.request.entrantReadyStatus = !UserDataManager.Instance.EntrantReady;

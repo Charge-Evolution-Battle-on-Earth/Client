@@ -54,6 +54,7 @@ public class CustomSceneManager : MonoBehaviour
                 string jsonResponse = www.downloadHandler.text;
                 CharacterInfoGetResponse characterInfo = JsonUtility.FromJson<CharacterInfoGetResponse>(jsonResponse);
 
+                UserDataManager.Instance.CharacterId = characterInfo.characterId;
                 UserDataManager.Instance.NickName = characterInfo.nickname;
                 UserDataManager.Instance.Stat = characterInfo.stat;
                 UserDataManager.Instance.LevelId = characterInfo.levelId;

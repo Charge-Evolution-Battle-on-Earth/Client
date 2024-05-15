@@ -95,6 +95,7 @@ public class Status : MonoBehaviour
         UserDataManager.Instance.JobNm = characterInfo.jobNm;
         UserDataManager.Instance.Money = characterInfo.money;
         UserDataManager.Instance.NickName = characterInfo.nickname;
+        UserDataManager.Instance.CharacterId = characterInfo.characterId;
     }
 }
 [System.Serializable]
@@ -111,6 +112,7 @@ public class CharacterInfoGetResponse
     public int money;
     public string imageUrl;
     public string nickname;
+    public long characterId;
 }
 
 [System.Serializable]

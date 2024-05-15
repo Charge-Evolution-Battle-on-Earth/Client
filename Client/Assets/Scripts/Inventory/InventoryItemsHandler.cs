@@ -60,6 +60,7 @@ public class InventoryItemsHandler : MonoBehaviour
         itemPrefabMap["사해문서"] = "사해문서"; itemPrefabMap["무구정광대다라니경"] = "무구정광대다라니경"; itemPrefabMap["쿠란"] = "쿠란";
 
         OnClickButton("1");
+        UserDataManager.Instance.ItemTypeId = 1;
     }
 
     private void Update()
@@ -68,7 +69,14 @@ public class InventoryItemsHandler : MonoBehaviour
         {
             ClearItemList();
             string invenItemList = $"/items/inven/{UserDataManager.Instance.ItemTypeId}";
-            StartCoroutine(GetItems(invenItemList));
+            if(UserDataManager.Instance.ItemTypeId == 1)
+            {
+                AddItemsToUI(UserDataManager.Instance.WeaponItemList);
+            }
+            else if(UserDataManager.Instance.ItemTypeId == 2)
+            {
+                AddItemsToUI(UserDataManager.Instance.ArmorItemList);
+            }
             UserDataManager.Instance.ClearUI = false;
         }
 
@@ -84,10 +92,33 @@ public class InventoryItemsHandler : MonoBehaviour
 
         ClearItemList();
 
-        StartCoroutine(GetItems(invenItemList));
+        if (itemType == "1")
+        {
+            UserDataManager.Instance.ItemTypeId = 1;
+            if (UserDataManager.Instance.WeaponItemList.Count == 0)
+            {
+                StartCoroutine(GetItems(invenItemList, itemType));
+            }
+            else
+            {
+                AddItemsToUI(UserDataManager.Instance.WeaponItemList);
+            }
+        }
+        else if (itemType == "2")
+        {
+            UserDataManager.Instance.ItemTypeId = 2;
+            if (UserDataManager.Instance.ArmorItemList.Count == 0)
+            {
+                StartCoroutine(GetItems(invenItemList, itemType));
+            }
+            else
+            {
+                AddItemsToUI(UserDataManager.Instance.ArmorItemList);
+            }
+        }
     }
 
-    IEnumerator GetItems(string invenItemList)
+    IEnumerator GetItems(string invenItemList, string itemType)
     {
         string url = GameURL.DBServer.Server_URL + invenItemList;
 
@@ -101,7 +132,14 @@ public class InventoryItemsHandler : MonoBehaviour
             {
                 string jsonResponse = www.downloadHandler.text;
                 List<Shop.ShopItemGetResponse> itemList = JsonConvert.DeserializeObject<List<Shop.ShopItemGetResponse>>(jsonResponse);
-
+                if(itemType=="1")
+                {
+                    UserDataManager.Instance.WeaponItemList = itemList;
+                }
+                else if(itemType=="2")
+                {
+                    UserDataManager.Instance.ArmorItemList = itemList;
+                }
                 AddItemsToUI(itemList);
             }
             else
@@ -165,5 +203,11 @@ public class InventoryItemsHandler : MonoBehaviour
         Color color = new Color();
         color.a = 0f;
         itemImage.color = color;
+    }
+
+    public void ClearInventoryList()
+    {
+        UserDataManager.Instance.WeaponItemList.Clear();
+        UserDataManager.Instance.ArmorItemList.Clear();
     }
 }
