@@ -109,7 +109,7 @@ public class MatchRoomListFetcher : MonoBehaviour
                 CharacterInfoGetResponse characterInfo = JsonUtility.FromJson<CharacterInfoGetResponse>(jsonResponse);
 
                 SaveUserData(characterInfo);
-                userInfo.text = "닉네임: " + UserDataManager.Instance.NickName + "\n레벨: " + UserDataManager.Instance.LevelId;
+                userInfo.text = "<align=center>내 정보</align>\n닉네임: " + UserDataManager.Instance.NickName + "\n레벨: " + UserDataManager.Instance.LevelId + "\n직업: " + UserDataManager.Instance.JobNm;
             }
         }
     }
@@ -145,9 +145,11 @@ public class MatchRoomListFetcher : MonoBehaviour
             float y = -i * listItemHeight - listItemHeight / 2;
 
             listItem.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
-            listItem.GetComponentInChildren<TMP_Text>().text = $"방 상태: {room.matchStatus.ToString()}\t방 번호: {room.matchRoomId}";
+            TMP_Text[] textComponents = listItem.GetComponentsInChildren<TMP_Text>();
+            textComponents[0].text = $"방 번호: {room.matchRoomId}";
+            textComponents[1].text = $"방장: {room.hostId}\t 참가자: {room.entrantId}";
+            textComponents[2].text = $"상태: {room.matchStatus}";
 
-            // 버튼에 클릭 이벤트 추가
             listItem.GetComponent<Button>().onClick.AddListener(() => OnButtonClick(room));
         }
     }
@@ -170,9 +172,9 @@ public class MatchRoomListFetcher : MonoBehaviour
     void OnButtonClick(CONTENT_TYPE room)
     {
         roomEnterBtn.interactable = true;
-        UserDataManager.Instance.RoomInfo = room;
+        UserDataManager.Instance.SelectedRoomInfo = room;
         UserDataManager.Instance.MatchRoomID = room.matchRoomId;
-        selectedRoomInfo.text = $"방 ID: {UserDataManager.Instance.RoomInfo.matchRoomId}\n 걸린 돈: {UserDataManager.Instance.RoomInfo.stakeGold}\n";
+        selectedRoomInfo.text = $"방 번호: {UserDataManager.Instance.SelectedRoomInfo.matchRoomId}\n방장: {UserDataManager.Instance.SelectedRoomInfo.hostId}\n참가자: {UserDataManager.Instance.SelectedRoomInfo.entrantId}\n상금: {UserDataManager.Instance.SelectedRoomInfo.stakeGold}\n";
     }
 
     void ClearUI()

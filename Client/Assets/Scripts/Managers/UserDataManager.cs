@@ -28,7 +28,7 @@ public class UserDataManager : MonoBehaviour
     private long _itemTypeId;
     private bool _clearUI = false;
 
-    private CONTENT_TYPE _roomInfo;
+    private CONTENT_TYPE _selectedRoomInfo;
     private List<CONTENT_TYPE> _roomListInfo = new List<CONTENT_TYPE>();
     private Scenes _scenes;
     private List<Shop.ShopItemGetResponse> _weaponItemList = new List<Shop.ShopItemGetResponse>();
@@ -204,10 +204,10 @@ public class UserDataManager : MonoBehaviour
         set { _roomListInfo = value; }
     }
 
-    public CONTENT_TYPE RoomInfo
+    public CONTENT_TYPE SelectedRoomInfo
     {
-        get { return _roomInfo; }
-        set { _roomInfo = value; }
+        get { return _selectedRoomInfo; }
+        set { _selectedRoomInfo = value; }
     }
 
     public int StakeGold
