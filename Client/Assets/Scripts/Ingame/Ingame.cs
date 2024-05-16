@@ -37,7 +37,8 @@ public class Ingame : MonoBehaviour
     public Image opponentImg;
 
     private WebSocketManager webSocketManager;
-    private float LimitTime = 30f;
+    private float limitTime = 30f;
+    private float remainingTime = 30f;
 
     private async void Start()
     {
@@ -102,20 +103,22 @@ public class Ingame : MonoBehaviour
             opponentHpBarBackground.enabled = true;
             opponentMpBarBackground.enabled = true;
 
-            /*if(UserDataManager.Instance.TurnOwner == UserDataManager.Instance.PlayerType)
+            if (UserDataManager.Instance.TurnOwner == UserDataManager.Instance.PlayerType)
             {
-                LimitTime -= Time.deltaTime;
-                text_Timer.text = Mathf.Round(LimitTime).ToString();
-                if (LimitTime == 0)
+                remainingTime -= Time.unscaledDeltaTime;
+                if (remainingTime < 0)
                 {
+                    remainingTime = 0;
                     SkillBtn(0);
-                    LimitTime = 30f;
+                    remainingTime = limitTime;
                 }
+                text_Timer.text = Mathf.Round(remainingTime).ToString();
             }
             else
             {
                 text_Timer.text = "";
-            }*/
+                remainingTime = limitTime;
+            }
 
             if (UserDataManager.Instance.PlayerType == PlayerType.HOST)
             {
