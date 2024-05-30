@@ -133,6 +133,13 @@ public class WebSocketManager : MonoBehaviour
                             {
                                 // greeting ¿¿¥‰
                                 string greetingMessage = jsonData["greetingMessage"].ToString();
+                                UserDataManager.Instance.HostJobId = Convert.ToInt64(jsonData["hostJobId"]);
+                                UserDataManager.Instance.HostJobNm = Convert.ToString(jsonData["hostJobNm"]);
+                                if (jsonData.ContainsKey("entrantJobId"))
+                                {
+                                    UserDataManager.Instance.EntrantJobId = Convert.ToInt64(jsonData["entrantJobId"]);
+                                    UserDataManager.Instance.EntrantJobNm = Convert.ToString(jsonData["entrantJobNm"]);
+                                }
                                 string characterId = "";
                                 foreach (char c in greetingMessage)
                                 {

@@ -49,6 +49,10 @@ public class UserDataManager : MonoBehaviour
     private PlayerType _turnOwner;
     private MatchStatus _matchStatus;
     private bool _isGameOver = false;
+    private long _hostJobId;
+    private string _hostJobNm;
+    private long _entrantJobId;
+    private string _entrantJobNm;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -107,6 +111,30 @@ public class UserDataManager : MonoBehaviour
         _hostReady = false;
         _entrantReady = false;
         _isGameOver = false;
+    }
+
+    public string EntrantJobNm
+    {
+        get { return _entrantJobNm; }
+        set { _entrantJobNm = value; }
+    }
+
+    public long EntrantJobId
+    {
+        get { return _entrantJobId; }
+        set { _entrantJobId = value; }
+    }
+
+    public string HostJobNm
+    {
+        get { return _hostJobNm; }
+        set { _hostJobNm = value; }
+    }
+
+    public long HostJobId
+    {
+        get { return _hostJobId; }
+        set { _hostJobId = value; }
     }
 
     public List<Shop.ShopItemGetResponse> ArmorItemList

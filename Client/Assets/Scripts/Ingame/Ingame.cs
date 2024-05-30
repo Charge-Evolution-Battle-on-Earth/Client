@@ -134,6 +134,11 @@ public class Ingame : MonoBehaviour
                 skillBtn0Text.text = UserDataManager.Instance.HostSkillList[0].skillNm;
                 skillBtn1Text.text = UserDataManager.Instance.HostSkillList[1].skillNm;
                 skillBtn2Text.text = UserDataManager.Instance.HostSkillList[2].skillNm;
+
+                myImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.HostJobNm);
+                myImg.color = Color.white;
+                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.EntrantJobNm);
+                opponentImg.color = Color.white;
             }
             else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
             {
@@ -149,6 +154,11 @@ public class Ingame : MonoBehaviour
                 skillBtn0Text.text = UserDataManager.Instance.EntrantSkillList[0].skillNm;
                 skillBtn1Text.text = UserDataManager.Instance.EntrantSkillList[1].skillNm;
                 skillBtn2Text.text = UserDataManager.Instance.EntrantSkillList[2].skillNm;
+
+                myImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.EntrantJobNm);
+                myImg.color = Color.white;
+                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.HostJobNm);
+                opponentImg.color = Color.white;
             }
         }
         else
@@ -179,6 +189,12 @@ public class Ingame : MonoBehaviour
             myMpBarText.text = "";
             opponentHpBarText.text = "";
             opponentMpBarText.text = "";
+            text_Timer.text = "";
+            remainingTime = limitTime;
+            myImg.sprite = null;
+            myImg.color = new Color(1, 1, 1, 0);
+            opponentImg.sprite = null;
+            opponentImg.color = new Color(1, 1, 1, 0);
         }
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.READY || UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)
@@ -302,7 +318,7 @@ public class Ingame : MonoBehaviour
         {
             requestData.request.hostReadyStatus = UserDataManager.Instance.HostReady;
             requestData.request.entrantReadyStatus = !UserDataManager.Instance.EntrantReady;
-        }
+        }   
         await webSocketManager.SendJsonRequest(requestData);
     }
 
