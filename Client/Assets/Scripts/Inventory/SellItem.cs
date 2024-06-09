@@ -70,6 +70,11 @@ public class SellItemManager : MonoBehaviour
         string jsonData = sellItemData.ToString();
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemSellPath;
 
+        if(UserDataManager.Instance.EquippedItemId == UserDataManager.Instance.ClickedCharacterItemId)
+        {
+            UserDataManager.Instance.EquippedItemId = null;
+        }
+
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
         {
             request.SetRequestHeader("Authorization", $"Bearer {UserDataManager.Instance.AccessToken}");

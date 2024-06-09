@@ -35,7 +35,7 @@ public class InventoryItemUIHandler : MonoBehaviour
         sellBtn.interactable = true;
         unequipBtn.interactable = true;
         UserDataManager.Instance.ClickedItemId = item.itemId;
-        UserDataManager.Instance.CharacterItemId = item.characterItemId;
+        UserDataManager.Instance.ClickedCharacterItemId = item.characterItemId;
         UserDataManager.Instance.ItemTypeId = item.itemTypeId;
         itemNameText.text = item.itemNm;
         itemStatText.text = $"HP: {item.stat.hp}\tMP: {item.stat.mp}\nATK: {item.stat.atk}\tSPD: {item.stat.spd}";

@@ -30,7 +30,7 @@ public class UnequipItemManager : MonoBehaviour
         JObject unequipItemRequest = new JObject();
         unequipItemRequest["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
         unequipItemRequest["characterItemId"] = UserDataManager.Instance.ClickedCharacterItemId;
-
+        
         string jsonData = unequipItemRequest.ToString();
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemUnequipPath;
 
@@ -48,6 +48,8 @@ public class UnequipItemManager : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 popupManager.ShowPopup($"해제 성공\nCharacterItemId: {UserDataManager.Instance.ClickedCharacterItemId}");
+                UserDataManager.Instance.EquippedItemId = null;
+                UserDataManager.Instance.ClearUI = true;
             }
             else
             {
