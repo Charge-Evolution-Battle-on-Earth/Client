@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -39,6 +40,8 @@ public class Ingame : MonoBehaviour
     private WebSocketManager webSocketManager;
     private float limitTime = 30f;
     private float remainingTime = 30f;
+    private float blinkDuration = 1.0f;
+    private float blinkFrequency = 0.1f;
 
     private async void Start()
     {
@@ -233,6 +236,17 @@ public class Ingame : MonoBehaviour
             skillBtn1.interactable = false;
             skillBtn2.interactable = false;
         }
+
+        if(UserDataManager.Instance.DamageReceiver == DamageReceiver.PLAYER)
+        {
+            StartCoroutine(Blink(myImg));
+            UserDataManager.Instance.DamageReceiver = DamageReceiver.NULL;
+        }
+        else if(UserDataManager.Instance.DamageReceiver == DamageReceiver.OPPONENT)
+        {
+            StartCoroutine(Blink(opponentImg));
+            UserDataManager.Instance.DamageReceiver = DamageReceiver.NULL;
+        }
     }
 
     public void ReadyBtn()
@@ -387,5 +401,20 @@ public class Ingame : MonoBehaviour
         {
             Debug.LogError("이미지를 찾을 수 없습니다: " + UserDataManager.Instance.JobNm);
         }
+    }
+
+    private IEnumerator Blink(Image image)
+    {
+        float endTime = Time.time + blinkDuration;
+
+        while (Time.time < endTime)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
+            yield return new WaitForSeconds(blinkFrequency);
+            image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);
+            yield return new WaitForSeconds(blinkFrequency);
+        }
+
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
     }
 }

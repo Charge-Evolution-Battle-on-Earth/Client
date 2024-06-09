@@ -53,6 +53,7 @@ public class UserDataManager : MonoBehaviour
     private string _hostJobNm;
     private long _entrantJobId;
     private string _entrantJobNm;
+    private DamageReceiver _damageReceiver = DamageReceiver.NULL;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -111,6 +112,12 @@ public class UserDataManager : MonoBehaviour
         _hostReady = false;
         _entrantReady = false;
         _isGameOver = false;
+    }
+
+    public DamageReceiver DamageReceiver
+    {
+        get { return _damageReceiver; }
+        set { _damageReceiver = value; }
     }
 
     public string EntrantJobNm

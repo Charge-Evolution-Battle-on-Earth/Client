@@ -270,6 +270,14 @@ public class WebSocketManager : MonoBehaviour
                                 bool isGameOver = Convert.ToBoolean(jsonData["isGameOver"]);
                                 UserDataManager.Instance.IsGameOver = isGameOver;
 
+                                if (jsonData.ContainsKey("turnOwner"))
+                                {
+                                    string tOwner = Convert.ToString(jsonData["turnOwner"]);
+                                    PlayerType turnOwner = new PlayerType();
+                                    turnOwner = (PlayerType)Enum.Parse(typeof(PlayerType), tOwner);
+                                    UserDataManager.Instance.TurnOwner = turnOwner;
+                                }
+
                                 if (jsonData.ContainsKey("hostStat"))
                                 {
                                     string hostStatString = Convert.ToString(jsonData["hostStat"]);
@@ -279,6 +287,18 @@ public class WebSocketManager : MonoBehaviour
                                     hostStat.atk = Convert.ToInt32(hostStatData["atk"]);
                                     hostStat.mp = Convert.ToInt32(hostStatData["mp"]);
                                     hostStat.spd = Convert.ToInt32(hostStatData["spd"]);
+
+                                    if(UserDataManager.Instance.TurnOwner == PlayerType.HOST && hostStat.hp - UserDataManager.Instance.HostStat.hp < 0)
+                                    {
+                                        if (UserDataManager.Instance.PlayerType == PlayerType.HOST)
+                                        {
+                                            UserDataManager.Instance.DamageReceiver = DamageReceiver.PLAYER;
+                                        }
+                                        else if(UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
+                                        {
+                                            UserDataManager.Instance.DamageReceiver = DamageReceiver.OPPONENT;
+                                        }
+                                    }
                                     UserDataManager.Instance.HostStat = hostStat;
                                 }
 
@@ -291,15 +311,19 @@ public class WebSocketManager : MonoBehaviour
                                     entrantStat.atk = Convert.ToInt32(entrantStatData["atk"]);
                                     entrantStat.mp = Convert.ToInt32(entrantStatData["mp"]);
                                     entrantStat.spd = Convert.ToInt32(entrantStatData["spd"]);
-                                    UserDataManager.Instance.EntrantStat = entrantStat;
-                                }
 
-                                if (jsonData.ContainsKey("turnOwner"))
-                                {
-                                    string tOwner = Convert.ToString(jsonData["turnOwner"]);
-                                    PlayerType turnOwner = new PlayerType();
-                                    turnOwner = (PlayerType)Enum.Parse(typeof(PlayerType), tOwner);
-                                    UserDataManager.Instance.TurnOwner = turnOwner;
+                                    if(UserDataManager.Instance.TurnOwner==PlayerType.ENTRANT && entrantStat.hp - UserDataManager.Instance.EntrantStat.hp <0)
+                                    {
+                                        if(UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
+                                        {
+                                            UserDataManager.Instance.DamageReceiver = DamageReceiver.PLAYER;
+                                        }
+                                        else if(UserDataManager.Instance.PlayerType == PlayerType.HOST)
+                                        {
+                                            UserDataManager.Instance.DamageReceiver = DamageReceiver.OPPONENT;
+                                        }
+                                    }
+                                    UserDataManager.Instance.EntrantStat = entrantStat;
                                 }
 
                                 string useSkillNm = Convert.ToString(jsonData["useSkillNm"]);
@@ -442,4 +466,11 @@ public class CharacterSkillGetResponse
     public int manaCost;
     public string skillNm;
     public string description;
+}
+[Serializable]
+public enum DamageReceiver
+{
+    NULL,
+    PLAYER,
+    OPPONENT
 }
