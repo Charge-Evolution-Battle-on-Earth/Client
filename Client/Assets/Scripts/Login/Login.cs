@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
 using TMPro;
 
-public class Login : HttpServerBase
+public class Login : MonoBehaviour
 {
     public TMP_InputField id_Input;
     public TMP_InputField pw_Input;
