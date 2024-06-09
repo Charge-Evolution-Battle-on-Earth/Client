@@ -23,8 +23,9 @@ public class UserDataManager : MonoBehaviour
     private long _characterId;
     private int _stakeGold;
 
+    private long _equippedItemId;
     private long _clickedItemId;
-    private long _characterItemId;
+    private long _clickedCharacterItemId;
     private long _itemTypeId;
     private bool _clearUI = false;
 
@@ -112,6 +113,12 @@ public class UserDataManager : MonoBehaviour
         _hostReady = false;
         _entrantReady = false;
         _isGameOver = false;
+    }
+
+    public long EquippedItemId
+    {
+        get { return _equippedItemId; }
+        set { _equippedItemId = value; }
     }
 
     public DamageReceiver DamageReceiver
@@ -275,10 +282,10 @@ public class UserDataManager : MonoBehaviour
         set { _itemTypeId = value; }
     }
 
-    public long CharacterItemId
+    public long ClickedCharacterItemId
     {
-        get { return _characterItemId; }
-        set { _characterItemId = value; }
+        get { return _clickedCharacterItemId; }
+        set { _clickedCharacterItemId = value; }
     }
 
     public long ClickedItemId
