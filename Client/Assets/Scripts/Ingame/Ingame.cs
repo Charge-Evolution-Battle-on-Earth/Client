@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -37,7 +38,10 @@ public class Ingame : MonoBehaviour
     public Image opponentImg;
 
     private WebSocketManager webSocketManager;
-    private float LimitTime = 30f;
+    private float limitTime = 30f;
+    private float remainingTime = 30f;
+    private float blinkDuration = 1.0f;
+    private float blinkFrequency = 0.1f;
 
     private async void Start()
     {
@@ -102,20 +106,22 @@ public class Ingame : MonoBehaviour
             opponentHpBarBackground.enabled = true;
             opponentMpBarBackground.enabled = true;
 
-            /*if(UserDataManager.Instance.TurnOwner == UserDataManager.Instance.PlayerType)
+            if (UserDataManager.Instance.TurnOwner == UserDataManager.Instance.PlayerType)
             {
-                LimitTime -= Time.deltaTime;
-                text_Timer.text = Mathf.Round(LimitTime).ToString();
-                if (LimitTime == 0)
+                remainingTime -= Time.unscaledDeltaTime;
+                if (remainingTime < 0)
                 {
+                    remainingTime = 0;
                     SkillBtn(0);
-                    LimitTime = 30f;
+                    remainingTime = limitTime;
                 }
+                text_Timer.text = Mathf.Round(remainingTime).ToString();
             }
             else
             {
                 text_Timer.text = "";
-            }*/
+                remainingTime = limitTime;
+            }
 
             if (UserDataManager.Instance.PlayerType == PlayerType.HOST)
             {
@@ -131,6 +137,11 @@ public class Ingame : MonoBehaviour
                 skillBtn0Text.text = UserDataManager.Instance.HostSkillList[0].skillNm;
                 skillBtn1Text.text = UserDataManager.Instance.HostSkillList[1].skillNm;
                 skillBtn2Text.text = UserDataManager.Instance.HostSkillList[2].skillNm;
+
+                myImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.HostJobNm);
+                myImg.color = Color.white;
+                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.EntrantJobNm);
+                opponentImg.color = Color.white;
             }
             else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
             {
@@ -146,6 +157,11 @@ public class Ingame : MonoBehaviour
                 skillBtn0Text.text = UserDataManager.Instance.EntrantSkillList[0].skillNm;
                 skillBtn1Text.text = UserDataManager.Instance.EntrantSkillList[1].skillNm;
                 skillBtn2Text.text = UserDataManager.Instance.EntrantSkillList[2].skillNm;
+
+                myImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.EntrantJobNm);
+                myImg.color = Color.white;
+                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.HostJobNm);
+                opponentImg.color = Color.white;
             }
         }
         else
@@ -176,6 +192,12 @@ public class Ingame : MonoBehaviour
             myMpBarText.text = "";
             opponentHpBarText.text = "";
             opponentMpBarText.text = "";
+            text_Timer.text = "";
+            remainingTime = limitTime;
+            myImg.sprite = null;
+            myImg.color = new Color(1, 1, 1, 0);
+            opponentImg.sprite = null;
+            opponentImg.color = new Color(1, 1, 1, 0);
         }
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.READY || UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)
@@ -213,6 +235,17 @@ public class Ingame : MonoBehaviour
             skillBtn0.interactable = false;
             skillBtn1.interactable = false;
             skillBtn2.interactable = false;
+        }
+
+        if(UserDataManager.Instance.DamageReceiver == DamageReceiver.PLAYER)
+        {
+            StartCoroutine(Blink(myImg));
+            UserDataManager.Instance.DamageReceiver = DamageReceiver.NULL;
+        }
+        else if(UserDataManager.Instance.DamageReceiver == DamageReceiver.OPPONENT)
+        {
+            StartCoroutine(Blink(opponentImg));
+            UserDataManager.Instance.DamageReceiver = DamageReceiver.NULL;
         }
     }
 
@@ -299,7 +332,7 @@ public class Ingame : MonoBehaviour
         {
             requestData.request.hostReadyStatus = UserDataManager.Instance.HostReady;
             requestData.request.entrantReadyStatus = !UserDataManager.Instance.EntrantReady;
-        }
+        }   
         await webSocketManager.SendJsonRequest(requestData);
     }
 
@@ -368,5 +401,20 @@ public class Ingame : MonoBehaviour
         {
             Debug.LogError("이미지를 찾을 수 없습니다: " + UserDataManager.Instance.JobNm);
         }
+    }
+
+    private IEnumerator Blink(Image image)
+    {
+        float endTime = Time.time + blinkDuration;
+
+        while (Time.time < endTime)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
+            yield return new WaitForSeconds(blinkFrequency);
+            image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);
+            yield return new WaitForSeconds(blinkFrequency);
+        }
+
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
     }
 }

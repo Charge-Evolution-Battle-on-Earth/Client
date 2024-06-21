@@ -44,12 +44,12 @@ public class SellItemManager : MonoBehaviour
     {
         JObject sellItemData = new JObject();
         sellItemData["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
-        sellItemData["characterItemId"] = UserDataManager.Instance.CharacterItemId;
+        sellItemData["characterItemId"] = UserDataManager.Instance.ClickedCharacterItemId;
         if(UserDataManager.Instance.ItemTypeId == 1)
         {
             for(int i = 0; i < UserDataManager.Instance.WeaponItemList.Count; i++)
             {
-                if(UserDataManager.Instance.WeaponItemList[i].characterItemId == UserDataManager.Instance.CharacterItemId)
+                if(UserDataManager.Instance.WeaponItemList[i].characterItemId == UserDataManager.Instance.ClickedCharacterItemId)
                 {
                     UserDataManager.Instance.WeaponItemList.RemoveAt(i);
                     break;
@@ -60,7 +60,7 @@ public class SellItemManager : MonoBehaviour
         {
             for (int i = 0; i < UserDataManager.Instance.ArmorItemList.Count; i++)
             {
-                if (UserDataManager.Instance.ArmorItemList[i].characterItemId == UserDataManager.Instance.CharacterItemId)
+                if (UserDataManager.Instance.ArmorItemList[i].characterItemId == UserDataManager.Instance.ClickedCharacterItemId)
                 {
                     UserDataManager.Instance.ArmorItemList.RemoveAt(i);
                     break;
@@ -69,6 +69,11 @@ public class SellItemManager : MonoBehaviour
         }
         string jsonData = sellItemData.ToString();
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemSellPath;
+
+        if(UserDataManager.Instance.EquippedItemId == UserDataManager.Instance.ClickedCharacterItemId)
+        {
+            UserDataManager.Instance.EquippedItemId = 0;
+        }
 
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
         {

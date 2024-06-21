@@ -29,8 +29,8 @@ public class UnequipItemManager : MonoBehaviour
     {
         JObject unequipItemRequest = new JObject();
         unequipItemRequest["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
-        unequipItemRequest["characterItemId"] = UserDataManager.Instance.CharacterItemId;
-
+        unequipItemRequest["characterItemId"] = UserDataManager.Instance.ClickedCharacterItemId;
+        
         string jsonData = unequipItemRequest.ToString();
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemUnequipPath;
 
@@ -47,7 +47,9 @@ public class UnequipItemManager : MonoBehaviour
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                popupManager.ShowPopup($"秦力 己傍\nCharacterItemId: {UserDataManager.Instance.CharacterItemId}");
+                popupManager.ShowPopup($"秦力 己傍\nCharacterItemId: {UserDataManager.Instance.ClickedCharacterItemId}");
+                UserDataManager.Instance.EquippedItemId = 0;
+                UserDataManager.Instance.ClearUI = true;
             }
             else
             {

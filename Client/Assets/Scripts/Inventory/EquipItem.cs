@@ -29,7 +29,8 @@ public class EquipItemManager : MonoBehaviour
     {
         JObject equipItemRequest = new JObject();
         equipItemRequest["itemTypeId"] = UserDataManager.Instance.ItemTypeId;
-        equipItemRequest["characterItemId"] = UserDataManager.Instance.CharacterItemId;
+        equipItemRequest["characterItemId"] = UserDataManager.Instance.ClickedCharacterItemId;
+        UserDataManager.Instance.EquippedItemId = UserDataManager.Instance.ClickedCharacterItemId;
 
         string jsonData = equipItemRequest.ToString();
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemEquipPath;
@@ -49,6 +50,7 @@ public class EquipItemManager : MonoBehaviour
             {
                 // 응답 데이터를 JObject로 변환
                 EquipItemResponse responseData = JsonUtility.FromJson<EquipItemResponse>(request.downloadHandler.text);
+                UserDataManager.Instance.ClearUI = true;
 
                 popupManager.ShowPopup("장착 성공\nCharacterItemId: " + responseData.characterItemId);
             }

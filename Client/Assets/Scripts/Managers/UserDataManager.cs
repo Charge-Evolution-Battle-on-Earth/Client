@@ -23,8 +23,9 @@ public class UserDataManager : MonoBehaviour
     private long _characterId;
     private int _stakeGold;
 
+    private long _equippedItemId;
     private long _clickedItemId;
-    private long _characterItemId;
+    private long _clickedCharacterItemId;
     private long _itemTypeId;
     private bool _clearUI = false;
 
@@ -49,6 +50,11 @@ public class UserDataManager : MonoBehaviour
     private PlayerType _turnOwner;
     private MatchStatus _matchStatus;
     private bool _isGameOver = false;
+    private long _hostJobId;
+    private string _hostJobNm;
+    private long _entrantJobId;
+    private string _entrantJobNm;
+    private DamageReceiver _damageReceiver = DamageReceiver.NULL;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -107,6 +113,42 @@ public class UserDataManager : MonoBehaviour
         _hostReady = false;
         _entrantReady = false;
         _isGameOver = false;
+    }
+
+    public long EquippedItemId
+    {
+        get { return _equippedItemId; }
+        set { _equippedItemId = value; }
+    }
+
+    public DamageReceiver DamageReceiver
+    {
+        get { return _damageReceiver; }
+        set { _damageReceiver = value; }
+    }
+
+    public string EntrantJobNm
+    {
+        get { return _entrantJobNm; }
+        set { _entrantJobNm = value; }
+    }
+
+    public long EntrantJobId
+    {
+        get { return _entrantJobId; }
+        set { _entrantJobId = value; }
+    }
+
+    public string HostJobNm
+    {
+        get { return _hostJobNm; }
+        set { _hostJobNm = value; }
+    }
+
+    public long HostJobId
+    {
+        get { return _hostJobId; }
+        set { _hostJobId = value; }
     }
 
     public List<Shop.ShopItemGetResponse> ArmorItemList
@@ -240,10 +282,10 @@ public class UserDataManager : MonoBehaviour
         set { _itemTypeId = value; }
     }
 
-    public long CharacterItemId
+    public long ClickedCharacterItemId
     {
-        get { return _characterItemId; }
-        set { _characterItemId = value; }
+        get { return _clickedCharacterItemId; }
+        set { _clickedCharacterItemId = value; }
     }
 
     public long ClickedItemId
