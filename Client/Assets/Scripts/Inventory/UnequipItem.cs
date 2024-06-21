@@ -48,7 +48,7 @@ public class UnequipItemManager : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 popupManager.ShowPopup($"해제 성공\nCharacterItemId: {UserDataManager.Instance.ClickedCharacterItemId}");
-                UserDataManager.Instance.EquippedItemId = null;
+                UserDataManager.Instance.EquippedItemId = 0;
                 UserDataManager.Instance.ClearUI = true;
             }
             else

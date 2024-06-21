@@ -41,7 +41,7 @@ public class InventoryItemsHandler : MonoBehaviour
 
         InitializeItemPrefabMap();
 
-        OnClickButton("1");
+        StartCoroutine(OnClickButton("1"));
         UserDataManager.Instance.ItemTypeId = 1;
     }
 
@@ -66,14 +66,20 @@ public class InventoryItemsHandler : MonoBehaviour
             popupManager.HidePopup();
         }
     }
-    public void OnClickButton(string itemType)//무기 갑옷 버튼
+
+    public void OnClickButtonWrapper(string itemType)
+    {
+        StartCoroutine(OnClickButton(itemType));
+    }
+
+    public IEnumerator OnClickButton(string itemType)//무기 갑옷 버튼
     {
 
         UserDataManager.Instance.ItemTypeId = long.Parse(itemType);
         string invenItemList = $"/items/inven/{itemType}";
         string invenEquippedItem = $"/items/inven/equipped-item/{itemType}";
 
-        serverManager.SendRequest(GameURL.DBServer.Server_URL + invenEquippedItem, ServerManager.SendType.GET, "", OnResponseReceived);
+        yield return StartCoroutine(GetEquippedItemId(GameURL.DBServer.Server_URL + invenEquippedItem));
 
         ClearItemList();
 
@@ -82,7 +88,7 @@ public class InventoryItemsHandler : MonoBehaviour
             UserDataManager.Instance.ItemTypeId = 1;
             if (UserDataManager.Instance.WeaponItemList.Count == 0)
             {
-                StartCoroutine(GetItems(invenItemList, itemType));
+                yield return StartCoroutine(GetItems(invenItemList, itemType));
             }
             else
             {
@@ -94,7 +100,7 @@ public class InventoryItemsHandler : MonoBehaviour
             UserDataManager.Instance.ItemTypeId = 2;
             if (UserDataManager.Instance.ArmorItemList.Count == 0)
             {
-                StartCoroutine(GetItems(invenItemList, itemType));
+                yield return StartCoroutine(GetItems(invenItemList, itemType));
             }
             else
             {
@@ -140,6 +146,44 @@ public class InventoryItemsHandler : MonoBehaviour
         }
     }
 
+    IEnumerator GetEquippedItemId(string url)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get(url))
+        {
+            www.SetRequestHeader("Authorization", $"Bearer {UserDataManager.Instance.AccessToken}");
+
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                string jsonResponse = www.downloadHandler.text;
+                JObject json = JObject.Parse(jsonResponse);
+
+                var equippedItemIdToken = json["equippedItemId"];
+                if (equippedItemIdToken != null && equippedItemIdToken.Type == JTokenType.Integer)
+                {
+                    Debug.Log(jsonResponse);
+                    long equippedItemId = equippedItemIdToken.Value<long>();
+                    UserDataManager.Instance.EquippedItemId = equippedItemId;
+                }
+                else
+                {
+                    Debug.LogError("장착중인 아이템 없음");
+                }
+            }
+            else
+            {
+                string jsonResponse = www.downloadHandler.text;
+                JObject json = JObject.Parse(jsonResponse);
+
+                string errorType = json["type"].ToString();
+                string errorMessage = json["message"].ToString();
+                string error = errorType + ": " + errorMessage;
+                popupManager.ShowPopup(error);
+            }
+        }
+    }
+
     void AddItemsToUI(List<Shop.ShopItemGetResponse> itemList)
     {
         foreach (var item in itemList)
@@ -167,7 +211,7 @@ public class InventoryItemsHandler : MonoBehaviour
 
                     if (item.characterItemId == UserDataManager.Instance.EquippedItemId)
                     {
-                        // 장착된 아이템 강조: 테두리 색상을 노란색으로 설정
+                        // 장착된 아이템 강조: 테두리 색상을 빨간색으로 설정
                         outline.effectColor = Color.red;
                         outline.effectDistance = new Vector2(5, 5); // 테두리 두께 설정
                     }
@@ -213,28 +257,6 @@ public class InventoryItemsHandler : MonoBehaviour
     {
         UserDataManager.Instance.WeaponItemList.Clear();
         UserDataManager.Instance.ArmorItemList.Clear();
-    }
-
-    void OnResponseReceived(string jsonResponse)
-    {
-        if (!string.IsNullOrEmpty(jsonResponse))
-        {
-            JObject json = JObject.Parse(jsonResponse);
-            var equippedItemIdToken = json["equippedItemId"];
-            if (equippedItemIdToken != null && equippedItemIdToken.Type == JTokenType.Integer)
-            {
-                long equippedItemId = equippedItemIdToken.Value<long>();
-                UserDataManager.Instance.EquippedItemId = equippedItemId;
-            }
-            else
-            {
-                Debug.LogError("장착중인 아이템 없음");
-            }
-        }
-        else
-        {
-            Debug.LogError("네트워크 연결 오류");
-        }
     }
 
     private void InitializeItemPrefabMap()

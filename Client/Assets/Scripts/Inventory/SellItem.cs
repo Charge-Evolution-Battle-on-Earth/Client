@@ -72,7 +72,7 @@ public class SellItemManager : MonoBehaviour
 
         if(UserDataManager.Instance.EquippedItemId == UserDataManager.Instance.ClickedCharacterItemId)
         {
-            UserDataManager.Instance.EquippedItemId = null;
+            UserDataManager.Instance.EquippedItemId = 0;
         }
 
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))

@@ -23,7 +23,7 @@ public class UserDataManager : MonoBehaviour
     private long _characterId;
     private int _stakeGold;
 
-    private long? _equippedItemId = new long();
+    private long _equippedItemId;
     private long _clickedItemId;
     private long _clickedCharacterItemId;
     private long _itemTypeId;
@@ -115,7 +115,7 @@ public class UserDataManager : MonoBehaviour
         _isGameOver = false;
     }
 
-    public long? EquippedItemId
+    public long EquippedItemId
     {
         get { return _equippedItemId; }
         set { _equippedItemId = value; }
