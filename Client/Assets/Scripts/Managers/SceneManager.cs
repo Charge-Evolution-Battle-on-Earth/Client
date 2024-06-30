@@ -14,7 +14,9 @@ public enum Scenes
     Inventory,
     Shop,
     Status,
-    Setting
+    Setting,
+    SkillManage,
+    ItemManage
 }
 public class CustomSceneManager : MonoBehaviour
 {
