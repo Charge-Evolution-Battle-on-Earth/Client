@@ -40,13 +40,12 @@ public class Skill : MonoBehaviour
     public void SaveSkillBtn(Transform row)
     {
         SkillPost skill = new SkillPost();
-        skill.skillId = int.Parse(row.Find("SkillID").GetComponent<TMP_InputField>().text);
         skill.skillEffectId = int.Parse(row.Find("SkillEffectID").GetComponent<TMP_InputField>().text);
         skill.fixedValue = int.Parse(row.Find("FixedValue").GetComponent<TMP_InputField>().text);
-        skill.hpRate = int.Parse(row.Find("HPRate").GetComponent<TMP_InputField>().text);
-        skill.atkRate = int.Parse(row.Find("ATKRate").GetComponent<TMP_InputField>().text);
-        skill.mpRate = int.Parse(row.Find("MPRate").GetComponent<TMP_InputField>().text);
-        skill.spdRate = int.Parse(row.Find("SPDRate").GetComponent<TMP_InputField>().text);
+        skill.statRate.hpRate = int.Parse(row.Find("HPRate").GetComponent<TMP_InputField>().text);
+        skill.statRate.atkRate = int.Parse(row.Find("ATKRate").GetComponent<TMP_InputField>().text);
+        skill.statRate.mpRate = int.Parse(row.Find("MPRate").GetComponent<TMP_InputField>().text);
+        skill.statRate.spdRate = int.Parse(row.Find("SPDRate").GetComponent<TMP_InputField>().text);
 
         StartCoroutine(SendSkillData(skill));
     }
@@ -77,16 +76,7 @@ public class Skill : MonoBehaviour
     
     IEnumerator SendSkillData(SkillPost skill)
     {
-        JObject skillData = new JObject();
-        skillData["SkillId"] = skill.skillId;
-        skillData["SkillEffectId"] = skill.skillEffectId;
-        skillData["FixedValue"] = skill.fixedValue;
-        skillData["HpRate"] = skill.hpRate;
-        skillData["AtkRate"] = skill.atkRate;
-        skillData["MpRate"] = skill.mpRate;
-        skillData["SpdRate"] = skill.spdRate;
-
-        string jsonData = skillData.ToString();
+        string jsonData = JsonUtility.ToJson(skill);
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.putSkillEffectPath;
         
         using (UnityWebRequest www = new UnityWebRequest(url, "PUT"))
@@ -120,11 +110,10 @@ public class Skill : MonoBehaviour
             row.transform.Find("SkillName").GetComponent<TMP_InputField>().text = skill.skillNm;
             row.transform.Find("SkillEffectID").GetComponent<TMP_InputField>().text = skill.skillEffectId.ToString();
             row.transform.Find("FixedValue").GetComponent<TMP_InputField>().text = skill.fixedValue.ToString();
-            row.transform.Find("HPRate").GetComponent<TMP_InputField>().text = skill.hpRate.ToString();
-            row.transform.Find("ATKRate").GetComponent<TMP_InputField>().text = skill.atkRate.ToString();
-            row.transform.Find("MPRate").GetComponent<TMP_InputField>().text = skill.mpRate.ToString();
-            row.transform.Find("SPDRate").GetComponent<TMP_InputField>().text = skill.spdRate.ToString();
+            row.transform.Find("HPRate").GetComponent<TMP_InputField>().text = skill.statRate.hpRate.ToString();
+            row.transform.Find("ATKRate").GetComponent<TMP_InputField>().text = skill.statRate.atkRate.ToString();
+            row.transform.Find("MPRate").GetComponent<TMP_InputField>().text = skill.statRate.mpRate.ToString();
+            row.transform.Find("SPDRate").GetComponent<TMP_InputField>().text = skill.statRate.spdRate.ToString();
         }
     }
-
 }

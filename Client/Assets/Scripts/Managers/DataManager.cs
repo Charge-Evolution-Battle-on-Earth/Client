@@ -42,7 +42,7 @@ public class SkillGetListResponse
 	public long skillEffectId;
 	public SkillEffectType skillEffectType; // DAMAGE, HEAL
 	public int fixedValue;
-	public StatRate statRate;
+	public StatRate statRate = new StatRate();
 }
 
 public enum SkillEffectType
@@ -59,21 +59,21 @@ public class ItemGetResponse
 	public long itemTypeId;
 	public string itemNm;
 	public int cost;
-	public Stat stat;
+	public Stat stat = new Stat();
 }
 
 public class SkillPost
 {
 	public long skillEffectId;
 	public int fixedValue;
-	public StatRate statRate;
+	public StatRate statRate = new StatRate();
 }
 
 public class ItemPost
 {
 	public long itemId;
 	public int cost;
-	public Stat stat;
+	public Stat stat = new Stat();
 }
 
 public class StatRate
