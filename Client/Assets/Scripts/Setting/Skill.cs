@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using TMPro;
 
 public class Skill : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class Skill : MonoBehaviour
     {
         popupManager.HidePopup();
         DataManager.Instance.SkillGetListResponse.Clear();
-        StartCoroutine(FetchSkillList());
+        RefreshBtn();
     }
 
     private void Update()
@@ -29,26 +30,30 @@ public class Skill : MonoBehaviour
 
     public void RefreshBtn()
     {
+        foreach (Transform child in tableContent)
+        {
+            Destroy(child.gameObject);
+        }
         StartCoroutine(FetchSkillList());
     }
 
     public void SaveSkillBtn(Transform row)
     {
         SkillPost skill = new SkillPost();
-        skill.skillId = int.Parse(row.Find("SkillID").GetComponent<InputField>().text);
-        skill.skillEffectId = int.Parse(row.Find("SkillEffectID").GetComponent<InputField>().text);
-        skill.fixedValue = int.Parse(row.Find("FixedValue").GetComponent<InputField>().text);
-        skill.hpRate = int.Parse(row.Find("HPRate").GetComponent<InputField>().text);
-        skill.atkRate = int.Parse(row.Find("ATKRate").GetComponent<InputField>().text);
-        skill.mpRate = int.Parse(row.Find("MPRate").GetComponent<InputField>().text);
-        skill.spdRate = int.Parse(row.Find("SPDRate").GetComponent<InputField>().text);
+        skill.skillId = int.Parse(row.Find("SkillID").GetComponent<TMP_InputField>().text);
+        skill.skillEffectId = int.Parse(row.Find("SkillEffectID").GetComponent<TMP_InputField>().text);
+        skill.fixedValue = int.Parse(row.Find("FixedValue").GetComponent<TMP_InputField>().text);
+        skill.hpRate = int.Parse(row.Find("HPRate").GetComponent<TMP_InputField>().text);
+        skill.atkRate = int.Parse(row.Find("ATKRate").GetComponent<TMP_InputField>().text);
+        skill.mpRate = int.Parse(row.Find("MPRate").GetComponent<TMP_InputField>().text);
+        skill.spdRate = int.Parse(row.Find("SPDRate").GetComponent<TMP_InputField>().text);
 
         StartCoroutine(SendSkillData(skill));
     }
 
     IEnumerator FetchSkillList()
     {
-        string url = GameURL.DBServer.Server_URL; // 뒷 주소 추가 필요
+        string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getSkillEffectsListPath;
         
         using (UnityWebRequest www = UnityWebRequest.Get(url))
         {
@@ -60,6 +65,7 @@ public class Skill : MonoBehaviour
             {
                 string jsonResponse = www.downloadHandler.text;
                 List<SkillGetListResponse> skillListResponse = JsonConvert.DeserializeObject<List<SkillGetListResponse>>(jsonResponse);
+                DataManager.Instance.SkillGetListResponse = skillListResponse;
                 UpdateTable(skillListResponse);
             }
             else
@@ -72,18 +78,18 @@ public class Skill : MonoBehaviour
     IEnumerator SendSkillData(SkillPost skill)
     {
         JObject skillData = new JObject();
-        skillData["skillId"] = skill.skillId;
-        skillData["skillEffectId"] = skill.skillEffectId;
-        skillData["fixedValue"] = skill.fixedValue;
-        skillData["hpRate"] = skill.hpRate;
-        skillData["atkRate"] = skill.atkRate;
-        skillData["mpRate"] = skill.mpRate;
-        skillData["spdRate"] = skill.spdRate;
+        skillData["SkillId"] = skill.skillId;
+        skillData["SkillEffectId"] = skill.skillEffectId;
+        skillData["FixedValue"] = skill.fixedValue;
+        skillData["HpRate"] = skill.hpRate;
+        skillData["AtkRate"] = skill.atkRate;
+        skillData["MpRate"] = skill.mpRate;
+        skillData["SpdRate"] = skill.spdRate;
 
         string jsonData = skillData.ToString();
-        string url = GameURL.DBServer.Server_URL; // 뒷 주소 추가 필요
+        string url = GameURL.DBServer.Server_URL + GameURL.DBServer.putSkillEffectPath;
         
-        using (UnityWebRequest www = new UnityWebRequest(url, "POST"))
+        using (UnityWebRequest www = new UnityWebRequest(url, "PUT"))
         {
             www.SetRequestHeader("Authorization", $"Bearer {UserDataManager.Instance.AccessToken}");
 
@@ -110,14 +116,14 @@ public class Skill : MonoBehaviour
         foreach (SkillGetListResponse skill in skills)
         {
             GameObject row = Instantiate(rowPrefab, tableContent);
-            row.transform.Find("SkillID").GetComponent<InputField>().text = skill.skillId.ToString();
-            row.transform.Find("SkillName").GetComponent<InputField>().text = skill.skillNm;
-            row.transform.Find("SkillEffectID").GetComponent<InputField>().text = skill.skillEffectId.ToString();
-            row.transform.Find("FixedValue").GetComponent<InputField>().text = skill.fixedValue.ToString();
-            row.transform.Find("HPRate").GetComponent<InputField>().text = skill.hpRate.ToString();
-            row.transform.Find("ATKRate").GetComponent<InputField>().text = skill.atkRate.ToString();
-            row.transform.Find("MPRate").GetComponent<InputField>().text = skill.mpRate.ToString();
-            row.transform.Find("SPDRate").GetComponent<InputField>().text = skill.spdRate.ToString();
+            row.transform.Find("SkillID").GetComponent<TMP_InputField>().text = skill.skillId.ToString();
+            row.transform.Find("SkillName").GetComponent<TMP_InputField>().text = skill.skillNm;
+            row.transform.Find("SkillEffectID").GetComponent<TMP_InputField>().text = skill.skillEffectId.ToString();
+            row.transform.Find("FixedValue").GetComponent<TMP_InputField>().text = skill.fixedValue.ToString();
+            row.transform.Find("HPRate").GetComponent<TMP_InputField>().text = skill.hpRate.ToString();
+            row.transform.Find("ATKRate").GetComponent<TMP_InputField>().text = skill.atkRate.ToString();
+            row.transform.Find("MPRate").GetComponent<TMP_InputField>().text = skill.mpRate.ToString();
+            row.transform.Find("SPDRate").GetComponent<TMP_InputField>().text = skill.spdRate.ToString();
         }
     }
 
