@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6792453, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -558,7 +558,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 4715233026336877825}
   m_TextViewport: {fileID: 5740166050327352896}
   m_TextComponent: {fileID: 4963069218603709425}
@@ -2542,7 +2542,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4289922619846064164}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Skill, Assembly-CSharp
+        m_MethodName: SaveSkillBtn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 5638956356895223046}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4179019936051604864
 GameObject:
   m_ObjectHideFlags: 0
@@ -3103,7 +3115,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 6449030196572554480}
   m_TextViewport: {fileID: 2378574350508219013}
   m_TextComponent: {fileID: 7564477889803208662}
@@ -3412,7 +3424,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 855191634487326318}
   m_TextViewport: {fileID: 1105788607315580093}
   m_TextComponent: {fileID: 8913557029360304272}
