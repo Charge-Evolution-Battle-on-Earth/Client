@@ -11,9 +11,9 @@
 ## OS별 실행 방법
 
 ### Windows
-> CEBE_v1.0.2_win.zip 압축 해제 후 Client.exe 파일 실행
+> CEBE_v1.0.3_win.zip 압축 해제 후 Client.exe 파일 실행
 ### macOS
-> CEBE_v1.0.2_mac.app.zip 압축 해제 후 CEBE_v1.0.2_mac.app 실행 또는 CEBE_v1.0.2_mac.app/Contents/MacOS에서 Client 파일 실행
+> CEBE_v1.0.3_mac.app.zip 압축 해제 후 CEBE_v1.0.3_mac.app 실행 또는 CEBE_v1.0.3_mac.app/Contents/MacOS에서 Client 파일 실행
 
 ## 개발환경
 - Unity version : 2022.3.13f1
