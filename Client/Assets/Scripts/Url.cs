@@ -35,6 +35,11 @@ public class GameURL
         public static readonly string getGameEndPath = "/game/end/";// 게임 종료시
         public static readonly string getGameSurrenderPath = "/game/surrender/";// 항복
         public static readonly string getGameQuitPath = "/game/quit/";// 돌아가기
+
+        public static readonly string getSkillEffectsListPath = "/skills/effects";// 스킬 리스트 불러오기
+        public static readonly string putSkillEffectPath = "/skills/effects";// 스킬 효과 수정
+        public static readonly string getItemsListPath = "/items"; // 아이템 리스트 불러오기
+        public static readonly string putItemPath = "/items"; // 아이템 수정
     }
 
     // 회원가입, 로그인 등을 담당할 서버
