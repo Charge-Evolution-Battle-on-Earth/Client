@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 4715233026336877825}
   - component: {fileID: 881829946800943619}
   m_Layer: 5
-  m_Name: SkillID
+  m_Name: SkillEffectType
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
