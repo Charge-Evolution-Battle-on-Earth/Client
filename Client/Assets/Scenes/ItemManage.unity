@@ -1734,6 +1734,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: ATK
       objectReference: {fileID: 0}
+    - target: {fileID: 4142106473853100416, guid: 088b25328622d7f4ab982076b13551ce, type: 3}
+      propertyPath: m_fontSize
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142106473853100416, guid: 088b25328622d7f4ab982076b13551ce, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142106473853100416, guid: 088b25328622d7f4ab982076b13551ce, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142106473853100416, guid: 088b25328622d7f4ab982076b13551ce, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5638956356895223046, guid: 088b25328622d7f4ab982076b13551ce, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1813,6 +1829,22 @@ PrefabInstance:
     - target: {fileID: 5638956356895223046, guid: 088b25328622d7f4ab982076b13551ce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913557029360304272, guid: 088b25328622d7f4ab982076b13551ce, type: 3}
+      propertyPath: m_fontSize
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913557029360304272, guid: 088b25328622d7f4ab982076b13551ce, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913557029360304272, guid: 088b25328622d7f4ab982076b13551ce, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913557029360304272, guid: 088b25328622d7f4ab982076b13551ce, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

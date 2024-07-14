@@ -108,8 +108,26 @@ public class Item : MonoBehaviour
         {
             GameObject row = Instantiate(rowPrefab, tableContent);
             row.transform.Find("ItemId").GetComponent<TMP_InputField>().text = item.itemId.ToString();
-            row.transform.Find("ItemTypeId").GetComponent<TMP_InputField>().text = item.itemTypeId.ToString();
-            row.transform.Find("JobId").GetComponent<TMP_InputField>().text = item.jobId.ToString();
+            if (item.itemTypeId == 1)
+            {
+                row.transform.Find("ItemTypeId").GetComponent<TMP_InputField>().text = "무기";
+            }
+            else if(item.itemTypeId == 2)
+            {
+                row.transform.Find("ItemTypeId").GetComponent<TMP_InputField>().text = "방어구";
+            }
+            if(item.jobId == 1)
+            {
+                row.transform.Find("JobId").GetComponent<TMP_InputField>().text = "전사";
+            }
+            else if (item.jobId == 2)
+            {
+                row.transform.Find("JobId").GetComponent<TMP_InputField>().text = "궁수";
+            }
+            else if (item.jobId == 3)
+            {
+                row.transform.Find("JobId").GetComponent<TMP_InputField>().text = "성직자";
+            }
             row.transform.Find("ItemNm").GetComponent<TMP_InputField>().text = item.itemNm.ToString();
             row.transform.Find("LevelId").GetComponent<TMP_InputField>().text = item.levelId.ToString();
             row.transform.Find("Cost").GetComponent<TMP_InputField>().text = item.cost.ToString();
