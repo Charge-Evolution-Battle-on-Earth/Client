@@ -106,7 +106,7 @@ public class Skill : MonoBehaviour
         foreach (SkillGetListResponse skill in skills)
         {
             GameObject row = Instantiate(rowPrefab, tableContent);
-            row.transform.Find("SkillID").GetComponent<TMP_InputField>().text = skill.skillId.ToString();
+            row.transform.Find("SkillEffectType").GetComponent<TMP_InputField>().text = skill.skillEffectType.ToString();
             row.transform.Find("SkillName").GetComponent<TMP_InputField>().text = skill.skillNm;
             row.transform.Find("SkillEffectID").GetComponent<TMP_InputField>().text = skill.skillEffectId.ToString();
             row.transform.Find("FixedValue").GetComponent<TMP_InputField>().text = skill.fixedValue.ToString();

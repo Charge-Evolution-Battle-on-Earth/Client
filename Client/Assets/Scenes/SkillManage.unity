@@ -2446,7 +2446,7 @@ GameObject:
   - component: {fileID: 1489129130}
   - component: {fileID: 1489129129}
   m_Layer: 5
-  m_Name: SkillId
+  m_Name: SkillEffectType
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2468,7 +2468,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -583.35, y: 0}
+  m_AnchoredPosition: {x: -579.4, y: 0}
   m_SizeDelta: {x: 133.3, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1489129129
@@ -2491,7 +2491,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ID
+  m_text: 'EffectType
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 62205fcaf2332b94fb5f0565e0520170, type: 2}
   m_sharedMaterial: {fileID: 1981798837169831904, guid: 62205fcaf2332b94fb5f0565e0520170, type: 2}
@@ -2518,8 +2520,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 23
+  m_fontSizeBase: 23
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3294,54 +3296,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1734655314}
     m_Modifications:
-    - target: {fileID: 69761452873562494, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 650462462864239651, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
       propertyPath: m_Name
       value: SkillRowPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 881829946800943619, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2351944662293128174, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2351944662293128174, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+    - target: {fileID: 791397526762859596, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
+      propertyPath: m_Name
+      value: SkillEffectType
       objectReference: {fileID: 0}
     - target: {fileID: 2351944662293128174, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 24516151}
-    - target: {fileID: 2351944662293128174, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2351944662293128174, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SaveSkillBtn
-      objectReference: {fileID: 0}
-    - target: {fileID: 2351944662293128174, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Skill, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2351944662293128174, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 238734455}
-    - target: {fileID: 2351944662293128174, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Transform, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4553959733763736973, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5638956356895223046, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3421,18 +3387,6 @@ PrefabInstance:
     - target: {fileID: 5638956356895223046, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8886533298450403074, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8886533298450403074, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8886533298450403074, guid: de8445a715a10024bb4d8e4fe2821c38, type: 3}
-      propertyPath: m_Color.r
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
