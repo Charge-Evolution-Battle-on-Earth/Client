@@ -76,6 +76,7 @@ public class ItemPost
 	public Stat stat = new Stat();
 }
 
+[System.Serializable]
 public class StatRate
 {
 	public int hpRate;
