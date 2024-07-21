@@ -12,12 +12,17 @@ public class Item : MonoBehaviour
     public PopupManager popupManager;
     public Transform tableContent;
     public GameObject rowPrefab;
+    public TMP_InputField searchInput;
+
+    private string defaultSortStatus = "itemTypeIdASC_jobIdASC_levelIdASC"; // 기본 정렬 상태
 
     void Start()
     {
         popupManager.HidePopup();
         DataManager.Instance.itemGetResponse.Clear();
+        DataManager.Instance.FiltererdItems.Clear();
         RefreshBtn();
+        searchInput.onValueChanged.AddListener(OnSearchInputChanged);
     }
 
     void Update()
@@ -30,14 +35,11 @@ public class Item : MonoBehaviour
 
     public void RefreshBtn()
     {
-        foreach (Transform child in tableContent)
-        {
-            Destroy(child.gameObject);
-        }
-        StartCoroutine(FetchSkillList());
+        DataManager.Instance.SortStatus = "";
+        StartCoroutine(FetchItemList());
     }
 
-    IEnumerator FetchSkillList()
+    IEnumerator FetchItemList()
     {
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemsListPath;
 
@@ -52,7 +54,8 @@ public class Item : MonoBehaviour
                 string jsonResponse = www.downloadHandler.text;
                 List<ItemGetResponse> itemListResponse = JsonConvert.DeserializeObject<List<ItemGetResponse>>(jsonResponse);
                 DataManager.Instance.itemGetResponse = itemListResponse;
-                UpdateTable(itemListResponse);
+
+                UpdateTable(DataManager.Instance.itemGetResponse, defaultSortStatus);
             }
             else
             {
@@ -102,14 +105,84 @@ public class Item : MonoBehaviour
         }
     }
 
-    void UpdateTable(List<ItemGetResponse> items)
+    void UpdateTable(List<ItemGetResponse> items, string sortBy)
     {
+        foreach (Transform child in tableContent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        if (sortBy == defaultSortStatus)
+        {
+            DataManager.Instance.SortStatus = "itemTypeIdDESC";
+            items.Sort((x, y) =>
+            {
+                int comparison = x.itemTypeId.CompareTo(y.itemTypeId);
+                if (comparison == 0) comparison = x.jobId.CompareTo(y.jobId);
+                if (comparison == 0) comparison = x.levelId.CompareTo(y.levelId);
+                return comparison;
+            });
+        }
+        else
+        {
+            bool ascending = DataManager.Instance.SortStatus != sortBy + "DESC";
+
+            items.Sort((x, y) =>
+            {
+                switch (sortBy)
+                {
+                    case "itemId":
+                        return ascending ? x.itemId.CompareTo(y.itemId) : y.itemId.CompareTo(x.itemId);
+                    case "itemNm":
+                        return ascending ? string.Compare(x.itemNm, y.itemNm) : string.Compare(y.itemNm, x.itemNm);
+                    case "itemTypeId":
+                        return ascending ? x.itemTypeId.CompareTo(y.itemTypeId) : y.itemTypeId.CompareTo(x.itemTypeId);
+                    case "jobId":
+                        return ascending ? x.jobId.CompareTo(y.jobId) : y.jobId.CompareTo(x.jobId);
+                    case "levelId":
+                        return ascending ? x.levelId.CompareTo(y.levelId) : y.levelId.CompareTo(x.levelId);
+                    case "cost":
+                        return ascending ? x.cost.CompareTo(y.cost) : y.cost.CompareTo(x.cost);
+                    case "hp":
+                        return ascending ? x.stat.hp.CompareTo(y.stat.hp) : y.stat.hp.CompareTo(x.stat.hp);
+                    case "mp":
+                        return ascending ? x.stat.mp.CompareTo(y.stat.mp) : y.stat.mp.CompareTo(x.stat.mp);
+                    case "atk":
+                        return ascending ? x.stat.atk.CompareTo(y.stat.atk) : y.stat.atk.CompareTo(x.stat.atk);
+                    case "spd":
+                        return ascending ? x.stat.spd.CompareTo(y.stat.spd) : y.stat.spd.CompareTo(x.stat.spd);
+                    default:
+                        return 0;
+                }
+            });
+
+            DataManager.Instance.SortStatus = ascending ? sortBy + "DESC" : sortBy + "ASC";
+        }
+
         foreach (ItemGetResponse item in items)
         {
             GameObject row = Instantiate(rowPrefab, tableContent);
             row.transform.Find("ItemId").GetComponent<TMP_InputField>().text = item.itemId.ToString();
-            row.transform.Find("ItemTypeId").GetComponent<TMP_InputField>().text = item.itemTypeId.ToString();
-            row.transform.Find("JobId").GetComponent<TMP_InputField>().text = item.jobId.ToString();
+            if (item.itemTypeId == 1)
+            {
+                row.transform.Find("ItemTypeId").GetComponent<TMP_InputField>().text = "무기";
+            }
+            else if (item.itemTypeId == 2)
+            {
+                row.transform.Find("ItemTypeId").GetComponent<TMP_InputField>().text = "방어구";
+            }
+            if (item.jobId == 1)
+            {
+                row.transform.Find("JobId").GetComponent<TMP_InputField>().text = "전사";
+            }
+            else if (item.jobId == 2)
+            {
+                row.transform.Find("JobId").GetComponent<TMP_InputField>().text = "궁수";
+            }
+            else if (item.jobId == 3)
+            {
+                row.transform.Find("JobId").GetComponent<TMP_InputField>().text = "성직자";
+            }
             row.transform.Find("ItemNm").GetComponent<TMP_InputField>().text = item.itemNm.ToString();
             row.transform.Find("LevelId").GetComponent<TMP_InputField>().text = item.levelId.ToString();
             row.transform.Find("Cost").GetComponent<TMP_InputField>().text = item.cost.ToString();
@@ -118,5 +191,28 @@ public class Item : MonoBehaviour
             row.transform.Find("MP").GetComponent<TMP_InputField>().text = item.stat.mp.ToString();
             row.transform.Find("SPD").GetComponent<TMP_InputField>().text = item.stat.spd.ToString();
         }
+    }
+
+    public void SortItemTable(string sortBy)
+    {
+        if (DataManager.Instance.FiltererdItems.Count > 0)
+        {
+            UpdateTable(DataManager.Instance.FiltererdItems, sortBy);
+        }
+        else
+        {
+            UpdateTable(DataManager.Instance.itemGetResponse, sortBy);
+        }
+    }
+
+    void OnSearchInputChanged(string searchQuery)
+    {
+        List<ItemGetResponse> filteredItems = DataManager.Instance.itemGetResponse.FindAll(item =>
+            item.itemNm.Contains(searchQuery));
+
+        DataManager.Instance.FiltererdItems = filteredItems;
+        DataManager.Instance.SortStatus = "";
+
+        UpdateTable(filteredItems, defaultSortStatus);
     }
 }

@@ -6,18 +6,22 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TMPro;
+using System;
 
 public class Skill : MonoBehaviour
 {
     public PopupManager popupManager;
     public Transform tableContent;
     public GameObject rowPrefab;
+    public TMP_InputField searchInput;
 
     void Start()
     {
         popupManager.HidePopup();
         DataManager.Instance.SkillGetListResponse.Clear();
+        DataManager.Instance.FiltererdSkills.Clear();
         RefreshBtn();
+        searchInput.onValueChanged.AddListener(OnSearchInputChanged);
     }
 
     private void Update()
@@ -30,10 +34,7 @@ public class Skill : MonoBehaviour
 
     public void RefreshBtn()
     {
-        foreach (Transform child in tableContent)
-        {
-            Destroy(child.gameObject);
-        }
+        DataManager.Instance.SortStatus = "";
         StartCoroutine(FetchSkillList());
     }
 
@@ -65,7 +66,8 @@ public class Skill : MonoBehaviour
                 string jsonResponse = www.downloadHandler.text;
                 List<SkillGetListResponse> skillListResponse = JsonConvert.DeserializeObject<List<SkillGetListResponse>>(jsonResponse);
                 DataManager.Instance.SkillGetListResponse = skillListResponse;
-                UpdateTable(skillListResponse);
+
+                UpdateTable(DataManager.Instance.SkillGetListResponse, "skillEffectId");
             }
             else
             {
@@ -101,8 +103,44 @@ public class Skill : MonoBehaviour
         }
     }
 
-    void UpdateTable(List<SkillGetListResponse> skills)
+    void UpdateTable(List<SkillGetListResponse> skills, string sortBy)
     {
+        foreach (Transform child in tableContent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        bool ascending = DataManager.Instance.SortStatus != sortBy + "DESC";
+
+        skills.Sort((x, y) =>
+        {
+            switch (sortBy)
+            {
+                case "skillId":
+                    return ascending ? x.skillId.CompareTo(y.skillId) : y.skillId.CompareTo(x.skillId);
+                case "skillNm":
+                    return ascending ? string.Compare(x.skillNm, y.skillNm) : string.Compare(y.skillNm, x.skillNm);
+                case "skillEffectId":
+                    return ascending ? x.skillEffectId.CompareTo(y.skillEffectId) : y.skillEffectId.CompareTo(x.skillEffectId);
+                case "skillEffectType":
+                    return ascending ? x.skillEffectType.CompareTo(y.skillEffectType) : y.skillEffectType.CompareTo(x.skillEffectType);
+                case "fixedValue":
+                    return ascending ? x.fixedValue.CompareTo(y.fixedValue) : y.fixedValue.CompareTo(x.fixedValue);
+                case "hpRate":
+                    return ascending ? x.statRate.hpRate.CompareTo(y.statRate.hpRate) : y.statRate.hpRate.CompareTo(x.statRate.hpRate);
+                case "atkRate":
+                    return ascending ? x.statRate.atkRate.CompareTo(y.statRate.atkRate) : y.statRate.atkRate.CompareTo(x.statRate.atkRate);
+                case "mpRate":
+                    return ascending ? x.statRate.mpRate.CompareTo(y.statRate.mpRate) : y.statRate.mpRate.CompareTo(x.statRate.mpRate);
+                case "spdRate":
+                    return ascending ? x.statRate.spdRate.CompareTo(y.statRate.spdRate) : y.statRate.spdRate.CompareTo(x.statRate.spdRate);
+                default:
+                    return 0;
+            }
+        });
+
+        DataManager.Instance.SortStatus = ascending ? sortBy + "DESC" : sortBy + "ASC";
+
         foreach (SkillGetListResponse skill in skills)
         {
             GameObject row = Instantiate(rowPrefab, tableContent);
@@ -115,5 +153,28 @@ public class Skill : MonoBehaviour
             row.transform.Find("MPRate").GetComponent<TMP_InputField>().text = skill.statRate.mpRate.ToString();
             row.transform.Find("SPDRate").GetComponent<TMP_InputField>().text = skill.statRate.spdRate.ToString();
         }
+    }
+
+    public void SortSkillTable(string sortBy)
+    {
+        if (DataManager.Instance.FiltererdSkills.Count > 0)
+        {
+            UpdateTable(DataManager.Instance.FiltererdSkills, sortBy);
+        }
+        else
+        {
+            UpdateTable(DataManager.Instance.SkillGetListResponse, sortBy);
+        }
+    }
+
+    void OnSearchInputChanged(string searchQuery)
+    {
+        List<SkillGetListResponse> filteredSkills = DataManager.Instance.SkillGetListResponse.FindAll(skill =>
+            skill.skillNm.Contains(searchQuery));
+
+        DataManager.Instance.FiltererdSkills = filteredSkills;
+        DataManager.Instance.SortStatus = "";
+
+        UpdateTable(filteredSkills, "skillEffectId");
     }
 }

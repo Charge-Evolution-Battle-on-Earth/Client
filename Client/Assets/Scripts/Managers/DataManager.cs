@@ -6,7 +6,10 @@ public class DataManager : MonoBehaviour
     private static DataManager _instance;
 
     private List<SkillGetListResponse> _skillGetListResponse = new List<SkillGetListResponse>();
+	private List<SkillGetListResponse> _filteredSkills = new List<SkillGetListResponse>();
 	private List<ItemGetResponse> _itemGetResponse = new List<ItemGetResponse>();
+	private List<ItemGetResponse> _filteredItems = new List<ItemGetResponse>();
+	private string _sortStatus;
 
 	public static DataManager Instance
     {
@@ -22,6 +25,24 @@ public class DataManager : MonoBehaviour
         }
     }
 
+	public List<SkillGetListResponse> FiltererdSkills
+	{
+		get { return _filteredSkills; }
+		set { _filteredSkills = value; }
+	}
+
+	public List<ItemGetResponse> FiltererdItems
+	{
+		get { return _filteredItems; }
+		set { _filteredItems = value; }
+	}
+
+	public string SortStatus
+    {
+        get { return _sortStatus; }
+		set { _sortStatus = value; }
+    }
+
 	public List<SkillGetListResponse> SkillGetListResponse
     {
 		get { return _skillGetListResponse; }
@@ -35,6 +56,7 @@ public class DataManager : MonoBehaviour
 	}
 }
 
+[System.Serializable]
 public class SkillGetListResponse
 {
 	public long skillId;
@@ -45,12 +67,14 @@ public class SkillGetListResponse
 	public StatRate statRate = new StatRate();
 }
 
+[System.Serializable]
 public enum SkillEffectType
 {
 	DAMAGE,
 	HEAL
 }
 
+[System.Serializable]
 public class ItemGetResponse
 {
 	public long itemId;
