@@ -13,12 +13,14 @@ public class Skill : MonoBehaviour
     public PopupManager popupManager;
     public Transform tableContent;
     public GameObject rowPrefab;
+    public TMP_InputField searchInput;
 
     void Start()
     {
         popupManager.HidePopup();
         DataManager.Instance.SkillGetListResponse.Clear();
         RefreshBtn();
+        searchInput.onValueChanged.AddListener(OnSearchInputChanged);
     }
 
     private void Update()
@@ -155,5 +157,14 @@ public class Skill : MonoBehaviour
     public void SortSkillTable(string sortBy)
     {
         UpdateTable(DataManager.Instance.SkillGetListResponse, sortBy);
+    }
+
+    void OnSearchInputChanged(string searchQuery)
+    {
+        string lowerCaseQuery = searchQuery.ToLower();
+        List<SkillGetListResponse> filteredSkills = DataManager.Instance.SkillGetListResponse.FindAll(skill =>
+            skill.skillNm.ToLower().Contains(lowerCaseQuery));
+
+        UpdateTable(filteredSkills, "skillEffectId");
     }
 }
