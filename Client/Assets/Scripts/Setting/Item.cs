@@ -30,14 +30,11 @@ public class Item : MonoBehaviour
 
     public void RefreshBtn()
     {
-        foreach (Transform child in tableContent)
-        {
-            Destroy(child.gameObject);
-        }
-        StartCoroutine(FetchSkillList());
+        DataManager.Instance.SortStatus = "";
+        StartCoroutine(FetchItemList());
     }
 
-    IEnumerator FetchSkillList()
+    IEnumerator FetchItemList()
     {
         string url = GameURL.DBServer.Server_URL + GameURL.DBServer.getItemsListPath;
 
@@ -52,7 +49,8 @@ public class Item : MonoBehaviour
                 string jsonResponse = www.downloadHandler.text;
                 List<ItemGetResponse> itemListResponse = JsonConvert.DeserializeObject<List<ItemGetResponse>>(jsonResponse);
                 DataManager.Instance.itemGetResponse = itemListResponse;
-                UpdateTable(itemListResponse);
+
+                UpdateTable(DataManager.Instance.itemGetResponse, "itemTypeId");
             }
             else
             {
@@ -102,8 +100,45 @@ public class Item : MonoBehaviour
         }
     }
 
-    void UpdateTable(List<ItemGetResponse> items)
+    void UpdateTable(List<ItemGetResponse> items, string sortBy)
     {
+        foreach (Transform child in tableContent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        bool ascending = DataManager.Instance.SortStatus != sortBy + "DESC";
+
+        items.Sort((x, y) =>
+        {
+            switch (sortBy)
+            {
+                case "itemId":
+                    return ascending ? x.itemId.CompareTo(y.itemId) : y.itemId.CompareTo(x.itemId);
+                case "itemNm":
+                    return ascending ? string.Compare(x.itemNm, y.itemNm) : string.Compare(y.itemNm, x.itemNm);
+                case "itemTypeId":
+                    return ascending ? x.itemTypeId.CompareTo(y.itemTypeId) : y.itemTypeId.CompareTo(x.itemTypeId);
+                case "jobId":
+                    return ascending ? x.jobId.CompareTo(y.jobId) : y.jobId.CompareTo(x.jobId);
+                case "levelId":
+                    return ascending ? x.levelId.CompareTo(y.levelId) : y.levelId.CompareTo(x.levelId);
+                case "cost":
+                    return ascending ? x.cost.CompareTo(y.cost) : y.cost.CompareTo(x.cost);
+                case "hp":
+                    return ascending ? x.stat.hp.CompareTo(y.stat.hp) : y.stat.hp.CompareTo(x.stat.hp);
+                case "mp":
+                    return ascending ? x.stat.mp.CompareTo(y.stat.mp) : y.stat.mp.CompareTo(x.stat.mp);
+                case "atk":
+                    return ascending ? x.stat.atk.CompareTo(y.stat.atk) : y.stat.atk.CompareTo(x.stat.atk);
+                case "spd":
+                    return ascending ? x.stat.spd.CompareTo(y.stat.spd) : y.stat.spd.CompareTo(x.stat.spd);
+                default:
+                    return 0;
+            }
+        });
+
+        DataManager.Instance.SortStatus = ascending ? sortBy + "DESC" : sortBy + "ASC";
         foreach (ItemGetResponse item in items)
         {
             GameObject row = Instantiate(rowPrefab, tableContent);
@@ -112,11 +147,11 @@ public class Item : MonoBehaviour
             {
                 row.transform.Find("ItemTypeId").GetComponent<TMP_InputField>().text = "무기";
             }
-            else if(item.itemTypeId == 2)
+            else if (item.itemTypeId == 2)
             {
                 row.transform.Find("ItemTypeId").GetComponent<TMP_InputField>().text = "방어구";
             }
-            if(item.jobId == 1)
+            if (item.jobId == 1)
             {
                 row.transform.Find("JobId").GetComponent<TMP_InputField>().text = "전사";
             }
@@ -136,5 +171,10 @@ public class Item : MonoBehaviour
             row.transform.Find("MP").GetComponent<TMP_InputField>().text = item.stat.mp.ToString();
             row.transform.Find("SPD").GetComponent<TMP_InputField>().text = item.stat.spd.ToString();
         }
+    }
+
+    public void SortItemTable(string sortBy)
+    {
+        UpdateTable(DataManager.Instance.itemGetResponse, sortBy);
     }
 }
