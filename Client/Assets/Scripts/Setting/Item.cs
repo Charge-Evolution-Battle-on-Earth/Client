@@ -13,6 +13,8 @@ public class Item : MonoBehaviour
     public Transform tableContent;
     public GameObject rowPrefab;
 
+    private string defaultSortStatus = "itemTypeIdASC_jobIdASC_levelIdASC"; // 기본 정렬 상태
+
     void Start()
     {
         popupManager.HidePopup();
@@ -50,7 +52,7 @@ public class Item : MonoBehaviour
                 List<ItemGetResponse> itemListResponse = JsonConvert.DeserializeObject<List<ItemGetResponse>>(jsonResponse);
                 DataManager.Instance.itemGetResponse = itemListResponse;
 
-                UpdateTable(DataManager.Instance.itemGetResponse, "itemTypeId");
+                UpdateTable(DataManager.Instance.itemGetResponse, defaultSortStatus);
             }
             else
             {
@@ -107,38 +109,53 @@ public class Item : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        bool ascending = DataManager.Instance.SortStatus != sortBy + "DESC";
-
-        items.Sort((x, y) =>
+        if (sortBy == defaultSortStatus)
         {
-            switch (sortBy)
+            DataManager.Instance.SortStatus = "itemTypeIdDESC";
+            items.Sort((x, y) =>
             {
-                case "itemId":
-                    return ascending ? x.itemId.CompareTo(y.itemId) : y.itemId.CompareTo(x.itemId);
-                case "itemNm":
-                    return ascending ? string.Compare(x.itemNm, y.itemNm) : string.Compare(y.itemNm, x.itemNm);
-                case "itemTypeId":
-                    return ascending ? x.itemTypeId.CompareTo(y.itemTypeId) : y.itemTypeId.CompareTo(x.itemTypeId);
-                case "jobId":
-                    return ascending ? x.jobId.CompareTo(y.jobId) : y.jobId.CompareTo(x.jobId);
-                case "levelId":
-                    return ascending ? x.levelId.CompareTo(y.levelId) : y.levelId.CompareTo(x.levelId);
-                case "cost":
-                    return ascending ? x.cost.CompareTo(y.cost) : y.cost.CompareTo(x.cost);
-                case "hp":
-                    return ascending ? x.stat.hp.CompareTo(y.stat.hp) : y.stat.hp.CompareTo(x.stat.hp);
-                case "mp":
-                    return ascending ? x.stat.mp.CompareTo(y.stat.mp) : y.stat.mp.CompareTo(x.stat.mp);
-                case "atk":
-                    return ascending ? x.stat.atk.CompareTo(y.stat.atk) : y.stat.atk.CompareTo(x.stat.atk);
-                case "spd":
-                    return ascending ? x.stat.spd.CompareTo(y.stat.spd) : y.stat.spd.CompareTo(x.stat.spd);
-                default:
-                    return 0;
-            }
-        });
+                int comparison = x.itemTypeId.CompareTo(y.itemTypeId);
+                if (comparison == 0) comparison = x.jobId.CompareTo(y.jobId);
+                if (comparison == 0) comparison = x.levelId.CompareTo(y.levelId);
+                return comparison;
+            });
+        }
+        else
+        {
+            bool ascending = DataManager.Instance.SortStatus != sortBy + "DESC";
 
-        DataManager.Instance.SortStatus = ascending ? sortBy + "DESC" : sortBy + "ASC";
+            items.Sort((x, y) =>
+            {
+                switch (sortBy)
+                {
+                    case "itemId":
+                        return ascending ? x.itemId.CompareTo(y.itemId) : y.itemId.CompareTo(x.itemId);
+                    case "itemNm":
+                        return ascending ? string.Compare(x.itemNm, y.itemNm) : string.Compare(y.itemNm, x.itemNm);
+                    case "itemTypeId":
+                        return ascending ? x.itemTypeId.CompareTo(y.itemTypeId) : y.itemTypeId.CompareTo(x.itemTypeId);
+                    case "jobId":
+                        return ascending ? x.jobId.CompareTo(y.jobId) : y.jobId.CompareTo(x.jobId);
+                    case "levelId":
+                        return ascending ? x.levelId.CompareTo(y.levelId) : y.levelId.CompareTo(x.levelId);
+                    case "cost":
+                        return ascending ? x.cost.CompareTo(y.cost) : y.cost.CompareTo(x.cost);
+                    case "hp":
+                        return ascending ? x.stat.hp.CompareTo(y.stat.hp) : y.stat.hp.CompareTo(x.stat.hp);
+                    case "mp":
+                        return ascending ? x.stat.mp.CompareTo(y.stat.mp) : y.stat.mp.CompareTo(x.stat.mp);
+                    case "atk":
+                        return ascending ? x.stat.atk.CompareTo(y.stat.atk) : y.stat.atk.CompareTo(x.stat.atk);
+                    case "spd":
+                        return ascending ? x.stat.spd.CompareTo(y.stat.spd) : y.stat.spd.CompareTo(x.stat.spd);
+                    default:
+                        return 0;
+                }
+            });
+
+            DataManager.Instance.SortStatus = ascending ? sortBy + "DESC" : sortBy + "ASC";
+        }
+
         foreach (ItemGetResponse item in items)
         {
             GameObject row = Instantiate(rowPrefab, tableContent);
