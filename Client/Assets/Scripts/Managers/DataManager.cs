@@ -7,6 +7,7 @@ public class DataManager : MonoBehaviour
 
     private List<SkillGetListResponse> _skillGetListResponse = new List<SkillGetListResponse>();
 	private List<ItemGetResponse> _itemGetResponse = new List<ItemGetResponse>();
+	private string _sortStatus;
 
 	public static DataManager Instance
     {
@@ -22,6 +23,12 @@ public class DataManager : MonoBehaviour
         }
     }
 
+	public string SortStatus
+    {
+        get { return _sortStatus; }
+		set { _sortStatus = value; }
+    }
+
 	public List<SkillGetListResponse> SkillGetListResponse
     {
 		get { return _skillGetListResponse; }
@@ -35,6 +42,7 @@ public class DataManager : MonoBehaviour
 	}
 }
 
+[System.Serializable]
 public class SkillGetListResponse
 {
 	public long skillId;
@@ -45,12 +53,14 @@ public class SkillGetListResponse
 	public StatRate statRate = new StatRate();
 }
 
+[System.Serializable]
 public enum SkillEffectType
 {
 	DAMAGE,
 	HEAL
 }
 
+[System.Serializable]
 public class ItemGetResponse
 {
 	public long itemId;
