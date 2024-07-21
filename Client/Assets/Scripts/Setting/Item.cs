@@ -211,6 +211,7 @@ public class Item : MonoBehaviour
             item.itemNm.Contains(searchQuery));
 
         DataManager.Instance.FiltererdItems = filteredItems;
+        DataManager.Instance.SortStatus = "";
 
         UpdateTable(filteredItems, defaultSortStatus);
     }

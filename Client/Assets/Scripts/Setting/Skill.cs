@@ -173,6 +173,7 @@ public class Skill : MonoBehaviour
             skill.skillNm.Contains(searchQuery));
 
         DataManager.Instance.FiltererdSkills = filteredSkills;
+        DataManager.Instance.SortStatus = "";
 
         UpdateTable(filteredSkills, "skillEffectId");
     }
