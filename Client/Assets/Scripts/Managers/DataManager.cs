@@ -6,7 +6,9 @@ public class DataManager : MonoBehaviour
     private static DataManager _instance;
 
     private List<SkillGetListResponse> _skillGetListResponse = new List<SkillGetListResponse>();
+	private List<SkillGetListResponse> _filteredSkills = new List<SkillGetListResponse>();
 	private List<ItemGetResponse> _itemGetResponse = new List<ItemGetResponse>();
+	private List<ItemGetResponse> _filteredItems = new List<ItemGetResponse>();
 	private string _sortStatus;
 
 	public static DataManager Instance
@@ -22,6 +24,18 @@ public class DataManager : MonoBehaviour
 			return _instance;
         }
     }
+
+	public List<SkillGetListResponse> FiltererdSkills
+	{
+		get { return _filteredSkills; }
+		set { _filteredSkills = value; }
+	}
+
+	public List<ItemGetResponse> FiltererdItems
+	{
+		get { return _filteredItems; }
+		set { _filteredItems = value; }
+	}
 
 	public string SortStatus
     {

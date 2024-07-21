@@ -12,6 +12,7 @@ public class Item : MonoBehaviour
     public PopupManager popupManager;
     public Transform tableContent;
     public GameObject rowPrefab;
+    public TMP_InputField searchInput;
 
     private string defaultSortStatus = "itemTypeIdASC_jobIdASC_levelIdASC"; // 기본 정렬 상태
 
@@ -19,7 +20,9 @@ public class Item : MonoBehaviour
     {
         popupManager.HidePopup();
         DataManager.Instance.itemGetResponse.Clear();
+        DataManager.Instance.FiltererdItems.Clear();
         RefreshBtn();
+        searchInput.onValueChanged.AddListener(OnSearchInputChanged);
     }
 
     void Update()
@@ -192,6 +195,23 @@ public class Item : MonoBehaviour
 
     public void SortItemTable(string sortBy)
     {
-        UpdateTable(DataManager.Instance.itemGetResponse, sortBy);
+        if (DataManager.Instance.FiltererdItems.Count > 0)
+        {
+            UpdateTable(DataManager.Instance.FiltererdItems, sortBy);
+        }
+        else
+        {
+            UpdateTable(DataManager.Instance.itemGetResponse, sortBy);
+        }
+    }
+
+    void OnSearchInputChanged(string searchQuery)
+    {
+        List<ItemGetResponse> filteredItems = DataManager.Instance.itemGetResponse.FindAll(item =>
+            item.itemNm.Contains(searchQuery));
+
+        DataManager.Instance.FiltererdItems = filteredItems;
+
+        UpdateTable(filteredItems, defaultSortStatus);
     }
 }

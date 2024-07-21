@@ -19,6 +19,7 @@ public class Skill : MonoBehaviour
     {
         popupManager.HidePopup();
         DataManager.Instance.SkillGetListResponse.Clear();
+        DataManager.Instance.FiltererdSkills.Clear();
         RefreshBtn();
         searchInput.onValueChanged.AddListener(OnSearchInputChanged);
     }
@@ -156,14 +157,22 @@ public class Skill : MonoBehaviour
 
     public void SortSkillTable(string sortBy)
     {
-        UpdateTable(DataManager.Instance.SkillGetListResponse, sortBy);
+        if (DataManager.Instance.FiltererdSkills.Count > 0)
+        {
+            UpdateTable(DataManager.Instance.FiltererdSkills, sortBy);
+        }
+        else
+        {
+            UpdateTable(DataManager.Instance.SkillGetListResponse, sortBy);
+        }
     }
 
     void OnSearchInputChanged(string searchQuery)
     {
-        string lowerCaseQuery = searchQuery.ToLower();
         List<SkillGetListResponse> filteredSkills = DataManager.Instance.SkillGetListResponse.FindAll(skill =>
-            skill.skillNm.ToLower().Contains(lowerCaseQuery));
+            skill.skillNm.Contains(searchQuery));
+
+        DataManager.Instance.FiltererdSkills = filteredSkills;
 
         UpdateTable(filteredSkills, "skillEffectId");
     }
