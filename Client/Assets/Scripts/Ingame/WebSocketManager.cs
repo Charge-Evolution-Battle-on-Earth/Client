@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
@@ -8,6 +9,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 public class WebSocketManager : MonoBehaviour
 {
     private static WebSocketManager instance;
@@ -332,6 +334,25 @@ public class WebSocketManager : MonoBehaviour
                                 }
 
                                 string useSkillNm = Convert.ToString(jsonData["useSkillNm"]);
+                                if (useSkillNm == "공격")
+                                {
+                                    UserDataManager.Instance.SkillType = SkillType.ATTACK;
+                                }
+                                else
+                                {
+                                    var matchingSkill = DataManager.Instance.SkillsGetResponse.FirstOrDefault(skill => skill.skillNm == useSkillNm);
+                                    if (matchingSkill != null)
+                                    {
+                                        // 스킬을 찾았을 때의 처리
+                                        UserDataManager.Instance.SkillType = SkillType.ULTIMATE;
+                                    }
+                                    else
+                                    {
+                                        // 스킬을 찾지 못했을 때의 처리
+                                        UserDataManager.Instance.SkillType = SkillType.SKILL;
+                                    }
+                                }
+
                                 string msg = Convert.ToString(jsonData["message"]);
                                 if (isGameOver)
                                 {
@@ -365,6 +386,8 @@ public class WebSocketManager : MonoBehaviour
                                 string msg = Convert.ToString(jsonData["message"]);
                                 serverMsg.text += msg + Environment.NewLine;
                                 verticalScrollbar.value = 0f;
+
+                                UserDataManager.Instance.GameEnd();
                             }
                             else if (jsonData.ContainsKey("playerType"))
                             {
@@ -478,4 +501,12 @@ public enum DamageReceiver
     NULL,
     PLAYER,
     OPPONENT
+}
+[Serializable]
+public enum SkillType
+{
+    NULL,
+    ATTACK,
+    SKILL,
+    ULTIMATE
 }

@@ -59,6 +59,7 @@ public class UserDataManager : MonoBehaviour
     private string _hostNationNm;
     private long _entrantNationId;
     private string _entrantNationNm;
+    private SkillType _skillType;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -117,6 +118,12 @@ public class UserDataManager : MonoBehaviour
         _hostReady = false;
         _entrantReady = false;
         _isGameOver = false;
+    }
+
+    public SkillType SkillType
+    {
+        get { return _skillType; }
+        set { _skillType = value; }
     }
 
     public string EntrantNationNm
