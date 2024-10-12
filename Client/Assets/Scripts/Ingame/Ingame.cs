@@ -34,9 +34,6 @@ public class Ingame : MonoBehaviour
     public Scrollbar verticalScrollbar;
     public TMP_Text text_Timer;
 
-    public Image myImg;
-    public Image opponentImg;
-
     private WebSocketManager webSocketManager;
     private float limitTime = 30f;
     private float remainingTime = 30f;
@@ -133,14 +130,6 @@ public class Ingame : MonoBehaviour
                 attackBtnText.text = UserDataManager.Instance.HostSkillList[0].skillNm;
                 skillBtnText.text = UserDataManager.Instance.HostSkillList[1].skillNm;
                 ultBtnText.text = UserDataManager.Instance.HostSkillList[2].skillNm;
-
-                //수정 필요
-                /*myImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.HostJobNm);*/
-                myImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/Japan/" + "J_Idle");
-                myImg.color = Color.white;
-                /*opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.EntrantJobNm);*/
-                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/Rome/" + "R_Idle");
-                opponentImg.color = Color.white;
             }
             else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
             {
@@ -156,14 +145,6 @@ public class Ingame : MonoBehaviour
                 attackBtnText.text = UserDataManager.Instance.EntrantSkillList[0].skillNm;
                 skillBtnText.text = UserDataManager.Instance.EntrantSkillList[1].skillNm;
                 ultBtnText.text = UserDataManager.Instance.EntrantSkillList[2].skillNm;
-
-                //수정 필요
-                /*myImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.EntrantJobNm);*/
-                myImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/Japan/" + "J_Idle");
-                myImg.color = Color.white;
-                /*opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.HostJobNm);*/
-                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/Rome/" + "R_Idle");
-                opponentImg.color = Color.white;
             }
         }
         else
@@ -194,10 +175,6 @@ public class Ingame : MonoBehaviour
             opponentMpBarText.text = "";
             text_Timer.text = "";
             remainingTime = limitTime;
-            myImg.sprite = null;
-            myImg.color = new Color(1, 1, 1, 0);
-            opponentImg.sprite = null;
-            opponentImg.color = new Color(1, 1, 1, 0);
         }
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.READY || UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)

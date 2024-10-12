@@ -946,7 +946,7 @@ VideoPlayer:
   - 1
   m_Url: 
   m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
+  m_DirectAudioMutes: 01
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 1
   m_SkipOnDrop: 1
@@ -2174,8 +2174,6 @@ MonoBehaviour:
   maxBarWidth: 350
   verticalScrollbar: {fileID: 506651473}
   text_Timer: {fileID: 1227343277}
-  myImg: {fileID: 919561515}
-  opponentImg: {fileID: 1268152814}
 --- !u!1 &838385933
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,7 +2253,6 @@ GameObject:
   - component: {fileID: 919561514}
   - component: {fileID: 919561516}
   - component: {fileID: 919561515}
-  - component: {fileID: 919561517}
   m_Layer: 5
   m_Name: MyImg
   m_TagString: Untagged
@@ -2320,42 +2317,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919561513}
   m_CullTransparentMesh: 1
---- !u!328 &919561517
-VideoPlayer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919561513}
-  m_Enabled: 1
-  m_VideoClip: {fileID: 0}
-  m_TargetCameraAlpha: 1
-  m_TargetCamera3DLayout: 0
-  m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 0}
-  m_TimeReference: 0
-  m_TargetMaterialRenderer: {fileID: 0}
-  m_TargetMaterialProperty: <noninit>
-  m_RenderMode: 2
-  m_AspectRatio: 2
-  m_DataSource: 0
-  m_TimeUpdateMode: 2
-  m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
-  m_TargetAudioSources:
-  - {fileID: 0}
-  m_DirectAudioVolumes:
-  - 1
-  m_Url: 
-  m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
-  m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 1
-  m_SkipOnDrop: 1
-  m_Looping: 0
-  m_WaitForFirstFrame: 1
-  m_FrameReadyEventEnabled: 0
-  m_VideoShaders: []
 --- !u!1 &985043825
 GameObject:
   m_ObjectHideFlags: 0
@@ -4211,6 +4172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupManager: {fileID: 987448758}
+  myImg: {fileID: 919561515}
+  opponentImg: {fileID: 1268152814}
   myRawImage: {fileID: 1429495297}
   opponentRawImage: {fileID: 752743403}
   myVideoPlayer: {fileID: 1671242788}
