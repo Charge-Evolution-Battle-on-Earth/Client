@@ -9,6 +9,7 @@ public class DataManager : MonoBehaviour
 	private List<SkillGetListResponse> _filteredSkills = new List<SkillGetListResponse>();
 	private List<ItemGetResponse> _itemGetResponse = new List<ItemGetResponse>();
 	private List<ItemGetResponse> _filteredItems = new List<ItemGetResponse>();
+	private List<SkillsGetResponse> _skills = new List<SkillsGetResponse>();
 	private string _sortStatus;
 
 	public static DataManager Instance
@@ -54,6 +55,22 @@ public class DataManager : MonoBehaviour
 		get { return _itemGetResponse; }
 		set { _itemGetResponse = value; }
 	}
+
+	public List<SkillsGetResponse> SkillsGetResponse
+    {
+		get { return _skills; }
+		set { _skills = value; }
+    }
+}
+
+[System.Serializable]
+public class SkillsGetResponse
+{
+	public long skillId;
+	public long levelId;
+	public long nationId;
+	public string skillNm;
+	public string description;
 }
 
 [System.Serializable]
