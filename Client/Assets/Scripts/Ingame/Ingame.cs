@@ -136,10 +136,10 @@ public class Ingame : MonoBehaviour
 
                 //수정 필요
                 /*myImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.HostJobNm);*/
-                myImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/" + "J_Idle");
+                myImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/Japan/" + "J_Idle");
                 myImg.color = Color.white;
                 /*opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.EntrantJobNm);*/
-                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/" + "R_Idle");
+                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/Rome/" + "R_Idle");
                 opponentImg.color = Color.white;
             }
             else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
@@ -159,10 +159,10 @@ public class Ingame : MonoBehaviour
 
                 //수정 필요
                 /*myImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.EntrantJobNm);*/
-                myImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/" + "J_Idle");
+                myImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/Japan/" + "J_Idle");
                 myImg.color = Color.white;
                 /*opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.HostJobNm);*/
-                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/" + "R_Idle");
+                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Ingame/Player/Rome/" + "R_Idle");
                 opponentImg.color = Color.white;
             }
         }
