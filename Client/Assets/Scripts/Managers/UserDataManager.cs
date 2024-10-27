@@ -55,6 +55,11 @@ public class UserDataManager : MonoBehaviour
     private long _entrantJobId;
     private string _entrantJobNm;
     private DamageReceiver _damageReceiver = DamageReceiver.NULL;
+    private long _hostNationId;
+    private string _hostNationNm;
+    private long _entrantNationId;
+    private string _entrantNationNm;
+    private SkillType _skillType;
 
     // Singleton 인스턴스 생성
     public static UserDataManager Instance
@@ -113,6 +118,36 @@ public class UserDataManager : MonoBehaviour
         _hostReady = false;
         _entrantReady = false;
         _isGameOver = false;
+    }
+
+    public SkillType SkillType
+    {
+        get { return _skillType; }
+        set { _skillType = value; }
+    }
+
+    public string EntrantNationNm
+    {
+        get { return _entrantNationNm; }
+        set { _entrantNationNm = value; }
+    }
+
+    public string HostNationNm
+    {
+        get { return _hostNationNm; }
+        set { _hostNationNm = value; }
+    }
+
+    public long EntrantNationId
+    {
+        get { return _entrantNationId; }
+        set { _entrantNationId = value; }
+    }
+
+    public long HostNationId
+    {
+        get { return _hostNationId; }
+        set { _hostNationId = value; }
     }
 
     public long EquippedItemId

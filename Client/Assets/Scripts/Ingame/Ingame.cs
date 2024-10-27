@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Video;
+
 public class Ingame : MonoBehaviour
 {
     public Button startBtn;
@@ -10,22 +12,19 @@ public class Ingame : MonoBehaviour
     public Button surrenderBtn;
     public Button readyBtn;
     public Image readyButtonImage;
-    public Image userImg;
-    public Button skillBtn0;
-    public Button skillBtn1;
-    public Button skillBtn2;
-    public TMP_Text skillBtn0Text;
-    public TMP_Text skillBtn1Text;
-    public TMP_Text skillBtn2Text;
+    public Button attackBtn;
+    public Button skillBtn;
+    public Button ultBtn;
+    public TMP_Text attackBtnText;
+    public TMP_Text skillBtnText;
+    public TMP_Text ultBtnText;
     public TMP_Text roomIdText;
     public Image myHpBar;
     public Image myMpBar;
     public Image opponentHpBar;
     public Image opponentMpBar;
     public Image myHpBarBackground;
-    public Image myMpBarBackground;
     public Image opponentHpBarBackground;
-    public Image opponentMpBarBackground;
     public TMP_Text myHpBarText;
     public TMP_Text myMpBarText;
     public TMP_Text opponentHpBarText;
@@ -34,25 +33,21 @@ public class Ingame : MonoBehaviour
     public float maxBarWidth = 350f;
     public Scrollbar verticalScrollbar;
     public TMP_Text text_Timer;
-    public Image myImg;
-    public Image opponentImg;
 
     private WebSocketManager webSocketManager;
     private float limitTime = 30f;
     private float remainingTime = 30f;
-    private float blinkDuration = 1.0f;
-    private float blinkFrequency = 0.1f;
+
 
     private async void Start()
     {
         roomIdText.text = "방 번호: " + UserDataManager.Instance.MatchRoomID.ToString();
-        LoadJobImg();
         webSocketManager = WebSocketManager.Instance;
 
         Uri serverUri = new Uri(GameURL.DBServer.PlayURL);
 
         await webSocketManager.ConnectWebSocket(serverUri);
-
+        
         Greeting();
     }
     private void Update()
@@ -76,12 +71,12 @@ public class Ingame : MonoBehaviour
             startBtn.gameObject.SetActive(false);
             readyBtn.interactable = false;
             quitBtn.interactable = false;
-            skillBtn0.interactable = true;
-            skillBtn1.interactable = true;
-            skillBtn2.interactable = true;
-            skillBtn0.gameObject.SetActive(true);
-            skillBtn1.gameObject.SetActive(true);
-            skillBtn2.gameObject.SetActive(true);
+            attackBtn.interactable = true;
+            skillBtn.interactable = true;
+            ultBtn.interactable = true;
+            attackBtn.gameObject.SetActive(true);
+            skillBtn.gameObject.SetActive(true);
+            ultBtn.gameObject.SetActive(true);
             float hostMaxHP = UserDataManager.Instance.HostTotalStat.hp;
             float hostMaxMP = UserDataManager.Instance.HostTotalStat.mp;
             float entrantMaxHP = UserDataManager.Instance.EntrantTotalStat.hp;
@@ -102,9 +97,7 @@ public class Ingame : MonoBehaviour
             opponentHpBar.enabled = true;
             opponentMpBar.enabled = true;
             myHpBarBackground.enabled = true;
-            myMpBarBackground.enabled = true;
             opponentHpBarBackground.enabled = true;
-            opponentMpBarBackground.enabled = true;
 
             if (UserDataManager.Instance.TurnOwner == UserDataManager.Instance.PlayerType)
             {
@@ -134,14 +127,9 @@ public class Ingame : MonoBehaviour
                 opponentHpBarText.text = entrantCurrentHP + " / " + entrantMaxHP;
                 opponentMpBarText.text = entrantCurrentMP + " / " + entrantMaxMP;
 
-                skillBtn0Text.text = UserDataManager.Instance.HostSkillList[0].skillNm;
-                skillBtn1Text.text = UserDataManager.Instance.HostSkillList[1].skillNm;
-                skillBtn2Text.text = UserDataManager.Instance.HostSkillList[2].skillNm;
-
-                myImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.HostJobNm);
-                myImg.color = Color.white;
-                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.EntrantJobNm);
-                opponentImg.color = Color.white;
+                attackBtnText.text = UserDataManager.Instance.HostSkillList[0].skillNm;
+                skillBtnText.text = UserDataManager.Instance.HostSkillList[1].skillNm;
+                ultBtnText.text = UserDataManager.Instance.HostSkillList[2].skillNm;
             }
             else if (UserDataManager.Instance.PlayerType == PlayerType.ENTRANT)
             {
@@ -154,14 +142,9 @@ public class Ingame : MonoBehaviour
                 opponentHpBarText.text = hostCurrentHP + " / " + hostMaxHP;
                 opponentMpBarText.text = hostCurrentMP + " / " + hostMaxMP;
 
-                skillBtn0Text.text = UserDataManager.Instance.EntrantSkillList[0].skillNm;
-                skillBtn1Text.text = UserDataManager.Instance.EntrantSkillList[1].skillNm;
-                skillBtn2Text.text = UserDataManager.Instance.EntrantSkillList[2].skillNm;
-
-                myImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.EntrantJobNm);
-                myImg.color = Color.white;
-                opponentImg.sprite = Resources.Load<Sprite>("Prefabs/Choice/" + UserDataManager.Instance.HostJobNm);
-                opponentImg.color = Color.white;
+                attackBtnText.text = UserDataManager.Instance.EntrantSkillList[0].skillNm;
+                skillBtnText.text = UserDataManager.Instance.EntrantSkillList[1].skillNm;
+                ultBtnText.text = UserDataManager.Instance.EntrantSkillList[2].skillNm;
             }
         }
         else
@@ -171,33 +154,27 @@ public class Ingame : MonoBehaviour
             startBtn.gameObject.SetActive(true);
             readyBtn.interactable = true;
             quitBtn.interactable = true;
-            skillBtn0.interactable = false;
-            skillBtn0.gameObject.SetActive(false);
-            skillBtn1.interactable = false;
-            skillBtn1.gameObject.SetActive(false);
-            skillBtn2.interactable = false;
-            skillBtn2.gameObject.SetActive(false);
-            skillBtn0Text.text = "";
-            skillBtn1Text.text = "";
-            skillBtn2Text.text = "";
+            attackBtn.interactable = false;
+            attackBtn.gameObject.SetActive(false);
+            skillBtn.interactable = false;
+            skillBtn.gameObject.SetActive(false);
+            ultBtn.interactable = false;
+            ultBtn.gameObject.SetActive(false);
+            attackBtnText.text = "";
+            skillBtnText.text = "";
+            ultBtnText.text = "";
             myHpBar.enabled = false;
             myMpBar.enabled = false;
             opponentHpBar.enabled = false;
             opponentMpBar.enabled = false;
             myHpBarBackground.enabled = false;
-            myMpBarBackground.enabled = false;
             opponentHpBarBackground.enabled = false;
-            opponentMpBarBackground.enabled = false;
             myHpBarText.text = "";
             myMpBarText.text = "";
             opponentHpBarText.text = "";
             opponentMpBarText.text = "";
             text_Timer.text = "";
             remainingTime = limitTime;
-            myImg.sprite = null;
-            myImg.color = new Color(1, 1, 1, 0);
-            opponentImg.sprite = null;
-            opponentImg.color = new Color(1, 1, 1, 0);
         }
 
         if (UserDataManager.Instance.MatchStatus == MatchStatus.READY || UserDataManager.Instance.MatchStatus == MatchStatus.IN_PROGRESS)
@@ -226,26 +203,15 @@ public class Ingame : MonoBehaviour
 
         if (UserDataManager.Instance.TurnOwner == UserDataManager.Instance.PlayerType)//자신의 차례에만 스킬 버튼 활성화
         {
-            skillBtn0.interactable = true;
-            skillBtn1.interactable = true;
-            skillBtn2.interactable = true;
+            attackBtn.interactable = true;
+            skillBtn.interactable = true;
+            ultBtn.interactable = true;
         }
         else
         {
-            skillBtn0.interactable = false;
-            skillBtn1.interactable = false;
-            skillBtn2.interactable = false;
-        }
-
-        if(UserDataManager.Instance.DamageReceiver == DamageReceiver.PLAYER)
-        {
-            StartCoroutine(Blink(myImg));
-            UserDataManager.Instance.DamageReceiver = DamageReceiver.NULL;
-        }
-        else if(UserDataManager.Instance.DamageReceiver == DamageReceiver.OPPONENT)
-        {
-            StartCoroutine(Blink(opponentImg));
-            UserDataManager.Instance.DamageReceiver = DamageReceiver.NULL;
+            attackBtn.interactable = false;
+            skillBtn.interactable = false;
+            ultBtn.interactable = false;
         }
     }
 
@@ -388,33 +354,5 @@ public class Ingame : MonoBehaviour
         await webSocketManager.DisconnectWebSocket();
 
         UserDataManager.Instance.ResetIngameData();
-    }
-
-    void LoadJobImg()
-    {
-        Sprite sprite = Resources.Load<Sprite>($"Prefabs/Choice/{UserDataManager.Instance.JobNm}");
-        if (sprite != null)
-        {
-            userImg.sprite = sprite;
-        }
-        else
-        {
-            Debug.LogError("이미지를 찾을 수 없습니다: " + UserDataManager.Instance.JobNm);
-        }
-    }
-
-    private IEnumerator Blink(Image image)
-    {
-        float endTime = Time.time + blinkDuration;
-
-        while (Time.time < endTime)
-        {
-            image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
-            yield return new WaitForSeconds(blinkFrequency);
-            image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);
-            yield return new WaitForSeconds(blinkFrequency);
-        }
-
-        image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
     }
 }
