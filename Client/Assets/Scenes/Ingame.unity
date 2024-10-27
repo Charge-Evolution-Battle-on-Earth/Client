@@ -237,7 +237,7 @@ VideoPlayer:
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 1
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
@@ -939,7 +939,7 @@ VideoPlayer:
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 0
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
@@ -4267,6 +4267,12 @@ MonoBehaviour:
   - {fileID: 32900000, guid: c4e0a3df839e5ad43ac0f18ac3d566e0, type: 3}
   - {fileID: 32900000, guid: fa4ca5c9d70723a47a053ee9c77cf2f8, type: 3}
   - {fileID: 32900000, guid: 6e6586cf89271974a8b270193366b11e, type: 3}
+  j_AudioClips:
+  - {fileID: 8300000, guid: 47a4cc1c9f265ae4bb0f4993d7b50230, type: 3}
+  - {fileID: 8300000, guid: d331f30547a6057499973096c6854b46, type: 3}
+  r_AudioClips:
+  - {fileID: 8300000, guid: 7dbe70ac3c2589f4e9b4d1b369a00b08, type: 3}
+  - {fileID: 8300000, guid: f960bd6bd66bdab47a38c61936defd42, type: 3}
 --- !u!4 &1553265508
 Transform:
   m_ObjectHideFlags: 0
@@ -4454,7 +4460,7 @@ VideoPlayer:
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 1
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:

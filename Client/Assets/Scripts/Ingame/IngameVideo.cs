@@ -22,9 +22,11 @@ public class IngameVideo : MonoBehaviour
     public RenderTexture myRenderTexture;
     public RenderTexture opponentRenderTexture;
 
-    // VideoClip 배열 0 피격, 1 공격, 2 스킬
+    // 배열 0 피격, 1 공격, 2 스킬
     public VideoClip[] j_VideoClips;
     public VideoClip[] r_VideoClips;
+    public AudioClip[] j_AudioClips;
+    public AudioClip[] r_AudioClips;
 
     private float blinkDuration = 1.0f;
     private float blinkFrequency = 0.1f;
@@ -89,15 +91,15 @@ public class IngameVideo : MonoBehaviour
 
             if (UserDataManager.Instance.SkillType == SkillType.ATTACK)
             {
-                PlayAttack(opponentVideoPlayer, opponentRenderTexture, 1, r_VideoClips);
+                PlayAttack(opponentVideoPlayer, opponentRenderTexture, 1, r_VideoClips, r_AudioClips);
             }
             else if (UserDataManager.Instance.SkillType == SkillType.SKILL)
             {
-                PlayAttack(opponentVideoPlayer, opponentRenderTexture, 2, r_VideoClips);
+                PlayAttack(opponentVideoPlayer, opponentRenderTexture, 2, r_VideoClips, r_AudioClips);
             }
             else
             {
-                PlayAttack(opponentVideoPlayer, opponentRenderTexture, 2, r_VideoClips);
+                PlayAttack(opponentVideoPlayer, opponentRenderTexture, 2, r_VideoClips, r_AudioClips);
             }
 
             PlayHit(myVideoPlayer, myRenderTexture, j_VideoClips);
@@ -112,15 +114,15 @@ public class IngameVideo : MonoBehaviour
 
             if (UserDataManager.Instance.SkillType == SkillType.ATTACK)
             {
-                PlayAttack(myVideoPlayer, myRenderTexture, 1, j_VideoClips);
+                PlayAttack(myVideoPlayer, myRenderTexture, 1, j_VideoClips, j_AudioClips);
             }
             else if (UserDataManager.Instance.SkillType == SkillType.SKILL)
             {
-                PlayAttack(myVideoPlayer, myRenderTexture, 2, j_VideoClips);
+                PlayAttack(myVideoPlayer, myRenderTexture, 2, j_VideoClips, j_AudioClips);
             }
             else
             {
-                PlayAttack(myVideoPlayer, myRenderTexture, 2, j_VideoClips);
+                PlayAttack(myVideoPlayer, myRenderTexture, 2, j_VideoClips, j_AudioClips);
             }
 
             PlayHit(opponentVideoPlayer, opponentRenderTexture, r_VideoClips);
@@ -129,6 +131,7 @@ public class IngameVideo : MonoBehaviour
             UserDataManager.Instance.DamageReceiver = DamageReceiver.NULL;
         }
     }
+
 
     IEnumerator GetSkillList()
     {
@@ -168,20 +171,34 @@ public class IngameVideo : MonoBehaviour
         image.color = new Color(image.color.r, image.color.g, image.color.b, 1f);
     }
 
-    void PlayAttack(VideoPlayer videoPlayer, RenderTexture renderTexture, int attackType, VideoClip[] videoClips)
+    void PlayAttack(VideoPlayer videoPlayer, RenderTexture renderTexture, int attackType, VideoClip[] videoClips, AudioClip[] audioClips)
     {
         videoPlayer.targetTexture = renderTexture;
         videoPlayer.clip = videoClips[attackType];
 
-        // 동기화된 방식으로 오디오 재생 설정
-        videoPlayer.audioOutputMode = VideoAudioOutputMode.Direct;
+        videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
+
+        // AudioSource가 연결되어 있는지 확인 후 설정
+        AudioSource audioSource = videoPlayer.GetTargetAudioSource(0);
+        if (audioSource == null)
+        {
+            // audioSource를 설정하고 연결
+            audioSource = gameObject.AddComponent<AudioSource>();
+            videoPlayer.SetTargetAudioSource(0, audioSource);
+        }
+
+        audioSource.clip = audioClips[attackType - 1];
+        audioSource.Play();
 
         videoPlayer.Prepare();
         videoPlayer.prepareCompleted += (vp) => {
             vp.Play();
-            StartCoroutine(FadeImages(myImg, opponentImg, (float)vp.length)); // double을 float로 변환
+            StartCoroutine(FadeImages(myImg, opponentImg, (float)vp.length));
         };
     }
+
+
+
 
     void PlayHit(VideoPlayer videoPlayer, RenderTexture renderTexture, VideoClip[] videoClips)
     {
