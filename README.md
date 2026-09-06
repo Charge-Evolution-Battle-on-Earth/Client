@@ -82,7 +82,7 @@
    
 ## 통신 방법
 - **HTTP 통신** : 서버에서 정해둔 API를 사용해 GET 요청으로 원하는 데이터를 받아오고, POST 요청으로 클라이언트의 데이터를 보냅니다. 데이터의 형식은 JSON으로 이루어집니다.
-> GET 요청 예시
+> POST 요청 예시
 ```C#
 //Newtonsoft.Json 패키지를 이용한 Json 생성
 JObject userData = new JObject();
